@@ -1,1 +1,2 @@
-src/App.jsx
+</> JavaScript
+  export default function PaidStudyBoard() {

@@ -1,4 +1,3 @@
-</> JavaScript
 import React from "react";
 import { createRoot } from "react-dom/client";
 import PaidStudyBoard from "./App.jsx";

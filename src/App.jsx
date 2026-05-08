@@ -1,2 +1,1 @@
-</> JavaScript
-  export default function PaidStudyBoard() {
+export default function PaidStudyBoard() {

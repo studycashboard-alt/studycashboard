@@ -1,8 +1,3 @@
-# Restore Your StudyCashBoard Design
-
-Replace the ENTIRE contents of `src/App.jsx` with the code below.
-
-```jsx
 import React, { useEffect, useMemo, useState } from "react";
 import { supabase } from "./supabase";
 

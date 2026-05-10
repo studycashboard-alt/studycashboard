@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { supabase } from "./supabase";
 
-const fallbackListings = [
   {
     id: 1,
     title: "AI Productivity Tools Study",
@@ -105,7 +104,7 @@ function ListingCard({ study }) {
 }
 
 export default function PaidStudyBoard() {
-  const [listings, setListings] = useState(fallbackListings);
+  const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");

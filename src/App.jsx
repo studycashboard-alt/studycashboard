@@ -1,70 +1,74 @@
 import React, { useEffect, useMemo, useState } from "react";
-                      background: "#ecfdf5",
-                      color: "#047857",
-                      padding: "12px 18px",
-                      borderRadius: "14px",
-                      fontWeight: "700",
-                    }}
-                  >
-                    ${listing.pay}
-                  </div>
-                </div>
+import { supabase } from "./supabase";
 
-                <p style={{ marginTop: "18px", lineHeight: 1.7 }}>
-                  {listing.match}
-                </p>
+const categories = [
+  "All",
+  "AI & Tech",
+  "Finance",
+  "Work Tools",
+  "Travel",
+  "Shopping",
+  "Healthcare",
+  "Focus Groups",
+  "Remote Gigs",
+];
 
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "14px",
-                    marginTop: "24px",
-                    flexWrap: "wrap",
-                  }}
-                >
-                  <span
-                    style={{
-                      background: "#f3f4f6",
-                      padding: "10px 14px",
-                      borderRadius: "12px",
-                    }}
-                  >
-                    ⏱ {listing.duration}
-                  </span>
+export default function PaidStudyBoard() {
+  const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("All");
+  const [minPay, setMinPay] = useState(0);
 
-                  <span
-                    style={{
-                      background: "#f3f4f6",
-                      padding: "10px 14px",
-                      borderRadius: "12px",
-                    }}
-                  >
-                    📍 {listing.location}
-                  </span>
-                </div>
+  useEffect(() => {
+    async function loadListings() {
+      const { data, error } = await supabase
+        .from("listings")
+        .select("*")
+        .eq("status", "active")
+        .order("featured", { ascending: false })
+        .order("pay", { ascending: false });
 
-                <a
-                  href={listing.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    display: "inline-block",
-                    marginTop: "28px",
-                    background: "#10b981",
-                    color: "white",
-                    padding: "16px 24px",
-                    borderRadius: "14px",
-                    textDecoration: "none",
-                    fontWeight: "700",
-                  }}
-                >
-                  Apply Now
-                </a>
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
-    </div>
-  );
+      if (error) {
+        console.error(error);
+      } else {
+        setListings(data || []);
+      }
+
+      setLoading(false);
+    }
+
+    loadListings();
+  }, []);
+
+  const filteredListings = useMemo(() => {
+    return listings.filter((listing) => {
+      const matchesSearch =
+        listing.title?.toLowerCase().includes(query.toLowerCase()) ||
+        listing.company?.toLowerCase().includes(query.toLowerCase());
+
+      const matchesCategory =
+        category === "All" || listing.category === category;
+
+      const matchesPay = listing.pay >= minPay;
+
+      return matchesSearch && matchesCategory && matchesPay;
+    });
+  }, [listings, query, category, minPay]);
+
+  return (
+    <div
+      style={{
+        fontFamily: "Inter, Arial, sans-serif",
+        background: "#f5f7fb",
+        minHeight: "100vh",
+        color: "#111827",
+      }}
+    >
+      <section
+        style={{
+          background:
+            "linear-gradient(135deg, #10b981 0%, #0f172a 100%)",
+          color: "white",
+          padding: "80px 24px",
 }

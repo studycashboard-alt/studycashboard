@@ -1,6 +1,7 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { supabase } from "./supabase";
 
-const listings = [
+const fallbackListings = [
   {
     id: 1,
     title: "AI Productivity Tools Study",
@@ -31,58 +32,16 @@ const listings = [
   },
   {
     id: 3,
-    title: "Professional Workflow & Software Study",
+    title: "Travel Planning & Booking Study",
     company: "Respondent",
-    pay: 275,
-    duration: "60 min",
-    location: "Remote",
-    category: "Work Tools",
-    type: "User Interview",
-    posted: "Today",
-    match: "Great for users of Excel, project tools, dashboards, or reporting systems.",
-    link: "https://www.respondent.io/research-projects",
-    featured: true,
-  },
-  {
-    id: 4,
-    title: "Travel Planning Study",
-    company: "User Interviews",
     pay: 250,
     duration: "60 min",
     location: "Remote",
     category: "Travel",
     type: "User Interview",
     posted: "This week",
-    match: "Strong fit for frequent travelers, cruisers, and people who compare booking sites.",
-    link: "https://www.userinterviews.com/studies",
-    featured: false,
-  },
-  {
-    id: 5,
-    title: "Streaming & Entertainment Focus Group",
-    company: "FocusGroups.org",
-    pay: 200,
-    duration: "90 min",
-    location: "Remote / Select States",
-    category: "Entertainment",
-    type: "Focus Group",
-    posted: "This week",
-    match: "Best for people who watch YouTube, Netflix, TikTok, or streaming platforms often.",
-    link: "https://focusgroups.org/",
-    featured: false,
-  },
-  {
-    id: 6,
-    title: "Shopping & Subscription Services Study",
-    company: "Fieldwork",
-    pay: 175,
-    duration: "60 min",
-    location: "Remote + Local",
-    category: "Shopping",
-    type: "Focus Group",
-    posted: "This week",
-    match: "Good for Amazon, online shopping, grocery, and subscription users.",
-    link: "https://www.fieldwork.com/join/",
+    match: "Best for frequent travelers, cruisers, and users of travel booking apps.",
+    link: "https://app.respondent.io/respondents",
     featured: false,
   },
 ];
@@ -146,9 +105,31 @@ function ListingCard({ study }) {
 }
 
 export default function PaidStudyBoard() {
+  const [listings, setListings] = useState(fallbackListings);
+  const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [minPay, setMinPay] = useState(0);
+
+  useEffect(() => {
+    async function loadListings() {
+      const { data, error } = await supabase
+        .from("listings")
+        .select("*")
+        .order("featured", { ascending: false })
+        .order("pay", { ascending: false });
+
+      if (error) {
+        console.error("Supabase error:", error.message);
+      } else if (data && data.length > 0) {
+        setListings(data);
+      }
+
+      setLoading(false);
+    }
+
+    loadListings();
+  }, []);
 
   const filtered = useMemo(() => {
     return listings
@@ -223,7 +204,7 @@ export default function PaidStudyBoard() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "end", gap: 20, flexWrap: "wrap" }}>
             <div>
               <h2 style={{ fontSize: 38, margin: "10px 0 6px" }}>Latest paid opportunities</h2>
-              <p style={{ color: "#64748b", margin: 0 }}>Search, filter, and sort by highest payout.</p>
+              <p style={{ color: "#64748b", margin: 0 }}>{loading ? "Loading live listings..." : "Search, filter, and sort by highest payout."}</p>
             </div>
           </div>
 

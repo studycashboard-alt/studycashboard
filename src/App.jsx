@@ -435,12 +435,6 @@ export default function PaidStudyBoard() {
     </div>
   );
 }
-```
 
-Then:
-
-1. Commit changes
-2. Wait for Vercel deployment to say READY
 3. Refresh StudyCashBoard.com
-
 Your beautiful homepage design will return, while still using live Supabase listings.

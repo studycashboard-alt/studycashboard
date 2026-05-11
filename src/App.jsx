@@ -94,7 +94,7 @@ const CSS = `
   .logo-c { font-family: var(--ff); font-size: 1.45rem; font-weight: 600; color: #D4A017; letter-spacing: -0.01em; }
   .logo-b { font-family: var(--ff); font-size: 1.45rem; font-weight: 400; color: #888888; letter-spacing: -0.01em; }
   .logo-sep { width: 1px; height: 16px; background: #333; margin: 0 12px; align-self: center; }
-  .logo-tag { font-size: 10px; color: #666; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 400; }
+  .logo-tag { font-size: 10px; color: #D4A017; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
   .nav-links { display: flex; gap: 2rem; align-items: center; }
   .nav-link {
     color: #999;
@@ -170,8 +170,7 @@ const CSS = `
 
   /* ── HERO ── */
   .hero {
-    background: var(--cream);
-    padding: 80px 2rem 72px;
+    background: var(--cream); padding: 44px 2rem 40px;
     text-align: center;
     border-bottom: 1px solid var(--border);
     position: relative;
@@ -282,12 +281,8 @@ const CSS = `
   .sec-action:hover { text-decoration: underline; }
 
   /* ── CATEGORY GRID ── */
-  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-  .cat-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 20px 14px;
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+  .cat-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 28px 18px;
     text-align: center;
     cursor: pointer;
     transition: all 0.2s;
@@ -295,8 +290,8 @@ const CSS = `
   .cat-card:hover { border-color: var(--gold-border); background: var(--gold-pale); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(184,134,11,0.08); }
   .cat-card.easy-cat { border-color: #BBF7D0; background: #F0FDF4; }
   .cat-card.easy-cat:hover { border-color: var(--green); background: #DCFCE7; }
-  .cat-icon { font-size: 24px; margin-bottom: 10px; display: block; }
-  .cat-name { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--dark); line-height: 1.4; }
+  .cat-icon { font-size: 32px; margin-bottom: 12px; display: block; }
+  .cat-name { font-size: 12px; font-weight: 600;
   .cat-count { font-size: 11px; color: var(--muted); margin-top: 5px; }
   .cat-free { font-size: 9px; color: var(--green); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
 

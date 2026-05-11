@@ -17,7 +17,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install supabase anthropic requests beautifulsoup4 lxml
+        run: pip install -r scraper/requirements.txt
 
       - name: Run scraper
         env:

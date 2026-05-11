@@ -1,28 +1,25 @@
-import React, {useState } from "react";
+import React, { useEffect, useState } from "react";
 import { supabase } from "./supabase";
 
 export default function App() {
-const [listings, setListings] = useState([
-  {
-    id: 1,
-    title: "AI Productivity Study",
-    company: "UserInterviews",
-    pay: 300,
-    category: "AI & Tech",
-    match: "Easy qualification",
-    link: "https://google.com"
-  },
-  {
-    id: 2,
-    title: "Finance App Focus Group",
-    company: "Respondent",
-    pay: 250,
-    category: "Finance",
-    match: "Remote Zoom interview",
-    link: "https://google.com"
-  }
-]);
+const [listings, setListings] = useState([]);
+useEffect(() => {
+  async function fetchListings() {
+    const { data, error } = await supabase
+      .from("listings")
+      .select("*")
+      .limit(10);
 
+    console.log(data, error);
+
+    if (!error) {
+      setListings(data || []);
+    }
+  }
+
+  fetchListings();
+}, []);
+  
   return (
     <div
       style={{

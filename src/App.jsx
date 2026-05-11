@@ -261,9 +261,9 @@ const CSS = `
   }
   .stat { text-align: center; padding: 0 3rem; border-right: 1px solid #333; }
   .stat:last-child { border-right: none; }
-  .stat-num { font-family: var(--ff); font-size: 2.4rem; color: #D4A017; display: block; line-height: 1; font-weight: 600; }
-  .stat-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #666; margin-top: 6px; display: block; font-weight: 500; }
-
+  .stat-num { font-family: var(--ff); font-size: 3rem; color: #F5C518; display: block; line-height: 1; font-weight: 600; text-shadow: 0 0 20px rgba(245,197,24,0.3); }
+  .stat-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #BBBBBB; margin-top: 8px; display: block; font-weight: 600; }
+  
   /* ── EASY SECTION ── */
   .easy-section { background: #F0FDF4; border-top: 1px solid #BBF7D0; border-bottom: 1px solid #BBF7D0; padding: 52px 2.5rem; }
   .easy-inner { max-width: 1140px; margin: 0 auto; }

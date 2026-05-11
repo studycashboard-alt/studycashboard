@@ -282,7 +282,7 @@ const CSS = `
 
   /* ── CATEGORY GRID ── */
   .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
-  .cat-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 28px 18px;
+  .cat-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 32px 18px;
     text-align: center;
     cursor: pointer;
     transition: all 0.2s;
@@ -290,9 +290,9 @@ const CSS = `
   .cat-card:hover { border-color: var(--gold-border); background: var(--gold-pale); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(184,134,11,0.08); }
   .cat-card.easy-cat { border-color: #BBF7D0; background: #F0FDF4; }
   .cat-card.easy-cat:hover { border-color: var(--green); background: #DCFCE7; }
-  .cat-icon { font-size: 32px; margin-bottom: 12px; display: block; }
-  .cat-name { font-size: 12px; font-weight: 600;
-  .cat-count { font-size: 11px; color: var(--muted); margin-top: 5px; }
+  .cat-icon { font-size: 42px; margin-bottom: 14px; display: block; }
+  .cat-name { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--dark); line-height: 1.4; }
+  .cat-count { font-size: 12px; color: var(--muted); margin-top: 6px; font-weight: 500; }
   .cat-free { font-size: 9px; color: var(--green); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
 
   /* ── CATEGORY PILLS ── */

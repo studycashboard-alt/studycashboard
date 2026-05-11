@@ -12,9 +12,12 @@ useEffect(() => {
 
     console.log(data, error);
 
-    if (!error) {
-      setListings(data || []);
-    }
+   console.log("DATA:", data);
+console.log("ERROR:", error);
+
+if (!error) {
+  setListings(data || []);
+}
   }
 
   fetchListings();

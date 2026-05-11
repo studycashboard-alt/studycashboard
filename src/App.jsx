@@ -6,7 +6,7 @@ const [listings, setListings] = useState([]);
 useEffect(() => {
   async function fetchListings() {
     const { data, error } = await supabase
-      .from("listings")
+      .from("Listings")
       .select("*")
       .limit(10);
 

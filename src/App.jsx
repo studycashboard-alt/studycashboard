@@ -94,7 +94,7 @@ const CSS = `
   .logo-c { font-family: var(--ff); font-size: 1.45rem; font-weight: 600; color: #D4A017; letter-spacing: -0.01em; }
   .logo-b { font-family: var(--ff); font-size: 1.45rem; font-weight: 400; color: #888888; letter-spacing: -0.01em; }
   .logo-sep { width: 1px; height: 16px; background: #333; margin: 0 12px; align-self: center; }
-  .logo-tag { font-size: 10px; color: #D4A017; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
+  .logo-tag { font-size: 10px; color: #666; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 400; }
   .nav-links { display: flex; gap: 2rem; align-items: center; }
   .nav-link {
     color: #999;
@@ -170,7 +170,8 @@ const CSS = `
 
   /* ── HERO ── */
   .hero {
-    background: var(--cream); padding: 44px 2rem 40px;
+    background: var(--cream);
+    padding: 80px 2rem 72px;
     text-align: center;
     border-bottom: 1px solid var(--border);
     position: relative;
@@ -261,9 +262,9 @@ const CSS = `
   }
   .stat { text-align: center; padding: 0 3rem; border-right: 1px solid #333; }
   .stat:last-child { border-right: none; }
-  .stat-num { font-family: var(--ff); font-size: 3rem; color: #F5C518; display: block; line-height: 1; font-weight: 600; text-shadow: 0 0 20px rgba(245,197,24,0.3); }
-  .stat-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #BBBBBB; margin-top: 8px; display: block; font-weight: 600; }
-  
+  .stat-num { font-family: var(--ff); font-size: 2.4rem; color: #D4A017; display: block; line-height: 1; font-weight: 600; }
+  .stat-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #666; margin-top: 6px; display: block; font-weight: 500; }
+
   /* ── EASY SECTION ── */
   .easy-section { background: #F0FDF4; border-top: 1px solid #BBF7D0; border-bottom: 1px solid #BBF7D0; padding: 52px 2.5rem; }
   .easy-inner { max-width: 1140px; margin: 0 auto; }
@@ -281,8 +282,12 @@ const CSS = `
   .sec-action:hover { text-decoration: underline; }
 
   /* ── CATEGORY GRID ── */
-  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
-  .cat-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 32px 18px;
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+  .cat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 14px;
     text-align: center;
     cursor: pointer;
     transition: all 0.2s;
@@ -290,9 +295,9 @@ const CSS = `
   .cat-card:hover { border-color: var(--gold-border); background: var(--gold-pale); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(184,134,11,0.08); }
   .cat-card.easy-cat { border-color: #BBF7D0; background: #F0FDF4; }
   .cat-card.easy-cat:hover { border-color: var(--green); background: #DCFCE7; }
-  .cat-icon { font-size: 42px; margin-bottom: 14px; display: block; }
-  .cat-name { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--dark); line-height: 1.4; }
-  .cat-count { font-size: 12px; color: var(--muted); margin-top: 6px; font-weight: 500; }
+  .cat-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+  .cat-name { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--dark); line-height: 1.4; }
+  .cat-count { font-size: 11px; color: var(--muted); margin-top: 5px; }
   .cat-free { font-size: 9px; color: var(--green); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
 
   /* ── CATEGORY PILLS ── */
@@ -613,9 +618,14 @@ function ListingCard({ listing, index, isLocked, onUpgrade }) {
         </div>
         <button
           className={`apply-btn ${easy ? "apply-btn-g" : ""}`}
-          onClick={() => { const u = listing.Apply_URL || listing.Source_URL; if (u) window.open(u, "_blank"); }}
+          onClick={() => {
+            const u = listing.Apply_URL || listing.apply_url ||
+                      listing.Source_URL || listing.source_url;
+            if (u) window.open(u, "_blank");
+            else alert("Apply link not available — visit the company website directly.");
+          }}
         >
-          Apply Now →
+          {listing.Tags?.includes("login-required") ? "Sign Up to Apply →" : "Apply Now →"}
         </button>
       </div>
     </div>

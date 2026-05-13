@@ -8,10 +8,11 @@ const supabase = createClient(
 
 const FREE_LIMIT = 5;
 const EASY_CAT = "Easy Application";
+const EASY_LABEL = "Quick Wins";
 
 const CATEGORIES = [
   { label: "All Listings",       icon: "✦",  value: "",                   color: "#B8860B" },
-  { label: "Easy Application",   icon: "⚡",  value: "Easy Application",   color: "#16A34A" },
+  { label: "Quick Wins",         icon: "⚡",  value: "Easy Application",   color: "#16A34A" },
   { label: "User Interview",     icon: "🎙️", value: "User Interview",     color: "#1A56C4" },
   { label: "Focus Group",        icon: "👥", value: "Focus Group",        color: "#6B3FA0" },
   { label: "Taste Test",         icon: "🍽️", value: "Taste Test",         color: "#C05A10" },
@@ -529,6 +530,149 @@ const CSS = `
   .footer-copy { font-size: 11px; color: #444; letter-spacing: 0.06em; text-transform: uppercase; }
   .divider { height: 1px; background: var(--border); max-width: 1140px; margin: 0 auto; }
 
+  /* ── TWO PANEL LAYOUT ── */
+  .two-panel-wrap {
+    background: var(--cream2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 2.5rem;
+  }
+  .two-panel-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 860px) {
+    .two-panel-inner { grid-template-columns: 1fr; }
+  }
+
+  .panel-left, .panel-right {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .panel-left { border: 2px solid #BBF7D0; }
+  .panel-right { border: 2px solid var(--gold-border); }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-left .panel-header { background: #F0FDF4; }
+  .panel-right .panel-header { background: var(--gold-pale); }
+
+  .panel-title-wrap { display: flex; align-items: center; gap: 10px; }
+  .panel-icon-qw { font-size: 24px; }
+  .panel-icon-tp { font-size: 24px; }
+  .panel-title { font-family: var(--ff); font-size: 1.2rem; font-weight: 600; color: var(--dark); }
+  .panel-sub { font-size: 11px; color: var(--muted); font-weight: 400; margin-top: 2px; letter-spacing: 0.02em; }
+
+  .panel-see-all {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    background: none; border: none; font-family: var(--fs);
+    transition: opacity 0.2s;
+  }
+  .panel-see-all:hover { opacity: 0.7; }
+  .panel-see-all.green { color: var(--green); }
+  .panel-see-all.gold  { color: var(--gold); }
+
+  .panel-list { flex: 1; padding: 8px 0; }
+  .panel-empty { text-align: center; padding: 32px; font-size: 13px; color: var(--muted2); }
+
+  /* Panel cards */
+  .panel-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-bottom: 1px solid #F5F5F0;
+  }
+  .panel-card:last-child { border-bottom: none; }
+  .panel-card:hover { background: #FAFAF8; }
+
+  .qw-card:hover { background: #F0FDF4; }
+  .tp-card:hover { background: var(--gold-pale); }
+  .tp-featured { background: #FFFBF0; }
+
+  .panel-card-body { flex: 1; min-width: 0; }
+  .tp-badge {
+    display: inline-block;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    background: var(--gold-pale); color: var(--gold);
+    border: 1px solid var(--gold-border);
+    padding: 2px 7px; border-radius: 2px;
+    margin-bottom: 5px;
+  }
+  .panel-card-title {
+    font-family: var(--ff);
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--dark);
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 260px;
+  }
+  .panel-card-company { font-size: 11px; color: var(--muted2); margin-top: 2px; font-weight: 500; }
+  .panel-card-meta { display: flex; gap: 10px; margin-top: 4px; }
+  .panel-card-meta span { font-size: 10px; color: var(--muted2); }
+
+  .panel-card-right { text-align: right; flex-shrink: 0; margin-left: 12px; }
+  .panel-card-pay {
+    font-family: var(--ff);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--dark);
+    line-height: 1;
+  }
+  .tp-pay { color: var(--gold); }
+
+  .panel-card-btn {
+    display: inline-block;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 2px;
+    margin-top: 5px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .qw-btn { background: var(--green); color: #fff; }
+  .tp-btn { background: var(--dark); color: #fff; }
+  .tp-btn:hover { background: var(--gold); color: var(--dark); }
+  .qw-btn:hover { background: #15803D; }
+
+  /* View all buttons */
+  .panel-view-all {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    font-family: var(--fs);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    border-top: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .qw-view-all { background: #F0FDF4; color: var(--green); }
+  .qw-view-all:hover { background: var(--green); color: #fff; }
+  .tp-view-all { background: var(--gold-pale); color: var(--gold); }
+  .tp-view-all:hover { background: var(--gold); color: var(--dark); }
+
   @media (max-width: 700px) {
     .card { grid-template-columns: 1fr; }
     .pay-col { text-align: left; align-items: flex-start; }
@@ -636,26 +780,19 @@ function ListingCard({ listing, index, isLocked, onUpgrade }) {
 function Home({ listings, loading, go }) {
   const counts = {};
   listings.forEach(l => { const c = isEasy(l) ? EASY_CAT : l.Category; counts[c] = (counts[c] || 0) + 1; });
-  const easyList = listings.filter(isEasy);
-  const topList  = listings.filter(l => !isEasy(l)).sort((a,b) => (b.Score||0)-(a.Score||0)).slice(0,5);
+  const easyList = listings.filter(isEasy).slice(0, 6);
+  const topList  = listings.filter(l => !isEasy(l)).sort((a,b) => (b.Score||0)-(a.Score||0)).slice(0, 8);
   const withPay  = listings.filter(l => l.Pay);
   const avgPay   = withPay.length ? Math.round(withPay.reduce((s,l) => s+l.Pay,0)/withPay.length) : 127;
 
   return (
     <>
-      {easyList.length > 0 && (
-        <div className="easy-banner">
-          <span className="easy-banner-text">⚡ {easyList.length} Easy Application studies available now — free, no Pro needed!</span>
-          <button className="easy-banner-btn" onClick={() => go("listings", EASY_CAT)}>View Easy Listings</button>
-        </div>
-      )}
-
       <div className="hero">
         <div className="hero-eyebrow"><div className="hero-dot" /> Updated daily · AI-curated</div>
         <h1>Get Paid to<br /><em>Share Your Opinion</em></h1>
         <p className="hero-sub">The most comprehensive directory of paid research opportunities — user interviews, focus groups, taste tests, mock trials, medical studies, and more.</p>
         <div className="hero-btns">
-          <button className="btn-dark" onClick={() => go("listings")}>Browse Today's Listings</button>
+          <button className="btn-dark" onClick={() => go("listings")}>Browse All Listings</button>
           <button className="btn-outline-dark" onClick={() => go("pricing")}>View Membership Plans</button>
         </div>
       </div>
@@ -667,19 +804,7 @@ function Home({ listings, loading, go }) {
         <div className="stat"><span className="stat-num">Daily</span><span className="stat-label">Updated</span></div>
       </div>
 
-      {easyList.length > 0 && (
-        <div className="easy-section">
-          <div className="easy-inner">
-            <div className="easy-head">
-              <div className="easy-title">⚡ Easy Application — Free for Everyone</div>
-              <button className="sec-link" onClick={() => go("listings", EASY_CAT)}>See all →</button>
-            </div>
-            <div className="easy-sub-text">Short, beginner-friendly studies paying $10–$40. No experience needed. All users can apply for free.</div>
-            {easyList.slice(0,3).map((l,i) => <ListingCard key={l.id} listing={l} index={i} />)}
-          </div>
-        </div>
-      )}
-
+      {/* ── BROWSE BY CATEGORY ── */}
       <div className="section">
         <div className="sec-header">
           <div className="sec-title">Browse by Category</div>
@@ -697,17 +822,97 @@ function Home({ listings, loading, go }) {
         </div>
       </div>
 
-      <div className="divider" />
+      {/* ── TWO PANEL SECTION ── */}
+      <div className="two-panel-wrap">
+        <div className="two-panel-inner">
 
-      <div className="section">
-        <div className="sec-header">
-          <div className="sec-title">⭐ Top Picks Today</div>
-          <button className="sec-action" onClick={() => go("listings")}>View all →</button>
+          {/* LEFT: Quick Wins */}
+          <div className="panel-left">
+            <div className="panel-header">
+              <div className="panel-title-wrap">
+                <span className="panel-icon-qw">⚡</span>
+                <div>
+                  <div className="panel-title">Quick Wins</div>
+                  <div className="panel-sub">Free for everyone · No experience needed</div>
+                </div>
+              </div>
+              <button className="panel-see-all green" onClick={() => go("listings", EASY_CAT)}>See all →</button>
+            </div>
+            <div className="panel-list">
+              {loading ? <Spinner /> : easyList.length === 0 ? (
+                <div className="panel-empty">Quick Win listings coming soon!</div>
+              ) : easyList.map((l, i) => (
+                <div key={l.id} className="panel-card qw-card" onClick={() => {
+                  const u = l.Apply_URL || l.apply_url || l.Source_URL || l.source_url;
+                  if (u) window.open(u, "_blank");
+                }}>
+                  <div className="panel-card-body">
+                    <div className="panel-card-title">{l.Title}</div>
+                    <div className="panel-card-company">{l.Company}</div>
+                    <div className="panel-card-meta">
+                      {l.Duration && <span>⏱ {l.Duration}</span>}
+                      <span>📍 Remote</span>
+                    </div>
+                  </div>
+                  <div className="panel-card-right">
+                    <div className="panel-card-pay">
+                      {l.Pay ? `$${l.Pay}${l.Pay_Max && l.Pay_Max !== l.Pay ? `–$${l.Pay_Max}` : ""}` : "Free"}
+                    </div>
+                    <div className="panel-card-btn qw-btn">
+                      {l.Tags?.includes("login-required") ? "Sign Up →" : "Apply →"}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button className="panel-view-all qw-view-all" onClick={() => go("listings", EASY_CAT)}>
+              View All {counts[EASY_CAT] || 0} Quick Win Listings →
+            </button>
+          </div>
+
+          {/* RIGHT: Top Picks */}
+          <div className="panel-right">
+            <div className="panel-header">
+              <div className="panel-title-wrap">
+                <span className="panel-icon-tp">⭐</span>
+                <div>
+                  <div className="panel-title">Top Picks</div>
+                  <div className="panel-sub">Highest paying · AI curated · Pro members</div>
+                </div>
+              </div>
+              <button className="panel-see-all gold" onClick={() => go("listings")}>See all →</button>
+            </div>
+            <div className="panel-list">
+              {loading ? <Spinner /> : topList.length === 0 ? (
+                <div className="panel-empty">Top picks coming soon!</div>
+              ) : topList.map((l, i) => (
+                <div key={l.id} className={`panel-card tp-card ${i < 3 ? "tp-featured" : ""}`} onClick={() => go("listings")}>
+                  <div className="panel-card-body">
+                    {i < 3 && <span className="tp-badge">⭐ Top Pick</span>}
+                    <div className="panel-card-title">{l.Title}</div>
+                    <div className="panel-card-company">{l.Company}</div>
+                    <div className="panel-card-meta">
+                      {l.Duration && <span>⏱ {l.Duration}</span>}
+                      <span>📍 {l.Location?.includes("Remote") ? "Remote" : l.State || "USA"}</span>
+                    </div>
+                  </div>
+                  <div className="panel-card-right">
+                    <div className="panel-card-pay tp-pay">
+                      {l.Pay ? `$${l.Pay}${l.Pay_Max && l.Pay_Max !== l.Pay ? `–$${l.Pay_Max}` : ""}` : "Varies"}
+                    </div>
+                    <div className="panel-card-btn tp-btn">
+                      {i < 5 ? "View →" : "🔒 Pro"}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button className="panel-view-all tp-view-all" onClick={() => go("listings")}>
+              Unlock All Listings with Pro →
+            </button>
+          </div>
+
         </div>
-        {loading ? <Spinner /> : topList.length === 0
-          ? <div className="empty"><h3>Listings coming soon</h3><p>Our scraper runs daily at 8 AM CT.</p></div>
-          : topList.map((l,i) => <ListingCard key={l.id} listing={l} index={i} />)
-        }
       </div>
 
       <div className="dark-section">
@@ -718,7 +923,7 @@ function Home({ listings, loading, go }) {
               { n:"01", t:"We Scrape Daily", d:"Our system pulls from 12+ sources every morning — Respondent, UserInterviews, FocusGroups.org, taste test panels, mock jury firms, and more." },
               { n:"02", t:"AI Curates Quality", d:"Every listing is scored 0–100 for pay, time commitment, and legitimacy. Only quality opportunities make it to your feed." },
               { n:"03", t:"Expired Listings Auto-Removed", d:"Listings that disappear from their source are automatically marked expired within 4 days. You only see what's live." },
-              { n:"04", t:"You Get Paid", d:"Easy Application listings are free to all. Pro members unlock everything else — taste tests, medical studies, and $200+ interviews." },
+              { n:"04", t:"You Get Paid", d:"Quick Wins are free to all. Pro members unlock everything else — taste tests, medical studies, and $200+ interviews." },
             ].map(h => (
               <div key={h.n} className="how-card">
                 <div className="how-n">{h.n}</div>
@@ -736,7 +941,7 @@ function Home({ listings, loading, go }) {
           {[
             { stars:"★★★★★", text:"I made $847 in my first month just from focus groups and user interviews I found here. The AI curation is a game changer.", author:"Tanya M., Dallas TX", earned:"Earned $847 in Month 1" },
             { stars:"★★★★★", text:"The taste test listings alone paid for my subscription 10x over. I had no idea these opportunities existed near me.", author:"Marcus R., Houston TX", earned:"Earned $320 from taste tests" },
-            { stars:"★★★★★", text:"I started with Easy Application listings and made $60 my first week with zero experience. Now I do the bigger studies too.", author:"Priya K., Chicago IL", earned:"Earned $1,100+ total" },
+            { stars:"★★★★★", text:"I started with Quick Wins listings and made $60 my first week with zero experience. Now I do the bigger studies too.", author:"Priya K., Chicago IL", earned:"Earned $1,100+ total" },
           ].map((t,i) => (
             <div key={i} className="testi-card">
               <div className="testi-stars">{t.stars}</div>
@@ -839,7 +1044,7 @@ function Listings({ listings, loading, go, initCat }) {
 
       <div className="results-count">
         Showing {filtered.length} listing{filtered.length !== 1 ? "s" : ""}
-        {fEasy.length > 0 && ` · ${fEasy.length} free Easy Application`}
+        {fEasy.length > 0 && ` · ${fEasy.length} free Quick Wins`}
       </div>
 
       {loading ? <Spinner /> : filtered.length === 0
@@ -849,7 +1054,7 @@ function Listings({ listings, loading, go, initCat }) {
             {fEasy.length > 0 && (
               <>
                 <div style={{ display:"flex", alignItems:"center", gap:10, margin:"0 0 12px", padding:"10px 16px", background:"#F0FDF4", border:"1px solid #BBF7D0", borderRadius:6 }}>
-                  <span style={{ fontSize:13, color:"#065F46", fontWeight:600 }}>⚡ Easy Application — Free to All Users</span>
+                  <span style={{ fontSize:13, color:"#065F46", fontWeight:600 }}>⚡ Quick Wins — Free to All Users</span>
                   <span style={{ fontSize:11, color:"#16A34A" }}>No Pro membership needed</span>
                 </div>
                 {fEasy.map((l,i) => <ListingCard key={l.id} listing={l} index={i} />)}
@@ -876,10 +1081,10 @@ function Pricing() {
   const plans = [
     {
       tier:"Free", amt:0, popular:false,
-      desc:"Get started immediately. Easy Application listings are always free for everyone.",
+      desc:"Get started immediately. Quick Wins are always free for everyone.",
       btn:"Get Started Free", btnCls:"plan-btn-out",
       feats:[
-        {y:true,  t:"All Easy Application listings (⚡ always free)"},
+        {y:true,  t:"All Quick Wins (⚡ always free)"},
         {y:true,  t:"5 standard listings per day"},
         {y:true,  t:"Browse all categories"},
         {y:false, t:"AI Top Picks feed", d:true},
@@ -922,7 +1127,7 @@ function Pricing() {
     <div className="pricing-wrap">
       <div className="pricing-head">
         <h2>Simple, Transparent Pricing</h2>
-        <p>Easy Application listings are always free. Upgrade to Pro to unlock everything and maximize your earnings.</p>
+        <p>Quick Wins are always free. Upgrade to Pro to unlock everything and maximize your earnings.</p>
       </div>
       <div className="plan-grid">
         {plans.map(plan => (

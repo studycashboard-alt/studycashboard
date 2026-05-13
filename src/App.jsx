@@ -881,94 +881,6 @@ function Home({ listings, loading, go }) {
         <div className="stat"><span className="stat-num">8AM</span><span className="stat-label">Daily Refresh</span></div>
       </div>
 
-      {/* ══ FRONT & CENTER: START EARNING NOW — REFERRAL PLATFORMS ══ */}
-      <div style={{ background: "#0A1A0A", borderBottom: "1px solid #1A3A1A", padding: "52px 1.5rem" }}>
-        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 32 }}>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(22,163,74,0.15)", border: "1px solid rgba(22,163,74,0.3)", borderRadius: 100, padding: "6px 16px", marginBottom: 14 }}>
-              <span style={{ width: 6, height: 6, background: "#4ADE80", borderRadius: "50%", display: "inline-block", animation: "blink 2s infinite" }} />
-              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4ADE80" }}>No Subscription Needed — Start Today</span>
-            </div>
-            <div style={{ fontFamily: "var(--ff)", fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 600, color: "#FFFFFF", marginBottom: 8 }}>
-              ⚡ Join These Platforms & Start Getting Paid Now
-            </div>
-            <p style={{ fontSize: 13, color: "#999", lineHeight: 1.7, maxWidth: 500, margin: "0 auto" }}>
-              The fastest ways to earn — free to join, no experience needed. We've verified every single one.
-            </p>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 12 }}>
-            {[
-              { name: "Survey Junkie", pay: "Up to $40/survey", badge: "🔥 Most Popular", badgeColor: "#EF4444", url: "https://www.surveyjunkie.com/register", desc: "Share opinions, cash via PayPal" },
-              { name: "Swagbucks", pay: "$10 Signup Bonus", badge: "💰 Free Bonus", badgeColor: "#F59E0B", url: "https://www.swagbucks.com/p/register", desc: "Surveys, videos & shopping rewards" },
-              { name: "InboxDollars", pay: "$5 Signup Bonus", badge: "💵 Free $5", badgeColor: "#16A34A", url: "https://www.inboxdollars.com/register", desc: "Get paid for surveys & emails" },
-              { name: "Prolific", pay: "$6–$35/study", badge: "🎓 Academic Studies", badgeColor: "#6B3FA0", url: "https://app.prolific.com/register/participant", desc: "Short studies, avg $8–$12/hr" },
-              { name: "UserTesting", pay: "$10 per test", badge: "⚡ Instant Tests", badgeColor: "#C05A10", url: "https://www.usertesting.com/be-a-user-tester", desc: "Test websites & apps from home" },
-              { name: "Pinecone Research", pay: "Flat $3–$5 each", badge: "🔒 Limited Spots", badgeColor: "#0F6E8E", url: "https://www.pineconeresearch.com/register", desc: "Highly rated, apply while open" },
-            ].map((p, i) => (
-              <a key={i} href={p.url} target="_blank" rel="noreferrer"
-                style={{ display: "block", background: "#111", border: "1px solid #1F3A1F", borderRadius: 10, padding: "18px 16px", textDecoration: "none", transition: "all 0.2s" }}
-                onMouseOver={e => { e.currentTarget.style.borderColor="#4ADE80"; e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.background="#0D2A0D"; }}
-                onMouseOut={e => { e.currentTarget.style.borderColor="#1F3A1F"; e.currentTarget.style.transform="none"; e.currentTarget.style.background="#111"; }}
-              >
-                <div style={{ display:"inline-block", fontSize:9, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", padding:"3px 7px", borderRadius:3, background:p.badgeColor+"22", color:p.badgeColor, border:`1px solid ${p.badgeColor}44`, marginBottom:8 }}>{p.badge}</div>
-                <div style={{ fontFamily:"var(--ff)", fontSize:"1rem", fontWeight:600, color:"#FFF", marginBottom:3 }}>{p.name}</div>
-                <div style={{ fontSize:11, color:"#4ADE80", fontWeight:700, marginBottom:5 }}>{p.pay}</div>
-                <div style={{ fontSize:11, color:"#777", lineHeight:1.5 }}>{p.desc}</div>
-                <div style={{ marginTop:12, fontSize:10, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", color:"#4ADE80" }}>Join Free →</div>
-              </a>
-            ))}
-          </div>
-          <p style={{ textAlign:"center", fontSize:11, color:"#444", marginTop:16 }}>
-            * Some links are referral links — costs you nothing extra and helps keep StudyCashBoard free 💚
-          </p>
-        </div>
-      </div>
-
-      {/* ══ FRONT & CENTER: FREE RESOURCES & DIGITAL DOWNLOADS ══ */}
-      <div style={{ background: "var(--gold-pale)", borderBottom: "1px solid var(--gold-border)", padding: "52px 1.5rem" }}>
-        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 32 }}>
-            <div style={{ display:"inline-flex", alignItems:"center", gap:8, background:"rgba(184,134,11,0.1)", border:"1px solid var(--gold-border)", borderRadius:100, padding:"6px 16px", marginBottom:14 }}>
-              <span style={{ fontSize:10, fontWeight:700, letterSpacing:"0.18em", textTransform:"uppercase", color:"var(--gold)" }}>🎁 100% Free — No Credit Card Required</span>
-            </div>
-            <div style={{ fontFamily:"var(--ff)", fontSize:"clamp(1.5rem, 3vw, 2rem)", fontWeight:600, color:"var(--dark)", marginBottom:8 }}>
-              Free Resources to Maximize Your Earnings
-            </div>
-            <p style={{ fontSize:13, color:"var(--mid)", lineHeight:1.7, maxWidth:500, margin:"0 auto" }}>
-              Guides, checklists and tools to help you earn more — completely free. Join the waitlist below.
-            </p>
-          </div>
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(240px, 1fr))", gap:16 }}>
-            {[
-              { icon:"📋", title:"Top 50 Paid Research Platforms", sub:"Free PDF Download", desc:"Every verified platform with direct links, average pay rates, and pro tips. Updated monthly.", tag:"Coming Soon", action:() => window.open("mailto:studycashboard@gmail.com?subject=Free PDF Waitlist","_blank") },
-              { icon:"⚡", title:"Quick Wins Starter Guide", sub:"Free 5-Day Email Course", desc:"Earn your first $100 from paid research in 5 days. Exact platforms and screener tips included.", tag:"Coming Soon", action:() => window.open("mailto:studycashboard@gmail.com?subject=Quick Wins Course Waitlist","_blank") },
-              { icon:"🎯", title:"High-Value Study Checklist", sub:"Free Printable", desc:"Know a good study when you see one. Pay-per-hour math, red flags, and how to get invited back.", tag:"Coming Soon", action:() => window.open("mailto:studycashboard@gmail.com?subject=Checklist Waitlist","_blank") },
-              { icon:"🚀", title:"Your Product Here", sub:"Placeholder", desc:"Add your own digital product, course, or service. This card is yours to customize.", tag:"Add Yours", action:() => {} },
-            ].map((p, i) => (
-              <div key={i} style={{ background:"#fff", border:"1px solid var(--gold-border)", borderRadius:12, padding:"24px 20px", display:"flex", flexDirection:"column", boxShadow:"0 4px 16px rgba(184,134,11,0.06)" }}>
-                <div style={{ fontSize:"2rem", marginBottom:10 }}>{p.icon}</div>
-                <div style={{ fontSize:9, fontWeight:700, letterSpacing:"0.12em", textTransform:"uppercase", padding:"3px 8px", borderRadius:2, background:p.tag==="Coming Soon"?"rgba(184,134,11,0.1)":"#F5F5F0", color:p.tag==="Coming Soon"?"var(--gold)":"#888", border:`1px solid ${p.tag==="Coming Soon"?"var(--gold-border)":"#E0E0E0"}`, display:"inline-block", marginBottom:8 }}>{p.tag}</div>
-                <div style={{ fontFamily:"var(--ff)", fontSize:"1.05rem", fontWeight:600, color:"var(--dark)", marginBottom:3, lineHeight:1.3 }}>{p.title}</div>
-                <div style={{ fontSize:11, color:"var(--muted2)", fontWeight:500, marginBottom:8 }}>{p.sub}</div>
-                <p style={{ fontSize:12.5, color:"var(--mid)", lineHeight:1.65, marginBottom:16, flex:1, fontWeight:300 }}>{p.desc}</p>
-                <button onClick={p.action}
-                  style={{ background:"var(--dark)", color:"#fff", border:"none", padding:"11px", borderRadius:4, fontFamily:"var(--fs)", fontSize:11, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", cursor:"pointer", width:"100%", transition:"background 0.2s" }}
-                  onMouseOver={e=>e.currentTarget.style.background="var(--gold)"}
-                  onMouseOut={e=>e.currentTarget.style.background="var(--dark)"}
-                >{p.tag==="Coming Soon"?"Join Waitlist →":"Learn More →"}</button>
-              </div>
-            ))}
-          </div>
-          <div style={{ textAlign:"center", marginTop:24 }}>
-            <button onClick={() => go("products")}
-              style={{ background:"transparent", border:"1.5px solid var(--gold)", color:"var(--gold)", padding:"12px 28px", borderRadius:4, fontFamily:"var(--fs)", fontSize:12, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", cursor:"pointer", transition:"all 0.2s" }}
-              onMouseOver={e=>{e.currentTarget.style.background="var(--gold)";e.currentTarget.style.color="var(--dark)";}}
-              onMouseOut={e=>{e.currentTarget.style.background="transparent";e.currentTarget.style.color="var(--gold)";}}
-            >View All Free Resources →</button>
-          </div>
-        </div>
-      </div>
-
       {/* ── BROWSE BY CATEGORY ── */}
       <div className="section">
         <div className="sec-header">
@@ -1118,6 +1030,95 @@ function Home({ listings, loading, go }) {
         </div>
       </div>
 
+      {/* ══ FRONT & CENTER: START EARNING NOW — REFERRAL PLATFORMS ══ */}
+      <div style={{ background: "#0A1A0A", borderBottom: "1px solid #1A3A1A", padding: "52px 1.5rem" }}>
+        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 32 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(22,163,74,0.15)", border: "1px solid rgba(22,163,74,0.3)", borderRadius: 100, padding: "6px 16px", marginBottom: 14 }}>
+              <span style={{ width: 6, height: 6, background: "#4ADE80", borderRadius: "50%", display: "inline-block", animation: "blink 2s infinite" }} />
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4ADE80" }}>No Subscription Needed — Start Today</span>
+            </div>
+            <div style={{ fontFamily: "var(--ff)", fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 600, color: "#FFFFFF", marginBottom: 8 }}>
+              ⚡ Join These Platforms & Start Getting Paid Now
+            </div>
+            <p style={{ fontSize: 13, color: "#999", lineHeight: 1.7, maxWidth: 500, margin: "0 auto" }}>
+              The fastest ways to earn — free to join, no experience needed. We've verified every single one.
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 12 }}>
+            {[
+              { name: "Survey Junkie", pay: "Up to $40/survey", badge: "🔥 Most Popular", badgeColor: "#EF4444", url: "https://www.surveyjunkie.com/register", desc: "Share opinions, cash via PayPal" },
+              { name: "Swagbucks", pay: "$10 Signup Bonus", badge: "💰 Free Bonus", badgeColor: "#F59E0B", url: "https://www.swagbucks.com/p/register", desc: "Surveys, videos & shopping rewards" },
+              { name: "InboxDollars", pay: "$5 Signup Bonus", badge: "💵 Free $5", badgeColor: "#16A34A", url: "https://www.inboxdollars.com/register", desc: "Get paid for surveys & emails" },
+              { name: "Prolific", pay: "$6–$35/study", badge: "🎓 Academic Studies", badgeColor: "#6B3FA0", url: "https://app.prolific.com/register/participant", desc: "Short studies, avg $8–$12/hr" },
+              { name: "UserTesting", pay: "$10 per test", badge: "⚡ Instant Tests", badgeColor: "#C05A10", url: "https://www.usertesting.com/be-a-user-tester", desc: "Test websites & apps from home" },
+              { name: "Pinecone Research", pay: "Flat $3–$5 each", badge: "🔒 Limited Spots", badgeColor: "#0F6E8E", url: "https://www.pineconeresearch.com/register", desc: "Highly rated, apply while open" },
+            ].map((p, i) => (
+              <a key={i} href={p.url} target="_blank" rel="noreferrer"
+                style={{ display: "block", background: "#111", border: "1px solid #1F3A1F", borderRadius: 10, padding: "18px 16px", textDecoration: "none", transition: "all 0.2s" }}
+                onMouseOver={e => { e.currentTarget.style.borderColor="#4ADE80"; e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.background="#0D2A0D"; }}
+                onMouseOut={e => { e.currentTarget.style.borderColor="#1F3A1F"; e.currentTarget.style.transform="none"; e.currentTarget.style.background="#111"; }}
+              >
+                <div style={{ display:"inline-block", fontSize:9, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", padding:"3px 7px", borderRadius:3, background:p.badgeColor+"22", color:p.badgeColor, border:`1px solid ${p.badgeColor}44`, marginBottom:8 }}>{p.badge}</div>
+                <div style={{ fontFamily:"var(--ff)", fontSize:"1rem", fontWeight:600, color:"#FFF", marginBottom:3 }}>{p.name}</div>
+                <div style={{ fontSize:11, color:"#4ADE80", fontWeight:700, marginBottom:5 }}>{p.pay}</div>
+                <div style={{ fontSize:11, color:"#777", lineHeight:1.5 }}>{p.desc}</div>
+                <div style={{ marginTop:12, fontSize:10, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", color:"#4ADE80" }}>Join Free →</div>
+              </a>
+            ))}
+          </div>
+          <p style={{ textAlign:"center", fontSize:11, color:"#444", marginTop:16 }}>
+            * Some links are referral links — costs you nothing extra and helps keep StudyCashBoard free 💚
+          </p>
+        </div>
+      </div>
+
+      {/* ══ FRONT & CENTER: FREE RESOURCES & DIGITAL DOWNLOADS ══ */}
+      <div style={{ background: "var(--gold-pale)", borderBottom: "1px solid var(--gold-border)", padding: "52px 1.5rem" }}>
+        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 32 }}>
+            <div style={{ display:"inline-flex", alignItems:"center", gap:8, background:"rgba(184,134,11,0.1)", border:"1px solid var(--gold-border)", borderRadius:100, padding:"6px 16px", marginBottom:14 }}>
+              <span style={{ fontSize:10, fontWeight:700, letterSpacing:"0.18em", textTransform:"uppercase", color:"var(--gold)" }}>🎁 100% Free — No Credit Card Required</span>
+            </div>
+            <div style={{ fontFamily:"var(--ff)", fontSize:"clamp(1.5rem, 3vw, 2rem)", fontWeight:600, color:"var(--dark)", marginBottom:8 }}>
+              Free Resources to Maximize Your Earnings
+            </div>
+            <p style={{ fontSize:13, color:"var(--mid)", lineHeight:1.7, maxWidth:500, margin:"0 auto" }}>
+              Guides, checklists and tools to help you earn more — completely free. Join the waitlist below.
+            </p>
+          </div>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(240px, 1fr))", gap:16 }}>
+            {[
+              { icon:"📋", title:"Top 50 Paid Research Platforms", sub:"Free PDF Download", desc:"Every verified platform with direct links, average pay rates, and pro tips. Updated monthly.", tag:"Coming Soon", action:() => window.open("mailto:studycashboard@gmail.com?subject=Free PDF Waitlist","_blank") },
+              { icon:"⚡", title:"Quick Wins Starter Guide", sub:"Free 5-Day Email Course", desc:"Earn your first $100 from paid research in 5 days. Exact platforms and screener tips included.", tag:"Coming Soon", action:() => window.open("mailto:studycashboard@gmail.com?subject=Quick Wins Course Waitlist","_blank") },
+              { icon:"🎯", title:"High-Value Study Checklist", sub:"Free Printable", desc:"Know a good study when you see one. Pay-per-hour math, red flags, and how to get invited back.", tag:"Coming Soon", action:() => window.open("mailto:studycashboard@gmail.com?subject=Checklist Waitlist","_blank") },
+              { icon:"🚀", title:"Your Product Here", sub:"Placeholder", desc:"Add your own digital product, course, or service. This card is yours to customize.", tag:"Add Yours", action:() => {} },
+            ].map((p, i) => (
+              <div key={i} style={{ background:"#fff", border:"1px solid var(--gold-border)", borderRadius:12, padding:"24px 20px", display:"flex", flexDirection:"column", boxShadow:"0 4px 16px rgba(184,134,11,0.06)" }}>
+                <div style={{ fontSize:"2rem", marginBottom:10 }}>{p.icon}</div>
+                <div style={{ fontSize:9, fontWeight:700, letterSpacing:"0.12em", textTransform:"uppercase", padding:"3px 8px", borderRadius:2, background:p.tag==="Coming Soon"?"rgba(184,134,11,0.1)":"#F5F5F0", color:p.tag==="Coming Soon"?"var(--gold)":"#888", border:`1px solid ${p.tag==="Coming Soon"?"var(--gold-border)":"#E0E0E0"}`, display:"inline-block", marginBottom:8 }}>{p.tag}</div>
+                <div style={{ fontFamily:"var(--ff)", fontSize:"1.05rem", fontWeight:600, color:"var(--dark)", marginBottom:3, lineHeight:1.3 }}>{p.title}</div>
+                <div style={{ fontSize:11, color:"var(--muted2)", fontWeight:500, marginBottom:8 }}>{p.sub}</div>
+                <p style={{ fontSize:12.5, color:"var(--mid)", lineHeight:1.65, marginBottom:16, flex:1, fontWeight:300 }}>{p.desc}</p>
+                <button onClick={p.action}
+                  style={{ background:"var(--dark)", color:"#fff", border:"none", padding:"11px", borderRadius:4, fontFamily:"var(--fs)", fontSize:11, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", cursor:"pointer", width:"100%", transition:"background 0.2s" }}
+                  onMouseOver={e=>e.currentTarget.style.background="var(--gold)"}
+                  onMouseOut={e=>e.currentTarget.style.background="var(--dark)"}
+                >{p.tag==="Coming Soon"?"Join Waitlist →":"Learn More →"}</button>
+              </div>
+            ))}
+          </div>
+          <div style={{ textAlign:"center", marginTop:24 }}>
+            <button onClick={() => go("products")}
+              style={{ background:"transparent", border:"1.5px solid var(--gold)", color:"var(--gold)", padding:"12px 28px", borderRadius:4, fontFamily:"var(--fs)", fontSize:12, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", cursor:"pointer", transition:"all 0.2s" }}
+              onMouseOver={e=>{e.currentTarget.style.background="var(--gold)";e.currentTarget.style.color="var(--dark)";}}
+              onMouseOut={e=>{e.currentTarget.style.background="transparent";e.currentTarget.style.color="var(--gold)";}}
+            >View All Free Resources →</button>
+          </div>
+        </div>
+      </div>
+
+
       <div className="guarantee">
         <h3>New listings reviewed every morning at 8 AM</h3>
         <p>Our team works every day to bring you fresh, verified opportunities. Outdated listings are removed so your time is never wasted.</p>
@@ -1130,6 +1131,7 @@ function Listings({ listings, loading, go, initCat }) {
   const [search, setSearch] = useState("");
   const [cat, setCat] = useState(initCat || "");
   const [loc, setLoc] = useState("");
+  const [state, setState] = useState("");
   const [minPay, setMinPay] = useState("");
   const [sort, setSort] = useState("score");
 
@@ -1146,6 +1148,9 @@ function Listings({ listings, loading, go, initCat }) {
     if (cat && ec !== cat) return false;
     if (loc === "Remote" && !l.Location?.toLowerCase().includes("remote")) return false;
     if (loc === "In-Person" && l.Location?.toLowerCase().includes("remote")) return false;
+    if (state === "Remote" && !l.Location?.toLowerCase().includes("remote")) return false;
+    if (state === "Nationwide") { /* show all */ }
+    else if (state && state !== "" && l.State !== state && l.State !== "Nationwide" && l.State !== "Remote") return false;
     if (minPay && (l.Pay||0) < parseInt(minPay)) return false;
     return true;
   }).sort((a,b) => {
@@ -1191,6 +1196,64 @@ function Listings({ listings, loading, go, initCat }) {
           <option value="">All Locations</option>
           <option value="Remote">Remote Only</option>
           <option value="In-Person">In-Person Only</option>
+        </select>
+        <select className="fselect" value={state} onChange={e => setState(e.target.value)}>
+          <option value="">All States</option>
+          <option value="Remote">Remote / Online</option>
+          <option value="Nationwide">Nationwide</option>
+          <optgroup label="─────────────">
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">Louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX">Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option>
+            <option value="DC">Washington DC</option>
+          </optgroup>
         </select>
         <select className="fselect" value={minPay} onChange={e => setMinPay(e.target.value)}>
           <option value="">Any Pay</option>

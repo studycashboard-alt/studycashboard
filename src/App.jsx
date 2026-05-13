@@ -1175,6 +1175,296 @@ function Pricing() {
 }
 
 // ── Root ──────────────────────────────────────────────────────────────────────
+// ── FAQ Page ──────────────────────────────────────────────────────────────────
+function FAQ({ go }) {
+  const [open, setOpen] = useState(null);
+  const faqs = [
+    { q: "What is StudyCashBoard?", a: "StudyCashBoard is the most comprehensive directory of paid research opportunities in the USA. We scrape 12+ sources daily and curate the best user interviews, focus groups, taste tests, mock jury studies, medical research, and more — all in one place." },
+    { q: "Is it really free to browse?", a: "Yes! Browsing is always free. Free members can see 5 standard listings per day plus all Quick Wins listings. Upgrade to Pro ($9/mo) to unlock everything including unlimited listings, daily email digests, and advanced filters." },
+    { q: "What are Quick Wins?", a: "Quick Wins are short, beginner-friendly paid studies paying $1–$50 that require no experience. Think survey platforms like Survey Junkie, app testing with UserTesting, or mock jury panels like eJury. These are always free for all users — no Pro membership required." },
+    { q: "How do I get paid?", a: "Payment is handled directly by the research company — not by StudyCashBoard. We connect you with the opportunity. Each listing shows how and when you get paid (PayPal, gift cards, bank transfer, etc.)." },
+    { q: "How often are listings updated?", a: "Our automated scraper runs every morning at 8 AM CT and pulls fresh listings from 12+ sources. Expired listings are automatically removed so you only see what's currently accepting applicants." },
+    { q: "What's the difference between Pro and Elite?", a: "Pro ($9/mo) gives you unlimited listings, all categories, daily email digests, and advanced filters. Elite ($19/mo) adds SMS alerts for $200+ opportunities, 6 AM early access (2 hours before everyone else), concierge profile matching, an earnings tracker dashboard, and a members-only Slack community." },
+    { q: "Are these opportunities legit?", a: "Yes. We only list opportunities from established research companies like Respondent, User Interviews, L&E Research, Fieldwork, Curion, and similar reputable firms. We never list opportunities that ask you to pay money, buy products, or provide sensitive personal information upfront." },
+    { q: "Do I need experience to participate?", a: "No experience is needed for most listings — especially Quick Wins. For higher-paying studies ($100+), companies look for specific demographics or professional backgrounds, but no research experience is required." },
+    { q: "Can I cancel my subscription anytime?", a: "Yes — cancel anytime with no penalty. You keep access until the end of your billing period. We also offer a 30-day money-back guarantee if you're not satisfied." },
+    { q: "I have a question not listed here. How do I contact you?", a: "Reach us anytime at studycashboard@gmail.com. We typically respond within 24 hours." },
+  ];
+
+  return (
+    <div style={{ maxWidth: 760, margin: "0 auto", padding: "56px 2rem 80px" }}>
+      <div style={{ textAlign: "center", marginBottom: 48 }}>
+        <div style={{ fontFamily: "var(--ff)", fontSize: "2.4rem", fontWeight: 600, color: "var(--dark)", marginBottom: 12 }}>Frequently Asked Questions</div>
+        <p style={{ color: "var(--mid)", fontSize: "1rem", lineHeight: 1.7 }}>Everything you need to know about StudyCashBoard.</p>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {faqs.map((f, i) => (
+          <div key={i} style={{ background: "#fff", border: "1px solid var(--border)", borderRadius: 8, overflow: "hidden" }}>
+            <button
+              onClick={() => setOpen(open === i ? null : i)}
+              style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "18px 22px", background: "none", border: "none", cursor: "pointer", fontFamily: "var(--fs)", fontSize: 14, fontWeight: 600, color: "var(--dark)", textAlign: "left", gap: 12 }}
+            >
+              {f.q}
+              <span style={{ fontSize: 18, color: "var(--gold)", flexShrink: 0, fontWeight: 400 }}>{open === i ? "−" : "+"}</span>
+            </button>
+            {open === i && (
+              <div style={{ padding: "0 22px 18px", fontSize: 13.5, color: "var(--mid)", lineHeight: 1.75, fontWeight: 300 }}>
+                {f.a}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div style={{ textAlign: "center", marginTop: 48, padding: "32px", background: "var(--gold-pale)", border: "1px solid var(--gold-border)", borderRadius: 8 }}>
+        <div style={{ fontFamily: "var(--ff)", fontSize: "1.3rem", fontWeight: 600, marginBottom: 8 }}>Still have questions?</div>
+        <p style={{ fontSize: 13, color: "var(--mid)", marginBottom: 20 }}>We're happy to help. Reach out anytime.</p>
+        <button className="btn-dark" onClick={() => go("contact")}>Contact Us →</button>
+      </div>
+    </div>
+  );
+}
+
+// ── Contact Page ──────────────────────────────────────────────────────────────
+function Contact() {
+  const [sent, setSent] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", subject: "General Question", message: "" });
+
+  function handleSubmit() {
+    if (!form.name || !form.email || !form.message) {
+      alert("Please fill in all fields.");
+      return;
+    }
+    const mailto = `mailto:studycashboard@gmail.com?subject=${encodeURIComponent("[StudyCashBoard] " + form.subject + " — from " + form.name)}&body=${encodeURIComponent("Name: " + form.name + "\nEmail: " + form.email + "\n\n" + form.message)}`;
+    window.open(mailto, "_blank");
+    setSent(true);
+  }
+
+  return (
+    <div style={{ maxWidth: 680, margin: "0 auto", padding: "56px 2rem 80px" }}>
+      <div style={{ textAlign: "center", marginBottom: 48 }}>
+        <div style={{ fontFamily: "var(--ff)", fontSize: "2.4rem", fontWeight: 600, color: "var(--dark)", marginBottom: 12 }}>Contact Us</div>
+        <p style={{ color: "var(--mid)", fontSize: "1rem", lineHeight: 1.7 }}>We'd love to hear from you. We typically respond within 24 hours.</p>
+      </div>
+
+      <div style={{ background: "#fff", border: "1px solid var(--border)", borderRadius: 12, padding: "36px 32px" }}>
+        {sent ? (
+          <div style={{ textAlign: "center", padding: "32px 0" }}>
+            <div style={{ fontSize: "3rem", marginBottom: 16 }}>✅</div>
+            <div style={{ fontFamily: "var(--ff)", fontSize: "1.5rem", fontWeight: 600, marginBottom: 8 }}>Message Ready to Send!</div>
+            <p style={{ fontSize: 13, color: "var(--mid)", lineHeight: 1.7 }}>Your email client should have opened. If not, email us directly at <strong>studycashboard@gmail.com</strong></p>
+          </div>
+        ) : (
+          <>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+              <div>
+                <label style={{ display: "block", fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--mid)", marginBottom: 6 }}>Your Name</label>
+                <input value={form.name} onChange={e => setForm({...form, name: e.target.value})}
+                  style={{ width: "100%", padding: "10px 14px", border: "1px solid var(--border)", borderRadius: 4, fontFamily: "var(--fs)", fontSize: 13, outline: "none", color: "var(--dark)" }}
+                  placeholder="Jane Smith" />
+              </div>
+              <div>
+                <label style={{ display: "block", fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--mid)", marginBottom: 6 }}>Email Address</label>
+                <input value={form.email} onChange={e => setForm({...form, email: e.target.value})}
+                  type="email"
+                  style={{ width: "100%", padding: "10px 14px", border: "1px solid var(--border)", borderRadius: 4, fontFamily: "var(--fs)", fontSize: 13, outline: "none", color: "var(--dark)" }}
+                  placeholder="jane@email.com" />
+              </div>
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <label style={{ display: "block", fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--mid)", marginBottom: 6 }}>Subject</label>
+              <select value={form.subject} onChange={e => setForm({...form, subject: e.target.value})}
+                style={{ width: "100%", padding: "10px 14px", border: "1px solid var(--border)", borderRadius: 4, fontFamily: "var(--fs)", fontSize: 13, outline: "none", color: "var(--dark)", background: "#fff" }}>
+                <option>General Question</option>
+                <option>Partnership / Collaboration</option>
+                <option>Report a Broken Link</option>
+                <option>Suggest a Listing</option>
+                <option>Billing / Subscription</option>
+                <option>Press / Media Inquiry</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div style={{ marginBottom: 24 }}>
+              <label style={{ display: "block", fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--mid)", marginBottom: 6 }}>Message</label>
+              <textarea value={form.message} onChange={e => setForm({...form, message: e.target.value})}
+                rows={5}
+                style={{ width: "100%", padding: "10px 14px", border: "1px solid var(--border)", borderRadius: 4, fontFamily: "var(--fs)", fontSize: 13, outline: "none", color: "var(--dark)", resize: "vertical" }}
+                placeholder="How can we help you?" />
+            </div>
+            <button className="btn-dark" style={{ width: "100%", padding: 14, fontSize: 13 }} onClick={handleSubmit}>
+              Send Message →
+            </button>
+            <p style={{ textAlign: "center", fontSize: 12, color: "var(--muted2)", marginTop: 14 }}>
+              Or email us directly: <a href="mailto:studycashboard@gmail.com" style={{ color: "var(--gold)", textDecoration: "none", fontWeight: 600 }}>studycashboard@gmail.com</a>
+            </p>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Products / Free Resources Page ────────────────────────────────────────────
+function Products({ go }) {
+  const products = [
+    {
+      icon: "📋",
+      title: "The Ultimate Paid Research Platform List",
+      subtitle: "Free PDF Download",
+      description: "A curated list of 50+ verified platforms where you can earn money sharing your opinions. Includes direct signup links, average pay rates, and tips for getting accepted.",
+      tag: "Coming Soon",
+      tagColor: "#B8860B",
+      cta: "Join Waitlist",
+      action: () => window.open("mailto:studycashboard@gmail.com?subject=Free Resource Waitlist", "_blank"),
+    },
+    {
+      icon: "⚡",
+      title: "Quick Wins Starter Guide",
+      subtitle: "Free Email Course",
+      description: "A 5-day email course showing you exactly how to earn your first $100 from paid research. Covers the fastest-paying platforms, how to write great screener answers, and how to qualify for more studies.",
+      tag: "Coming Soon",
+      tagColor: "#16A34A",
+      cta: "Join Waitlist",
+      action: () => window.open("mailto:studycashboard@gmail.com?subject=Quick Wins Course Waitlist", "_blank"),
+    },
+    {
+      icon: "🎯",
+      title: "High-Value Study Checklist",
+      subtitle: "Free Printable",
+      description: "Know exactly what to look for in a paid study before you apply. Covers pay-per-hour calculation, red flags to avoid, screener tips, and how to get invited back for more.",
+      tag: "Coming Soon",
+      tagColor: "#4338CA",
+      cta: "Join Waitlist",
+      action: () => window.open("mailto:studycashboard@gmail.com?subject=Checklist Waitlist", "_blank"),
+    },
+    {
+      icon: "🚀",
+      title: "[Your Digital Product Here]",
+      subtitle: "Placeholder — Add Your Own",
+      description: "This is a placeholder for your digital product — an ebook, course, template, or service. Update this card with your own offering and link.",
+      tag: "Add Yours",
+      tagColor: "#888",
+      cta: "Learn More",
+      action: () => {},
+    },
+  ];
+
+  return (
+    <div style={{ maxWidth: 1000, margin: "0 auto", padding: "56px 2rem 80px" }}>
+      <div style={{ textAlign: "center", marginBottom: 48 }}>
+        <div style={{ fontFamily: "var(--ff)", fontSize: "2.4rem", fontWeight: 600, color: "var(--dark)", marginBottom: 12 }}>Free Resources</div>
+        <p style={{ color: "var(--mid)", fontSize: "1rem", lineHeight: 1.7, maxWidth: 540, margin: "0 auto" }}>
+          Tools, guides, and resources to help you maximize your earnings from paid research. All free.
+        </p>
+      </div>
+
+      {/* Referral Platforms Section */}
+      <div style={{ background: "var(--gold-pale)", border: "1px solid var(--gold-border)", borderRadius: 12, padding: "32px", marginBottom: 40 }}>
+        <div style={{ fontFamily: "var(--ff)", fontSize: "1.5rem", fontWeight: 600, color: "var(--dark)", marginBottom: 8 }}>
+          ⚡ Start Earning Today — Join These Platforms Free
+        </div>
+        <p style={{ fontSize: 13, color: "var(--mid)", lineHeight: 1.7, marginBottom: 24 }}>
+          These are the fastest ways to start earning. Sign up through our links below — it costs you nothing extra and helps support StudyCashBoard.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 12 }}>
+          {[
+            { name: "Survey Junkie", pay: "$3–$40/survey", url: "https://www.surveyjunkie.com/register", color: "#1A56C4" },
+            { name: "Swagbucks", pay: "$10 signup bonus", url: "https://www.swagbucks.com/p/register", color: "#F59E0B" },
+            { name: "InboxDollars", pay: "$5 signup bonus", url: "https://www.inboxdollars.com/register", color: "#16A34A" },
+            { name: "Prolific", pay: "$6–$35/study", url: "https://app.prolific.com/register/participant", color: "#6B3FA0" },
+            { name: "UserTesting", pay: "$10/test", url: "https://www.usertesting.com/be-a-user-tester", color: "#C05A10" },
+            { name: "Pinecone Research", pay: "$3–$5/survey", url: "https://www.pineconeresearch.com/register", color: "#0F6E8E" },
+          ].map((p, i) => (
+            <a key={i} href={p.url} target="_blank" rel="noreferrer"
+              style={{ display: "block", background: "#fff", border: "1px solid var(--border)", borderRadius: 8, padding: "16px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
+              onMouseOver={e => e.currentTarget.style.borderColor = "var(--gold)"}
+              onMouseOut={e => e.currentTarget.style.borderColor = "var(--border)"}
+            >
+              <div style={{ fontWeight: 700, fontSize: 13, color: "var(--dark)", marginBottom: 4 }}>{p.name}</div>
+              <div style={{ fontSize: 11, color: p.color, fontWeight: 600 }}>{p.pay}</div>
+              <div style={{ fontSize: 10, color: "var(--muted2)", marginTop: 6, textTransform: "uppercase", letterSpacing: "0.06em" }}>Join Free →</div>
+            </a>
+          ))}
+        </div>
+        <p style={{ fontSize: 11, color: "var(--muted2)", marginTop: 16, textAlign: "center" }}>
+          * Some links may be referral links. This helps keep StudyCashBoard free to browse.
+        </p>
+      </div>
+
+      {/* Digital Products Grid */}
+      <div style={{ fontFamily: "var(--ff)", fontSize: "1.5rem", fontWeight: 600, color: "var(--dark)", marginBottom: 20 }}>
+        Guides & Resources
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
+        {products.map((p, i) => (
+          <div key={i} style={{ background: "#fff", border: "1px solid var(--border)", borderRadius: 12, padding: "28px 24px", display: "flex", flexDirection: "column" }}>
+            <div style={{ fontSize: "2.5rem", marginBottom: 12 }}>{p.icon}</div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+              <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "3px 8px", borderRadius: 2, background: p.tagColor + "18", color: p.tagColor, border: `1px solid ${p.tagColor}40` }}>{p.tag}</span>
+              <span style={{ fontSize: 11, color: "var(--muted2)", fontWeight: 500 }}>{p.subtitle}</span>
+            </div>
+            <div style={{ fontFamily: "var(--ff)", fontSize: "1.1rem", fontWeight: 600, color: "var(--dark)", marginBottom: 10, lineHeight: 1.3 }}>{p.title}</div>
+            <p style={{ fontSize: 12.5, color: "var(--mid)", lineHeight: 1.65, marginBottom: 20, flex: 1, fontWeight: 300 }}>{p.description}</p>
+            <button onClick={p.action}
+              style={{ background: "var(--dark)", color: "#fff", border: "none", padding: "11px", borderRadius: 4, fontFamily: "var(--fs)", fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer", transition: "background 0.2s" }}
+              onMouseOver={e => e.currentTarget.style.background = "var(--gold)"}
+              onMouseOut={e => e.currentTarget.style.background = "var(--dark)"}
+            >{p.cta} →</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Privacy Policy Page ───────────────────────────────────────────────────────
+function PrivacyPage() {
+  return (
+    <div style={{ maxWidth: 760, margin: "0 auto", padding: "56px 2rem 80px" }}>
+      <div style={{ fontFamily: "var(--ff)", fontSize: "2.2rem", fontWeight: 600, color: "var(--dark)", marginBottom: 8 }}>Privacy Policy</div>
+      <p style={{ fontSize: 12, color: "var(--muted2)", marginBottom: 32 }}>Last updated: May 2026</p>
+      {[
+        { h: "Information We Collect", b: "We collect information you provide when you sign up or contact us, including your name and email address. We also collect anonymous usage data (page views, clicks) through Vercel Analytics to improve our service." },
+        { h: "How We Use Your Information", b: "We use your information to provide and improve StudyCashBoard, send you email digests (if subscribed), respond to your inquiries, and process subscription payments. We never sell your personal information to third parties." },
+        { h: "Third-Party Links", b: "StudyCashBoard links to third-party research platforms. We are not responsible for the privacy practices of these external sites. We recommend reviewing their privacy policies before registering." },
+        { h: "Referral Links", b: "Some links on StudyCashBoard may be affiliate or referral links. Clicking these links and signing up may earn StudyCashBoard a commission at no extra cost to you." },
+        { h: "Cookies", b: "We use minimal cookies necessary for site functionality. We do not use advertising cookies or tracking pixels." },
+        { h: "Data Security", b: "We use industry-standard security measures to protect your information. Your data is stored securely via Supabase." },
+        { h: "Contact", b: "For privacy questions, email us at studycashboard@gmail.com." },
+      ].map((s, i) => (
+        <div key={i} style={{ marginBottom: 28 }}>
+          <div style={{ fontWeight: 700, fontSize: 15, color: "var(--dark)", marginBottom: 8 }}>{s.h}</div>
+          <p style={{ fontSize: 13.5, color: "var(--mid)", lineHeight: 1.75, fontWeight: 300 }}>{s.b}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ── Terms of Service Page ─────────────────────────────────────────────────────
+function TermsPage() {
+  return (
+    <div style={{ maxWidth: 760, margin: "0 auto", padding: "56px 2rem 80px" }}>
+      <div style={{ fontFamily: "var(--ff)", fontSize: "2.2rem", fontWeight: 600, color: "var(--dark)", marginBottom: 8 }}>Terms of Service</div>
+      <p style={{ fontSize: 12, color: "var(--muted2)", marginBottom: 32 }}>Last updated: May 2026</p>
+      {[
+        { h: "Acceptance of Terms", b: "By using StudyCashBoard, you agree to these terms. If you do not agree, please do not use our service." },
+        { h: "What We Provide", b: "StudyCashBoard is a directory of paid research opportunities. We curate and display listings from third-party research companies. We do not guarantee the availability, accuracy, or legitimacy of individual listings." },
+        { h: "Not a Research Company", b: "StudyCashBoard is not a market research company. We do not pay participants directly. Payment is handled by the individual research companies listed on our platform." },
+        { h: "Subscriptions", b: "Pro and Elite subscriptions are billed monthly. You may cancel at any time. We offer a 30-day money-back guarantee for first-time subscribers. Cancellations take effect at the end of the current billing period." },
+        { h: "Referral Links", b: "Some links on StudyCashBoard are affiliate or referral links. By clicking these links, you acknowledge that StudyCashBoard may earn a commission. This does not affect the price you pay." },
+        { h: "Prohibited Use", b: "You may not use StudyCashBoard to scrape listings, resell our content, or misrepresent your identity when applying to research studies." },
+        { h: "Limitation of Liability", b: "StudyCashBoard is provided 'as is'. We are not liable for any earnings (or lack thereof) resulting from applying to listings on our platform." },
+        { h: "Contact", b: "For questions about these terms, email studycashboard@gmail.com." },
+      ].map((s, i) => (
+        <div key={i} style={{ marginBottom: 28 }}>
+          <div style={{ fontWeight: 700, fontSize: 15, color: "var(--dark)", marginBottom: 8 }}>{s.h}</div>
+          <p style={{ fontSize: 13.5, color: "var(--mid)", lineHeight: 1.75, fontWeight: 300 }}>{s.b}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function App() {
   const [page, setPage] = useState("home");
   const [initCat, setInitCat] = useState("");
@@ -1223,6 +1513,9 @@ export default function App() {
           <button className={`nav-link ${page==="home"?"active":""}`} onClick={() => go("home")}>Home</button>
           <button className={`nav-link ${page==="listings"?"active":""}`} onClick={() => go("listings")}>Browse Gigs</button>
           <button className={`nav-link ${page==="pricing"?"active":""}`} onClick={() => go("pricing")}>Pricing</button>
+          <button className={`nav-link ${page==="products"?"active":""}`} onClick={() => go("products")}>Free Resources</button>
+          <button className={`nav-link ${page==="faq"?"active":""}`} onClick={() => go("faq")}>FAQ</button>
+          <button className={`nav-link ${page==="contact"?"active":""}`} onClick={() => go("contact")}>Contact</button>
         </div>
         <div className="nav-right">
           <button className="nav-signin" onClick={() => alert("Auth coming soon!")}>Sign In</button>
@@ -1233,6 +1526,11 @@ export default function App() {
       {page === "home"     && <Home     listings={listings} loading={loading} go={go} />}
       {page === "listings" && <Listings listings={listings} loading={loading} go={go} initCat={initCat} />}
       {page === "pricing"  && <Pricing />}
+      {page === "faq"      && <FAQ go={go} />}
+      {page === "contact"  && <Contact />}
+      {page === "products" && <Products go={go} />}
+      {page === "privacy"  && <PrivacyPage />}
+      {page === "terms"    && <TermsPage />}
 
       <footer className="footer">
         <div className="footer-logo">
@@ -1242,10 +1540,13 @@ export default function App() {
           <button className="footer-link" onClick={() => go("home")}>Home</button>
           <button className="footer-link" onClick={() => go("listings")}>Listings</button>
           <button className="footer-link" onClick={() => go("pricing")}>Pricing</button>
-          <button className="footer-link">Privacy</button>
-          <button className="footer-link">Terms</button>
+          <button className="footer-link" onClick={() => go("faq")}>FAQ</button>
+          <button className="footer-link" onClick={() => go("contact")}>Contact</button>
+          <button className="footer-link" onClick={() => go("products")}>Free Resources</button>
+          <button className="footer-link" onClick={() => go("privacy")}>Privacy</button>
+          <button className="footer-link" onClick={() => go("terms")}>Terms</button>
         </div>
-        <div className="footer-copy">© 2026 StudyCashBoard</div>
+        <div className="footer-copy">© 2026 StudyCashBoard · All rights reserved</div>
       </footer>
 
       {/* Vercel Analytics — invisible to users, visible only in your Vercel dashboard */}

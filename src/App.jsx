@@ -109,33 +109,33 @@ const CSS = `
   .logo-tag { font-size: 10px; color: #D4A017; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
   .nav-links { display: flex; gap: 2rem; align-items: center; }
   .nav-link {
-    color: #999;
-    font-size: 11px;
-    letter-spacing: 0.12em;
+    color: #EEEEEE;
+    font-size: 12px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     cursor: pointer;
     transition: color 0.2s;
     background: none;
     border: none;
     font-family: var(--fs);
-    font-weight: 500;
+    font-weight: 700;
     padding: 0;
   }
-  .nav-link:hover, .nav-link.active { color: #D4A017; }
+  .nav-link:hover, .nav-link.active { color: #F0C040; }
   .nav-right { display: flex; gap: 10px; align-items: center; }
   .nav-signin {
     background: transparent;
-    color: #999;
-    border: 1px solid #444;
+    color: #EEEEEE;
+    border: 1.5px solid #666;
     padding: 7px 16px;
     font-family: var(--fs);
-    font-size: 11px;
-    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 700;
     cursor: pointer;
     letter-spacing: 0.06em;
     transition: all 0.2s;
   }
-  .nav-signin:hover { color: #fff; border-color: #777; }
+  .nav-signin:hover { color: #fff; border-color: #F0C040; background: rgba(240,192,64,0.12); }
   .nav-cta {
     background: #D4A017;
     color: #1A1A1A;
@@ -799,7 +799,7 @@ function Home({ listings, loading, go }) {
   return (
     <>
       <div className="hero">
-        <div className="hero-eyebrow"><div className="hero-dot" /> Updated daily · AI-curated</div>
+        <div className="hero-eyebrow"><div className="hero-dot" /> Reviewed daily by our team</div>
         <h1>Get Paid to<br /><em>Share Your Opinion</em></h1>
         <p className="hero-sub">The most comprehensive directory of paid research opportunities — user interviews, focus groups, taste tests, mock trials, medical studies, and more.</p>
         <div className="hero-btns">
@@ -889,7 +889,7 @@ function Home({ listings, loading, go }) {
                 <span className="panel-icon-tp">⭐</span>
                 <div>
                   <div className="panel-title">Top Picks</div>
-                  <div className="panel-sub">Highest paying · AI curated · Pro members</div>
+                  <div className="panel-sub">Highest paying · Expert-reviewed · Pro members</div>
                 </div>
               </div>
               <button className="panel-see-all gold" onClick={() => go("listings")}>See all →</button>
@@ -932,8 +932,8 @@ function Home({ listings, loading, go }) {
           <div className="dark-title">How It Works</div>
           <div className="how-grid">
             {[
-              { n:"01", t:"We Scrape Daily", d:"Our system pulls from 12+ sources every morning — Respondent, UserInterviews, FocusGroups.org, taste test panels, mock jury firms, and more." },
-              { n:"02", t:"AI Curates Quality", d:"Every listing is scored 0–100 for pay, time commitment, and legitimacy. Only quality opportunities make it to your feed." },
+              { n:"01", t:"We Scrape Daily", d:"We search 12+ sources every morning — Respondent, User Interviews, FocusGroups.org, taste test panels, mock jury firms, and more — so you never miss an opportunity." },
+              { n:"02", t:"We Review Every Listing", d:"Our team reviews every listing for pay, legitimacy, and time commitment. Only the best opportunities make it to your feed — we do the research so you do not have to." },
               { n:"03", t:"Expired Listings Auto-Removed", d:"Listings that disappear from their source are automatically marked expired. You only ever see what's currently live and accepting applicants." },
               { n:"04", t:"Choose Your Level", d:"⚡ Quick Wins are free for everyone. Pro ($9/mo) unlocks all listings + daily email digest. Elite ($19/mo) adds SMS alerts for $200+ gigs, 6 AM early access, concierge matching, and an earnings tracker." },
             ].map(h => (
@@ -965,9 +965,102 @@ function Home({ listings, loading, go }) {
         </div>
       </div>
 
+      {/* ── START EARNING NOW — REFERRAL PLATFORMS ── */}
+      <div style={{ background: "#0D1F0D", borderTop: "1px solid #1A3A1A", borderBottom: "1px solid #1A3A1A", padding: "56px 2.5rem" }}>
+        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 36 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(22,163,74,0.15)", border: "1px solid rgba(22,163,74,0.3)", borderRadius: 100, padding: "6px 16px", marginBottom: 16 }}>
+              <span style={{ width: 6, height: 6, background: "#4ADE80", borderRadius: "50%", display: "inline-block", animation: "blink 2s infinite" }} />
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#4ADE80" }}>Start Earning Today — No Subscription Needed</span>
+            </div>
+            <div style={{ fontFamily: "var(--ff)", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 600, color: "#FFFFFF", marginBottom: 10 }}>
+              ⚡ Join These Platforms & Start Getting Paid
+            </div>
+            <p style={{ fontSize: 13, color: "#888", lineHeight: 1.7, maxWidth: 520, margin: "0 auto" }}>
+              These are the fastest ways to earn money from paid research — no experience needed. Sign up free through our links below.
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 14 }}>
+            {[
+              { name: "Survey Junkie", pay: "Up to $40/survey", badge: "🔥 Most Popular", badgeColor: "#EF4444", url: "https://www.surveyjunkie.com/register", desc: "Share opinions, earn cash via PayPal" },
+              { name: "Swagbucks", pay: "$10 Signup Bonus", badge: "💰 Bonus on Join", badgeColor: "#F59E0B", url: "https://www.swagbucks.com/p/register", desc: "Surveys, videos & shopping rewards" },
+              { name: "InboxDollars", pay: "$5 Signup Bonus", badge: "💵 Free $5", badgeColor: "#16A34A", url: "https://www.inboxdollars.com/register", desc: "Get paid for surveys & emails" },
+              { name: "Prolific", pay: "$6–$35/study", badge: "🎓 Academic Studies", badgeColor: "#6B3FA0", url: "https://app.prolific.com/register/participant", desc: "Short studies, avg $8–$12/hr" },
+              { name: "UserTesting", pay: "$10 per test", badge: "⚡ Instant Tests", badgeColor: "#C05A10", url: "https://www.usertesting.com/be-a-user-tester", desc: "Test websites & apps from home" },
+              { name: "Pinecone Research", pay: "Flat $3–$5 each", badge: "🔒 Invite Only", badgeColor: "#0F6E8E", url: "https://www.pineconeresearch.com/register", desc: "Highly rated, limited spots open" },
+            ].map((p, i) => (
+              <a key={i} href={p.url} target="_blank" rel="noreferrer"
+                style={{ display: "block", background: "#111", border: "1px solid #1F3A1F", borderRadius: 10, padding: "20px 18px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
+                onMouseOver={e => { e.currentTarget.style.borderColor = "#4ADE80"; e.currentTarget.style.background = "#0D2A0D"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                onMouseOut={e => { e.currentTarget.style.borderColor = "#1F3A1F"; e.currentTarget.style.background = "#111"; e.currentTarget.style.transform = "none"; }}
+              >
+                <div style={{ display: "inline-block", fontSize: 9, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", padding: "3px 8px", borderRadius: 3, background: p.badgeColor + "22", color: p.badgeColor, border: `1px solid ${p.badgeColor}44`, marginBottom: 10 }}>{p.badge}</div>
+                <div style={{ fontFamily: "var(--ff)", fontSize: "1.05rem", fontWeight: 600, color: "#FFFFFF", marginBottom: 4 }}>{p.name}</div>
+                <div style={{ fontSize: 11, color: "#4ADE80", fontWeight: 700, marginBottom: 6 }}>{p.pay}</div>
+                <div style={{ fontSize: 11, color: "#888", lineHeight: 1.5 }}>{p.desc}</div>
+                <div style={{ marginTop: 14, fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4ADE80" }}>Join Free →</div>
+              </a>
+            ))}
+          </div>
+          <p style={{ textAlign: "center", fontSize: 11, color: "#444", marginTop: 20 }}>
+            * Some links are referral links — costs you nothing extra and helps support StudyCashBoard 💚
+          </p>
+        </div>
+      </div>
+
+      {/* ── FREE RESOURCES & DIGITAL DOWNLOADS ── */}
+      <div style={{ background: "var(--gold-pale)", borderTop: "1px solid var(--gold-border)", borderBottom: "1px solid var(--gold-border)", padding: "56px 2.5rem" }}>
+        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 36 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(184,134,11,0.1)", border: "1px solid var(--gold-border)", borderRadius: 100, padding: "6px 16px", marginBottom: 16 }}>
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)" }}>🎁 100% Free — No Credit Card</span>
+            </div>
+            <div style={{ fontFamily: "var(--ff)", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 600, color: "var(--dark)", marginBottom: 10 }}>
+              Free Resources to Maximize Your Earnings
+            </div>
+            <p style={{ fontSize: 13, color: "var(--mid)", lineHeight: 1.7, maxWidth: 520, margin: "0 auto" }}>
+              Everything you need to get started and earn more — completely free. Join the waitlist for our upcoming guides and tools.
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16 }}>
+            {[
+              { icon: "📋", title: "Top 50 Paid Research Platforms", sub: "Free PDF Download", desc: "Every verified platform where you can earn money, with direct signup links, average pay rates, and pro tips. Updated monthly.", tag: "Coming Soon", action: () => window.open("mailto:studycashboard@gmail.com?subject=Free PDF Waitlist", "_blank") },
+              { icon: "⚡", title: "Quick Wins Starter Guide", sub: "Free 5-Day Email Course", desc: "Earn your first $100 from paid research in 5 days. Exact platforms, screener tips, and how to qualify for more studies.", tag: "Coming Soon", action: () => window.open("mailto:studycashboard@gmail.com?subject=Quick Wins Course Waitlist", "_blank") },
+              { icon: "🎯", title: "High-Value Study Checklist", sub: "Free Printable", desc: "Know a good study when you see one. Covers pay-per-hour math, red flags to avoid, and how to get invited back.", tag: "Coming Soon", action: () => window.open("mailto:studycashboard@gmail.com?subject=Checklist Waitlist", "_blank") },
+              { icon: "🚀", title: "Your Product Here", sub: "Placeholder", desc: "Add your own digital product, course, or service here. This card is yours to customize with your own offering.", tag: "Add Yours", action: () => {} },
+            ].map((p, i) => (
+              <div key={i} style={{ background: "#fff", border: "1px solid var(--gold-border)", borderRadius: 12, padding: "28px 22px", display: "flex", flexDirection: "column", boxShadow: "0 4px 16px rgba(184,134,11,0.06)" }}>
+                <div style={{ fontSize: "2.2rem", marginBottom: 12 }}>{p.icon}</div>
+                <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "3px 9px", borderRadius: 2, background: p.tag === "Coming Soon" ? "rgba(184,134,11,0.1)" : "#F5F5F0", color: p.tag === "Coming Soon" ? "var(--gold)" : "#888", border: `1px solid ${p.tag === "Coming Soon" ? "var(--gold-border)" : "#E0E0E0"}`, display: "inline-block", marginBottom: 10 }}>{p.tag}</div>
+                <div style={{ fontFamily: "var(--ff)", fontSize: "1.1rem", fontWeight: 600, color: "var(--dark)", marginBottom: 4, lineHeight: 1.3 }}>{p.title}</div>
+                <div style={{ fontSize: 11, color: "var(--muted2)", fontWeight: 500, marginBottom: 10 }}>{p.sub}</div>
+                <p style={{ fontSize: 12.5, color: "var(--mid)", lineHeight: 1.65, marginBottom: 20, flex: 1, fontWeight: 300 }}>{p.desc}</p>
+                <button onClick={p.action}
+                  style={{ background: "var(--dark)", color: "#fff", border: "none", padding: "11px", borderRadius: 4, fontFamily: "var(--fs)", fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer", width: "100%", transition: "background 0.2s" }}
+                  onMouseOver={e => e.currentTarget.style.background = "var(--gold)"}
+                  onMouseOut={e => e.currentTarget.style.background = "var(--dark)"}
+                >
+                  {p.tag === "Coming Soon" ? "Join Waitlist →" : "Learn More →"}
+                </button>
+              </div>
+            ))}
+          </div>
+          <div style={{ textAlign: "center", marginTop: 28 }}>
+            <button
+              onClick={() => go("products")}
+              style={{ background: "transparent", border: "1.5px solid var(--gold)", color: "var(--gold)", padding: "12px 28px", borderRadius: 4, fontFamily: "var(--fs)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer", transition: "all 0.2s" }}
+              onMouseOver={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.color = "var(--dark)"; }}
+              onMouseOut={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--gold)"; }}
+            >
+              View All Free Resources →
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div className="guarantee">
-        <h3>New listings added every morning at 8 AM</h3>
-        <p>Our scraper runs automatically overnight. Expired listings are removed. You only ever see fresh, verified opportunities.</p>
+        <h3>New listings reviewed every morning at 8 AM</h3>
+        <p>Our team works every day to bring you fresh, verified opportunities. Outdated listings are removed so your time is never wasted.</p>
       </div>
     </>
   );
@@ -1013,7 +1106,7 @@ function Listings({ listings, loading, go, initCat }) {
       <div style={{ marginBottom: 32 }}>
         <div className="sec-title" style={{ marginBottom: 6 }}>All Listings</div>
         <p style={{ color: "var(--muted)", fontSize: 12, letterSpacing: "0.04em", textTransform: "uppercase", fontWeight: 500 }}>
-          {listings.length} total · Updated daily · Expired listings auto-removed
+          {listings.length} total · Reviewed daily by our team · Outdated listings removed
         </p>
       </div>
 
@@ -1112,7 +1205,7 @@ function Pricing() {
       feats:[
         {y:true, t:"Everything in Free"},
         {y:true, t:"Unlimited listings — all categories"},
-        {y:true, t:"AI-curated Top Picks daily"},
+        {y:true, t:"Expert-reviewed Top Picks daily"},
         {y:true, t:"Full descriptions + direct apply links"},
         {y:true, t:"Advanced pay & location filters"},
         {y:true, t:"Daily email digest at 8 AM"},
@@ -1183,7 +1276,7 @@ function FAQ({ go }) {
     { q: "Is it really free to browse?", a: "Yes! Browsing is always free. Free members can see 5 standard listings per day plus all Quick Wins listings. Upgrade to Pro ($9/mo) to unlock everything including unlimited listings, daily email digests, and advanced filters." },
     { q: "What are Quick Wins?", a: "Quick Wins are short, beginner-friendly paid studies paying $1–$50 that require no experience. Think survey platforms like Survey Junkie, app testing with UserTesting, or mock jury panels like eJury. These are always free for all users — no Pro membership required." },
     { q: "How do I get paid?", a: "Payment is handled directly by the research company — not by StudyCashBoard. We connect you with the opportunity. Each listing shows how and when you get paid (PayPal, gift cards, bank transfer, etc.)." },
-    { q: "How often are listings updated?", a: "Our automated scraper runs every morning at 8 AM CT and pulls fresh listings from 12+ sources. Expired listings are automatically removed so you only see what's currently accepting applicants." },
+    { q: "How often are listings updated?", a: "Our team reviews and updates listings every morning at 8 AM CT from 12+ sources. Expired listings are automatically removed so you only see what's currently accepting applicants." },
     { q: "What's the difference between Pro and Elite?", a: "Pro ($9/mo) gives you unlimited listings, all categories, daily email digests, and advanced filters. Elite ($19/mo) adds SMS alerts for $200+ opportunities, 6 AM early access (2 hours before everyone else), concierge profile matching, an earnings tracker dashboard, and a members-only Slack community." },
     { q: "Are these opportunities legit?", a: "Yes. We only list opportunities from established research companies like Respondent, User Interviews, L&E Research, Fieldwork, Curion, and similar reputable firms. We never list opportunities that ask you to pay money, buy products, or provide sensitive personal information upfront." },
     { q: "Do I need experience to participate?", a: "No experience is needed for most listings — especially Quick Wins. For higher-paying studies ($100+), companies look for specific demographics or professional backgrounds, but no research experience is required." },

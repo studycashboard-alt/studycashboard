@@ -1012,24 +1012,6 @@ function Home({ listings, loading, go }) {
         </div>
       </div>
 
-      <div className="section">
-        <div className="sec-header"><div className="sec-title">What Members Are Saying</div></div>
-        <div className="testi-grid">
-          {[
-            { stars:"★★★★★", text:"I made $847 in my first month just from focus groups and user interviews I found here. The curation saves me so much time.", author:"Tanya M., Dallas TX", earned:"Earned $847 in Month 1" },
-            { stars:"★★★★★", text:"The taste test listings alone paid for my subscription 10x over. I had no idea these opportunities existed near me.", author:"Marcus R., Houston TX", earned:"Earned $320 from taste tests" },
-            { stars:"★★★★★", text:"I started with Quick Wins and made $60 my first week with zero experience. Now I do the bigger studies too.", author:"Priya K., Chicago IL", earned:"Earned $1,100+ total" },
-          ].map((t,i) => (
-            <div key={i} className="testi-card">
-              <div className="testi-stars">{t.stars}</div>
-              <div className="testi-text">"{t.text}"</div>
-              <div className="testi-author">{t.author}</div>
-              <div className="testi-earned">{t.earned}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* ══ FRONT & CENTER: START EARNING NOW — REFERRAL PLATFORMS ══ */}
       <div style={{ background: "#0A1A0A", borderBottom: "1px solid #1A3A1A", padding: "52px 1.5rem" }}>
         <div style={{ maxWidth: 1140, margin: "0 auto" }}>
@@ -1115,6 +1097,25 @@ function Home({ listings, loading, go }) {
               onMouseOut={e=>{e.currentTarget.style.background="transparent";e.currentTarget.style.color="var(--gold)";}}
             >View All Free Resources →</button>
           </div>
+        </div>
+      </div>
+
+
+      <div className="section">
+        <div className="sec-header"><div className="sec-title">What Members Are Saying</div></div>
+        <div className="testi-grid">
+          {[
+            { stars:"★★★★★", text:"I made $847 in my first month just from focus groups and user interviews I found here. The curation saves me so much time.", author:"Tanya M., Dallas TX", earned:"Earned $847 in Month 1" },
+            { stars:"★★★★★", text:"The taste test listings alone paid for my subscription 10x over. I had no idea these opportunities existed near me.", author:"Marcus R., Houston TX", earned:"Earned $320 from taste tests" },
+            { stars:"★★★★★", text:"I started with Quick Wins and made $60 my first week with zero experience. Now I do the bigger studies too.", author:"Priya K., Chicago IL", earned:"Earned $1,100+ total" },
+          ].map((t,i) => (
+            <div key={i} className="testi-card">
+              <div className="testi-stars">{t.stars}</div>
+              <div className="testi-text">"{t.text}"</div>
+              <div className="testi-author">{t.author}</div>
+              <div className="testi-earned">{t.earned}</div>
+            </div>
+          ))}
         </div>
       </div>
 

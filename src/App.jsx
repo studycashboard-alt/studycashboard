@@ -1,6 +1,17 @@
 import { useState, useEffect, useCallback } from "react";
 import { createClient } from "@supabase/supabase-js";
 
+// Vercel Analytics — tracks visits invisibly, only visible in your Vercel dashboard
+// Install once: npm install @vercel/analytics
+// Then enable in Vercel dashboard → Analytics tab
+let Analytics = null;
+try {
+  // Will work once @vercel/analytics is installed
+  Analytics = require("@vercel/analytics/react").Analytics;
+} catch(e) {
+  // Not installed yet — no-op
+}
+
 const supabase = createClient(
   "https://astgazboqpwhcuyemshx.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzdGdhemJvcXB3aGN1eWVtc2h4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyNzUyMDAsImV4cCI6MjA5Mzg1MTIwMH0.9ZKI3MaZbJSWSm2QC2jOETrhGTiUETcvmZW4PCJWyk8"
@@ -91,11 +102,11 @@ const CSS = `
     border: none;
     padding: 0;
   }
-  .logo-s { font-family: var(--ff); font-size: 1.45rem; font-weight: 600; color: #FFFFFF; letter-spacing: -0.01em; }
-  .logo-c { font-family: var(--ff); font-size: 1.45rem; font-weight: 600; color: #D4A017; letter-spacing: -0.01em; }
-  .logo-b { font-family: var(--ff); font-size: 1.45rem; font-weight: 400; color: #888888; letter-spacing: -0.01em; }
-  .logo-sep { width: 1px; height: 16px; background: #333; margin: 0 12px; align-self: center; }
-  .logo-tag { font-size: 10px; color: #666; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 400; }
+  .logo-s { font-family: var(--ff); font-size: 1.7rem; font-weight: 600; color: #FFFFFF; letter-spacing: -0.01em; text-shadow: 0 0 24px rgba(255,255,255,0.2); }
+  .logo-c { font-family: var(--ff); font-size: 1.7rem; font-weight: 600; color: #F0C040; letter-spacing: -0.01em; text-shadow: 0 0 24px rgba(240,192,64,0.5); }
+  .logo-b { font-family: var(--ff); font-size: 1.7rem; font-weight: 400; color: #BBBBBB; letter-spacing: -0.01em; }
+  .logo-sep { width: 1px; height: 20px; background: #444; margin: 0 14px; align-self: center; }
+  .logo-tag { font-size: 10px; color: #D4A017; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
   .nav-links { display: flex; gap: 2rem; align-items: center; }
   .nav-link {
     color: #999;
@@ -172,7 +183,7 @@ const CSS = `
   /* ── HERO ── */
   .hero {
     background: var(--cream);
-    padding: 80px 2rem 72px;
+    padding: 36px 2rem 32px;
     text-align: center;
     border-bottom: 1px solid var(--border);
     position: relative;
@@ -193,7 +204,7 @@ const CSS = `
     text-transform: uppercase;
     color: var(--gold);
     font-weight: 600;
-    margin-bottom: 1.8rem;
+    margin-bottom: 1rem;
     padding: 6px 16px;
     border: 1px solid var(--gold-border);
     border-radius: 100px;
@@ -203,10 +214,10 @@ const CSS = `
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
   .hero h1 {
     font-family: var(--ff);
-    font-size: clamp(2.6rem, 5.5vw, 4.2rem);
-    line-height: 1.12;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    line-height: 1.15;
     color: var(--dark);
-    margin-bottom: 1.4rem;
+    margin-bottom: 0.8rem;
     font-weight: 600;
     letter-spacing: -0.02em;
   }
@@ -216,11 +227,11 @@ const CSS = `
     font-weight: 400;
   }
   .hero-sub {
-    font-size: 1.05rem;
+    font-size: 0.92rem;
     color: var(--mid);
-    line-height: 1.8;
+    line-height: 1.7;
     max-width: 540px;
-    margin: 0 auto 2.4rem;
+    margin: 0 auto 1.4rem;
     font-weight: 300;
   }
   .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
@@ -263,8 +274,8 @@ const CSS = `
   }
   .stat { text-align: center; padding: 0 3rem; border-right: 1px solid #333; }
   .stat:last-child { border-right: none; }
-  .stat-num { font-family: var(--ff); font-size: 2.4rem; color: #D4A017; display: block; line-height: 1; font-weight: 600; }
-  .stat-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #666; margin-top: 6px; display: block; font-weight: 500; }
+  .stat-num { font-family: var(--ff); font-size: 2.6rem; color: #F0C040; display: block; line-height: 1; font-weight: 600; text-shadow: 0 0 20px rgba(240,192,64,0.25); }
+  .stat-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #CCCCCC; margin-top: 6px; display: block; font-weight: 600; }
 
   /* ── EASY SECTION ── */
   .easy-section { background: #F0FDF4; border-top: 1px solid #BBF7D0; border-bottom: 1px solid #BBF7D0; padding: 52px 2.5rem; }
@@ -283,12 +294,12 @@ const CSS = `
   .sec-action:hover { text-decoration: underline; }
 
   /* ── CATEGORY GRID ── */
-  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
   .cat-card {
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 20px 14px;
+    padding: 28px 16px;
     text-align: center;
     cursor: pointer;
     transition: all 0.2s;
@@ -296,8 +307,8 @@ const CSS = `
   .cat-card:hover { border-color: var(--gold-border); background: var(--gold-pale); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(184,134,11,0.08); }
   .cat-card.easy-cat { border-color: #BBF7D0; background: #F0FDF4; }
   .cat-card.easy-cat:hover { border-color: var(--green); background: #DCFCE7; }
-  .cat-icon { font-size: 24px; margin-bottom: 10px; display: block; }
-  .cat-name { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--dark); line-height: 1.4; }
+  .cat-icon { font-size: 36px; margin-bottom: 12px; display: block; }
+  .cat-name { font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--dark); line-height: 1.4; }
   .cat-count { font-size: 11px; color: var(--muted); margin-top: 5px; }
   .cat-free { font-size: 9px; color: var(--green); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
 
@@ -800,8 +811,9 @@ function Home({ listings, loading, go }) {
       <div className="stats-bar">
         <div className="stat"><span className="stat-num">{listings.length}+</span><span className="stat-label">Active Listings</span></div>
         <div className="stat"><span className="stat-num">${avgPay}</span><span className="stat-label">Avg. Payout</span></div>
-        <div className="stat"><span className="stat-num">Free</span><span className="stat-label">To Join</span></div>
-        <div className="stat"><span className="stat-num">Daily</span><span className="stat-label">Updated</span></div>
+        <div className="stat"><span className="stat-num">$500</span><span className="stat-label">Top Single Payout</span></div>
+        <div className="stat"><span className="stat-num">Free</span><span className="stat-label">To Browse</span></div>
+        <div className="stat"><span className="stat-num">8AM</span><span className="stat-label">Daily Refresh</span></div>
       </div>
 
       {/* ── BROWSE BY CATEGORY ── */}
@@ -922,8 +934,8 @@ function Home({ listings, loading, go }) {
             {[
               { n:"01", t:"We Scrape Daily", d:"Our system pulls from 12+ sources every morning — Respondent, UserInterviews, FocusGroups.org, taste test panels, mock jury firms, and more." },
               { n:"02", t:"AI Curates Quality", d:"Every listing is scored 0–100 for pay, time commitment, and legitimacy. Only quality opportunities make it to your feed." },
-              { n:"03", t:"Expired Listings Auto-Removed", d:"Listings that disappear from their source are automatically marked expired within 4 days. You only see what's live." },
-              { n:"04", t:"You Get Paid", d:"Quick Wins are free to all. Pro members unlock everything else — taste tests, medical studies, and $200+ interviews." },
+              { n:"03", t:"Expired Listings Auto-Removed", d:"Listings that disappear from their source are automatically marked expired. You only ever see what's currently live and accepting applicants." },
+              { n:"04", t:"Choose Your Level", d:"⚡ Quick Wins are free for everyone. Pro ($9/mo) unlocks all listings + daily email digest. Elite ($19/mo) adds SMS alerts for $200+ gigs, 6 AM early access, concierge matching, and an earnings tracker." },
             ].map(h => (
               <div key={h.n} className="how-card">
                 <div className="how-n">{h.n}</div>
@@ -939,9 +951,9 @@ function Home({ listings, loading, go }) {
         <div className="sec-header"><div className="sec-title">What Members Are Saying</div></div>
         <div className="testi-grid">
           {[
-            { stars:"★★★★★", text:"I made $847 in my first month just from focus groups and user interviews I found here. The AI curation is a game changer.", author:"Tanya M., Dallas TX", earned:"Earned $847 in Month 1" },
+            { stars:"★★★★★", text:"I made $847 in my first month just from focus groups and user interviews I found here. The curation saves me so much time.", author:"Tanya M., Dallas TX", earned:"Earned $847 in Month 1" },
             { stars:"★★★★★", text:"The taste test listings alone paid for my subscription 10x over. I had no idea these opportunities existed near me.", author:"Marcus R., Houston TX", earned:"Earned $320 from taste tests" },
-            { stars:"★★★★★", text:"I started with Quick Wins listings and made $60 my first week with zero experience. Now I do the bigger studies too.", author:"Priya K., Chicago IL", earned:"Earned $1,100+ total" },
+            { stars:"★★★★★", text:"I started with Quick Wins and made $60 my first week with zero experience. Now I do the bigger studies too.", author:"Priya K., Chicago IL", earned:"Earned $1,100+ total" },
           ].map((t,i) => (
             <div key={i} className="testi-card">
               <div className="testi-stars">{t.stars}</div>
@@ -1235,6 +1247,9 @@ export default function App() {
         </div>
         <div className="footer-copy">© 2026 StudyCashBoard</div>
       </footer>
+
+      {/* Vercel Analytics — invisible to users, visible only in your Vercel dashboard */}
+      {Analytics && <Analytics />}
     </>
   );
 }

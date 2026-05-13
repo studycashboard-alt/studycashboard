@@ -267,15 +267,15 @@ const CSS = `
   /* ── STATS BAR ── */
   .stats-bar {
     background: var(--dark);
-    padding: 28px 2rem;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    padding: 24px 2rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
   }
-  .stat { text-align: center; padding: 0 3rem; border-right: 1px solid #333; }
+  .stat { text-align: center; padding: 12px 8px; border-right: 1px solid #333; }
   .stat:last-child { border-right: none; }
-  .stat-num { font-family: var(--ff); font-size: 2.6rem; color: #F0C040; display: block; line-height: 1; font-weight: 600; text-shadow: 0 0 20px rgba(240,192,64,0.25); }
-  .stat-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #CCCCCC; margin-top: 6px; display: block; font-weight: 600; }
+  .stat-num { font-family: var(--ff); font-size: 2.2rem; color: #F0C040; display: block; line-height: 1; font-weight: 600; text-shadow: 0 0 20px rgba(240,192,64,0.25); }
+  .stat-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #CCCCCC; margin-top: 6px; display: block; font-weight: 600; }
 
   /* ── EASY SECTION ── */
   .easy-section { background: #F0FDF4; border-top: 1px solid #BBF7D0; border-bottom: 1px solid #BBF7D0; padding: 52px 2.5rem; }
@@ -684,17 +684,82 @@ const CSS = `
   .tp-view-all { background: var(--gold-pale); color: var(--gold); }
   .tp-view-all:hover { background: var(--gold); color: var(--dark); }
 
-  @media (max-width: 700px) {
-    .card { grid-template-columns: 1fr; }
-    .pay-col { text-align: left; align-items: flex-start; }
-    .stat { padding: 12px 1.2rem; border-right: none; border-bottom: 1px solid #333; }
-    .stat:last-child { border-bottom: none; }
-    .nav-signin { display: none; }
-    .footer { flex-direction: column; text-align: center; }
-    .footer-links { justify-content: center; }
-    .logo-sep, .logo-tag { display: none; }
+  /* ── MOBILE ── */
+  @media (max-width: 860px) {
+    .two-panel-inner { grid-template-columns: 1fr; }
   }
-`;
+  @media (max-width: 700px) {
+    /* Nav */
+    .nav { padding: 0 1rem; height: 56px; }
+    .nav-links { gap: 0.8rem; }
+    .nav-link { font-size: 10px; letter-spacing: 0.04em; }
+    .nav-signin { display: none; }
+    .logo-sep, .logo-tag { display: none; }
+    .logo-s, .logo-c, .logo-b { font-size: 1.3rem; }
+    .nav-cta { padding: 7px 14px; font-size: 10px; }
+
+    /* Hero */
+    .hero { padding: 28px 1.2rem 24px; }
+    .hero h1 { font-size: 1.8rem; margin-bottom: 0.6rem; }
+    .hero-sub { font-size: 0.85rem; margin-bottom: 1.2rem; }
+    .hero-btns { flex-direction: column; align-items: center; gap: 8px; }
+    .btn-dark, .btn-outline-dark { width: 100%; max-width: 300px; padding: 12px 24px; font-size: 13px; }
+
+    /* Stats — 2x2 + 1 centered on mobile */
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .stat { border-right: 1px solid #333; border-bottom: 1px solid #333; padding: 14px 8px; }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(4) { border-right: none; }
+    .stat:nth-child(5) { border-bottom: none; grid-column: 1 / -1; border-right: none; }
+    .stat-num { font-size: 1.8rem; }
+    .stat-label { font-size: 9px; }
+
+    /* Sections */
+    .section { padding: 36px 1.2rem; }
+    .sec-title { font-size: 1.5rem; }
+
+    /* Category grid — 2 columns on mobile */
+    .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .cat-icon { font-size: 28px; margin-bottom: 8px; }
+    .cat-name { font-size: 10px; }
+    .cat-card { padding: 18px 10px; }
+
+    /* Two panels stacked */
+    .two-panel-wrap { padding: 24px 1.2rem; }
+
+    /* Listing cards */
+    .card { grid-template-columns: 1fr; padding: 16px; }
+    .pay-col { text-align: left; align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .panel-card-title { max-width: 200px; font-size: 0.85rem; }
+
+    /* How It Works */
+    .dark-section { padding: 36px 1.2rem; }
+    .how-grid { grid-template-columns: 1fr; gap: 12px; }
+
+    /* Testimonials */
+    .testi-grid { grid-template-columns: 1fr; }
+
+    /* Pricing */
+    .plan-grid { grid-template-columns: 1fr; padding: 0 1.2rem; }
+    .pricing-head { padding: 40px 1.2rem 32px; }
+    .pricing-head h2 { font-size: 1.8rem; }
+
+    /* Footer */
+    .footer { flex-direction: column; text-align: center; padding: 24px 1.2rem; gap: 16px; }
+    .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+
+    /* FAQ */
+    .faq-page { padding: 36px 1.2rem 60px; }
+
+    /* Contact form grid */
+    .contact-grid { grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 400px) {
+    .nav-links { gap: 0.5rem; }
+    .nav-link { font-size: 9px; }
+    .hero h1 { font-size: 1.5rem; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  }`;
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function isEasy(l) {
@@ -814,6 +879,94 @@ function Home({ listings, loading, go }) {
         <div className="stat"><span className="stat-num">$500</span><span className="stat-label">Top Single Payout</span></div>
         <div className="stat"><span className="stat-num">Free</span><span className="stat-label">To Browse</span></div>
         <div className="stat"><span className="stat-num">8AM</span><span className="stat-label">Daily Refresh</span></div>
+      </div>
+
+      {/* ══ FRONT & CENTER: START EARNING NOW — REFERRAL PLATFORMS ══ */}
+      <div style={{ background: "#0A1A0A", borderBottom: "1px solid #1A3A1A", padding: "52px 1.5rem" }}>
+        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 32 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(22,163,74,0.15)", border: "1px solid rgba(22,163,74,0.3)", borderRadius: 100, padding: "6px 16px", marginBottom: 14 }}>
+              <span style={{ width: 6, height: 6, background: "#4ADE80", borderRadius: "50%", display: "inline-block", animation: "blink 2s infinite" }} />
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4ADE80" }}>No Subscription Needed — Start Today</span>
+            </div>
+            <div style={{ fontFamily: "var(--ff)", fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 600, color: "#FFFFFF", marginBottom: 8 }}>
+              ⚡ Join These Platforms & Start Getting Paid Now
+            </div>
+            <p style={{ fontSize: 13, color: "#999", lineHeight: 1.7, maxWidth: 500, margin: "0 auto" }}>
+              The fastest ways to earn — free to join, no experience needed. We've verified every single one.
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 12 }}>
+            {[
+              { name: "Survey Junkie", pay: "Up to $40/survey", badge: "🔥 Most Popular", badgeColor: "#EF4444", url: "https://www.surveyjunkie.com/register", desc: "Share opinions, cash via PayPal" },
+              { name: "Swagbucks", pay: "$10 Signup Bonus", badge: "💰 Free Bonus", badgeColor: "#F59E0B", url: "https://www.swagbucks.com/p/register", desc: "Surveys, videos & shopping rewards" },
+              { name: "InboxDollars", pay: "$5 Signup Bonus", badge: "💵 Free $5", badgeColor: "#16A34A", url: "https://www.inboxdollars.com/register", desc: "Get paid for surveys & emails" },
+              { name: "Prolific", pay: "$6–$35/study", badge: "🎓 Academic Studies", badgeColor: "#6B3FA0", url: "https://app.prolific.com/register/participant", desc: "Short studies, avg $8–$12/hr" },
+              { name: "UserTesting", pay: "$10 per test", badge: "⚡ Instant Tests", badgeColor: "#C05A10", url: "https://www.usertesting.com/be-a-user-tester", desc: "Test websites & apps from home" },
+              { name: "Pinecone Research", pay: "Flat $3–$5 each", badge: "🔒 Limited Spots", badgeColor: "#0F6E8E", url: "https://www.pineconeresearch.com/register", desc: "Highly rated, apply while open" },
+            ].map((p, i) => (
+              <a key={i} href={p.url} target="_blank" rel="noreferrer"
+                style={{ display: "block", background: "#111", border: "1px solid #1F3A1F", borderRadius: 10, padding: "18px 16px", textDecoration: "none", transition: "all 0.2s" }}
+                onMouseOver={e => { e.currentTarget.style.borderColor="#4ADE80"; e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.background="#0D2A0D"; }}
+                onMouseOut={e => { e.currentTarget.style.borderColor="#1F3A1F"; e.currentTarget.style.transform="none"; e.currentTarget.style.background="#111"; }}
+              >
+                <div style={{ display:"inline-block", fontSize:9, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", padding:"3px 7px", borderRadius:3, background:p.badgeColor+"22", color:p.badgeColor, border:`1px solid ${p.badgeColor}44`, marginBottom:8 }}>{p.badge}</div>
+                <div style={{ fontFamily:"var(--ff)", fontSize:"1rem", fontWeight:600, color:"#FFF", marginBottom:3 }}>{p.name}</div>
+                <div style={{ fontSize:11, color:"#4ADE80", fontWeight:700, marginBottom:5 }}>{p.pay}</div>
+                <div style={{ fontSize:11, color:"#777", lineHeight:1.5 }}>{p.desc}</div>
+                <div style={{ marginTop:12, fontSize:10, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", color:"#4ADE80" }}>Join Free →</div>
+              </a>
+            ))}
+          </div>
+          <p style={{ textAlign:"center", fontSize:11, color:"#444", marginTop:16 }}>
+            * Some links are referral links — costs you nothing extra and helps keep StudyCashBoard free 💚
+          </p>
+        </div>
+      </div>
+
+      {/* ══ FRONT & CENTER: FREE RESOURCES & DIGITAL DOWNLOADS ══ */}
+      <div style={{ background: "var(--gold-pale)", borderBottom: "1px solid var(--gold-border)", padding: "52px 1.5rem" }}>
+        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 32 }}>
+            <div style={{ display:"inline-flex", alignItems:"center", gap:8, background:"rgba(184,134,11,0.1)", border:"1px solid var(--gold-border)", borderRadius:100, padding:"6px 16px", marginBottom:14 }}>
+              <span style={{ fontSize:10, fontWeight:700, letterSpacing:"0.18em", textTransform:"uppercase", color:"var(--gold)" }}>🎁 100% Free — No Credit Card Required</span>
+            </div>
+            <div style={{ fontFamily:"var(--ff)", fontSize:"clamp(1.5rem, 3vw, 2rem)", fontWeight:600, color:"var(--dark)", marginBottom:8 }}>
+              Free Resources to Maximize Your Earnings
+            </div>
+            <p style={{ fontSize:13, color:"var(--mid)", lineHeight:1.7, maxWidth:500, margin:"0 auto" }}>
+              Guides, checklists and tools to help you earn more — completely free. Join the waitlist below.
+            </p>
+          </div>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(240px, 1fr))", gap:16 }}>
+            {[
+              { icon:"📋", title:"Top 50 Paid Research Platforms", sub:"Free PDF Download", desc:"Every verified platform with direct links, average pay rates, and pro tips. Updated monthly.", tag:"Coming Soon", action:() => window.open("mailto:studycashboard@gmail.com?subject=Free PDF Waitlist","_blank") },
+              { icon:"⚡", title:"Quick Wins Starter Guide", sub:"Free 5-Day Email Course", desc:"Earn your first $100 from paid research in 5 days. Exact platforms and screener tips included.", tag:"Coming Soon", action:() => window.open("mailto:studycashboard@gmail.com?subject=Quick Wins Course Waitlist","_blank") },
+              { icon:"🎯", title:"High-Value Study Checklist", sub:"Free Printable", desc:"Know a good study when you see one. Pay-per-hour math, red flags, and how to get invited back.", tag:"Coming Soon", action:() => window.open("mailto:studycashboard@gmail.com?subject=Checklist Waitlist","_blank") },
+              { icon:"🚀", title:"Your Product Here", sub:"Placeholder", desc:"Add your own digital product, course, or service. This card is yours to customize.", tag:"Add Yours", action:() => {} },
+            ].map((p, i) => (
+              <div key={i} style={{ background:"#fff", border:"1px solid var(--gold-border)", borderRadius:12, padding:"24px 20px", display:"flex", flexDirection:"column", boxShadow:"0 4px 16px rgba(184,134,11,0.06)" }}>
+                <div style={{ fontSize:"2rem", marginBottom:10 }}>{p.icon}</div>
+                <div style={{ fontSize:9, fontWeight:700, letterSpacing:"0.12em", textTransform:"uppercase", padding:"3px 8px", borderRadius:2, background:p.tag==="Coming Soon"?"rgba(184,134,11,0.1)":"#F5F5F0", color:p.tag==="Coming Soon"?"var(--gold)":"#888", border:`1px solid ${p.tag==="Coming Soon"?"var(--gold-border)":"#E0E0E0"}`, display:"inline-block", marginBottom:8 }}>{p.tag}</div>
+                <div style={{ fontFamily:"var(--ff)", fontSize:"1.05rem", fontWeight:600, color:"var(--dark)", marginBottom:3, lineHeight:1.3 }}>{p.title}</div>
+                <div style={{ fontSize:11, color:"var(--muted2)", fontWeight:500, marginBottom:8 }}>{p.sub}</div>
+                <p style={{ fontSize:12.5, color:"var(--mid)", lineHeight:1.65, marginBottom:16, flex:1, fontWeight:300 }}>{p.desc}</p>
+                <button onClick={p.action}
+                  style={{ background:"var(--dark)", color:"#fff", border:"none", padding:"11px", borderRadius:4, fontFamily:"var(--fs)", fontSize:11, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", cursor:"pointer", width:"100%", transition:"background 0.2s" }}
+                  onMouseOver={e=>e.currentTarget.style.background="var(--gold)"}
+                  onMouseOut={e=>e.currentTarget.style.background="var(--dark)"}
+                >{p.tag==="Coming Soon"?"Join Waitlist →":"Learn More →"}</button>
+              </div>
+            ))}
+          </div>
+          <div style={{ textAlign:"center", marginTop:24 }}>
+            <button onClick={() => go("products")}
+              style={{ background:"transparent", border:"1.5px solid var(--gold)", color:"var(--gold)", padding:"12px 28px", borderRadius:4, fontFamily:"var(--fs)", fontSize:12, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", cursor:"pointer", transition:"all 0.2s" }}
+              onMouseOver={e=>{e.currentTarget.style.background="var(--gold)";e.currentTarget.style.color="var(--dark)";}}
+              onMouseOut={e=>{e.currentTarget.style.background="transparent";e.currentTarget.style.color="var(--gold)";}}
+            >View All Free Resources →</button>
+          </div>
+        </div>
       </div>
 
       {/* ── BROWSE BY CATEGORY ── */}
@@ -962,99 +1115,6 @@ function Home({ listings, loading, go }) {
               <div className="testi-earned">{t.earned}</div>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* ── START EARNING NOW — REFERRAL PLATFORMS ── */}
-      <div style={{ background: "#0D1F0D", borderTop: "1px solid #1A3A1A", borderBottom: "1px solid #1A3A1A", padding: "56px 2.5rem" }}>
-        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 36 }}>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(22,163,74,0.15)", border: "1px solid rgba(22,163,74,0.3)", borderRadius: 100, padding: "6px 16px", marginBottom: 16 }}>
-              <span style={{ width: 6, height: 6, background: "#4ADE80", borderRadius: "50%", display: "inline-block", animation: "blink 2s infinite" }} />
-              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#4ADE80" }}>Start Earning Today — No Subscription Needed</span>
-            </div>
-            <div style={{ fontFamily: "var(--ff)", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 600, color: "#FFFFFF", marginBottom: 10 }}>
-              ⚡ Join These Platforms & Start Getting Paid
-            </div>
-            <p style={{ fontSize: 13, color: "#888", lineHeight: 1.7, maxWidth: 520, margin: "0 auto" }}>
-              These are the fastest ways to earn money from paid research — no experience needed. Sign up free through our links below.
-            </p>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 14 }}>
-            {[
-              { name: "Survey Junkie", pay: "Up to $40/survey", badge: "🔥 Most Popular", badgeColor: "#EF4444", url: "https://www.surveyjunkie.com/register", desc: "Share opinions, earn cash via PayPal" },
-              { name: "Swagbucks", pay: "$10 Signup Bonus", badge: "💰 Bonus on Join", badgeColor: "#F59E0B", url: "https://www.swagbucks.com/p/register", desc: "Surveys, videos & shopping rewards" },
-              { name: "InboxDollars", pay: "$5 Signup Bonus", badge: "💵 Free $5", badgeColor: "#16A34A", url: "https://www.inboxdollars.com/register", desc: "Get paid for surveys & emails" },
-              { name: "Prolific", pay: "$6–$35/study", badge: "🎓 Academic Studies", badgeColor: "#6B3FA0", url: "https://app.prolific.com/register/participant", desc: "Short studies, avg $8–$12/hr" },
-              { name: "UserTesting", pay: "$10 per test", badge: "⚡ Instant Tests", badgeColor: "#C05A10", url: "https://www.usertesting.com/be-a-user-tester", desc: "Test websites & apps from home" },
-              { name: "Pinecone Research", pay: "Flat $3–$5 each", badge: "🔒 Invite Only", badgeColor: "#0F6E8E", url: "https://www.pineconeresearch.com/register", desc: "Highly rated, limited spots open" },
-            ].map((p, i) => (
-              <a key={i} href={p.url} target="_blank" rel="noreferrer"
-                style={{ display: "block", background: "#111", border: "1px solid #1F3A1F", borderRadius: 10, padding: "20px 18px", textDecoration: "none", transition: "all 0.2s", cursor: "pointer" }}
-                onMouseOver={e => { e.currentTarget.style.borderColor = "#4ADE80"; e.currentTarget.style.background = "#0D2A0D"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                onMouseOut={e => { e.currentTarget.style.borderColor = "#1F3A1F"; e.currentTarget.style.background = "#111"; e.currentTarget.style.transform = "none"; }}
-              >
-                <div style={{ display: "inline-block", fontSize: 9, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", padding: "3px 8px", borderRadius: 3, background: p.badgeColor + "22", color: p.badgeColor, border: `1px solid ${p.badgeColor}44`, marginBottom: 10 }}>{p.badge}</div>
-                <div style={{ fontFamily: "var(--ff)", fontSize: "1.05rem", fontWeight: 600, color: "#FFFFFF", marginBottom: 4 }}>{p.name}</div>
-                <div style={{ fontSize: 11, color: "#4ADE80", fontWeight: 700, marginBottom: 6 }}>{p.pay}</div>
-                <div style={{ fontSize: 11, color: "#888", lineHeight: 1.5 }}>{p.desc}</div>
-                <div style={{ marginTop: 14, fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4ADE80" }}>Join Free →</div>
-              </a>
-            ))}
-          </div>
-          <p style={{ textAlign: "center", fontSize: 11, color: "#444", marginTop: 20 }}>
-            * Some links are referral links — costs you nothing extra and helps support StudyCashBoard 💚
-          </p>
-        </div>
-      </div>
-
-      {/* ── FREE RESOURCES & DIGITAL DOWNLOADS ── */}
-      <div style={{ background: "var(--gold-pale)", borderTop: "1px solid var(--gold-border)", borderBottom: "1px solid var(--gold-border)", padding: "56px 2.5rem" }}>
-        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 36 }}>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(184,134,11,0.1)", border: "1px solid var(--gold-border)", borderRadius: 100, padding: "6px 16px", marginBottom: 16 }}>
-              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)" }}>🎁 100% Free — No Credit Card</span>
-            </div>
-            <div style={{ fontFamily: "var(--ff)", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 600, color: "var(--dark)", marginBottom: 10 }}>
-              Free Resources to Maximize Your Earnings
-            </div>
-            <p style={{ fontSize: 13, color: "var(--mid)", lineHeight: 1.7, maxWidth: 520, margin: "0 auto" }}>
-              Everything you need to get started and earn more — completely free. Join the waitlist for our upcoming guides and tools.
-            </p>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16 }}>
-            {[
-              { icon: "📋", title: "Top 50 Paid Research Platforms", sub: "Free PDF Download", desc: "Every verified platform where you can earn money, with direct signup links, average pay rates, and pro tips. Updated monthly.", tag: "Coming Soon", action: () => window.open("mailto:studycashboard@gmail.com?subject=Free PDF Waitlist", "_blank") },
-              { icon: "⚡", title: "Quick Wins Starter Guide", sub: "Free 5-Day Email Course", desc: "Earn your first $100 from paid research in 5 days. Exact platforms, screener tips, and how to qualify for more studies.", tag: "Coming Soon", action: () => window.open("mailto:studycashboard@gmail.com?subject=Quick Wins Course Waitlist", "_blank") },
-              { icon: "🎯", title: "High-Value Study Checklist", sub: "Free Printable", desc: "Know a good study when you see one. Covers pay-per-hour math, red flags to avoid, and how to get invited back.", tag: "Coming Soon", action: () => window.open("mailto:studycashboard@gmail.com?subject=Checklist Waitlist", "_blank") },
-              { icon: "🚀", title: "Your Product Here", sub: "Placeholder", desc: "Add your own digital product, course, or service here. This card is yours to customize with your own offering.", tag: "Add Yours", action: () => {} },
-            ].map((p, i) => (
-              <div key={i} style={{ background: "#fff", border: "1px solid var(--gold-border)", borderRadius: 12, padding: "28px 22px", display: "flex", flexDirection: "column", boxShadow: "0 4px 16px rgba(184,134,11,0.06)" }}>
-                <div style={{ fontSize: "2.2rem", marginBottom: 12 }}>{p.icon}</div>
-                <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "3px 9px", borderRadius: 2, background: p.tag === "Coming Soon" ? "rgba(184,134,11,0.1)" : "#F5F5F0", color: p.tag === "Coming Soon" ? "var(--gold)" : "#888", border: `1px solid ${p.tag === "Coming Soon" ? "var(--gold-border)" : "#E0E0E0"}`, display: "inline-block", marginBottom: 10 }}>{p.tag}</div>
-                <div style={{ fontFamily: "var(--ff)", fontSize: "1.1rem", fontWeight: 600, color: "var(--dark)", marginBottom: 4, lineHeight: 1.3 }}>{p.title}</div>
-                <div style={{ fontSize: 11, color: "var(--muted2)", fontWeight: 500, marginBottom: 10 }}>{p.sub}</div>
-                <p style={{ fontSize: 12.5, color: "var(--mid)", lineHeight: 1.65, marginBottom: 20, flex: 1, fontWeight: 300 }}>{p.desc}</p>
-                <button onClick={p.action}
-                  style={{ background: "var(--dark)", color: "#fff", border: "none", padding: "11px", borderRadius: 4, fontFamily: "var(--fs)", fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer", width: "100%", transition: "background 0.2s" }}
-                  onMouseOver={e => e.currentTarget.style.background = "var(--gold)"}
-                  onMouseOut={e => e.currentTarget.style.background = "var(--dark)"}
-                >
-                  {p.tag === "Coming Soon" ? "Join Waitlist →" : "Learn More →"}
-                </button>
-              </div>
-            ))}
-          </div>
-          <div style={{ textAlign: "center", marginTop: 28 }}>
-            <button
-              onClick={() => go("products")}
-              style={{ background: "transparent", border: "1.5px solid var(--gold)", color: "var(--gold)", padding: "12px 28px", borderRadius: 4, fontFamily: "var(--fs)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer", transition: "all 0.2s" }}
-              onMouseOver={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.color = "var(--dark)"; }}
-              onMouseOut={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--gold)"; }}
-            >
-              View All Free Resources →
-            </button>
-          </div>
         </div>
       </div>
 

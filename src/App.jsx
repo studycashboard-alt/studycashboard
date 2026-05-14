@@ -543,36 +543,40 @@ const CSS = `
   /* Social sidebar on hero */
   .hero-social-bar {
     position: absolute;
-    left: 20px;
+    left: 16px;
     top: 50%;
     transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     z-index: 10;
+    width: 140px;
+  }
+  .hero-social-bar .social-item:last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
   }
   .social-link {
     display: flex; align-items: center; justify-content: center;
-    width: 48px; height: 48px; border-radius: 50%;
+    width: 58px; height: 58px; border-radius: 12px;
     border: 2px solid var(--gold-border);
     color: var(--gold);
-    font-size: 20px; font-weight: 700;
+    font-size: 26px;
     cursor: pointer; transition: all 0.2s; text-decoration: none;
     background: var(--gold-pale);
     font-family: var(--fs);
-    box-shadow: 0 2px 8px rgba(184,134,11,0.15);
+    box-shadow: 0 2px 10px rgba(184,134,11,0.12);
   }
   .social-link:hover {
     border-color: var(--gold-bright);
-    color: var(--dark);
     background: var(--gold-bright);
-    transform: scale(1.15);
-    box-shadow: 0 4px 16px rgba(184,134,11,0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(184,134,11,0.35);
   }
   .social-link-label {
-    font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-size: 8px; letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--muted2); text-align: center; margin-top: 4px;
-    font-family: var(--fs); display: block; font-weight: 600;
+    font-family: var(--fs); display: block; font-weight: 700;
   }
   .social-item { display: flex; flex-direction: column; align-items: center; }
   /* Footer social (smaller, horizontal) */
@@ -939,14 +943,20 @@ function Home({ listings, loading, go, adminMode }) {
 
       <div className="stats-bar">
         <div className="stat"><span className="stat-num">{listings.length}+</span><span className="stat-label">Active Listings</span></div>
-        <div className="stat"><span className="stat-num">$30</span><span className="stat-label">Quick Wins Max</span></div>
-        <div className="stat"><span className="stat-num">$500</span><span className="stat-label">Pro Top Payout</span></div>
-        <div className="stat"><span className="stat-num">🇺🇸</span><span className="stat-label">USA Only</span></div>
+        <div className="stat"><span className="stat-num">$30</span><span className="stat-label">Quick Wins</span></div>
+        <div className="stat"><span className="stat-num">$500</span><span className="stat-label">Top Pro Payout</span></div>
+        <div className="stat"><span className="stat-num">Free</span><span className="stat-label">To Join</span></div>
         <div className="stat"><span className="stat-num">8AM</span><span className="stat-label">Daily Refresh</span></div>
       </div>
 
       {/* ── BROWSE BY CATEGORY ── */}
       <div className="section">
+        <div style={{ background:"#F0FDF4", border:"1px solid #BBF7D0", borderRadius:6, padding:"10px 18px", marginBottom:16, display:"flex", alignItems:"center", gap:10, flexWrap:"wrap" }}>
+          <span style={{ fontSize:16 }}>⚡</span>
+          <span style={{ fontSize:13, color:"#065F46", fontWeight:600 }}>Quick Wins are always free</span>
+          <span style={{ fontSize:12, color:"#16A34A" }}>— browse and apply at no cost, no subscription needed.</span>
+          <span style={{ fontSize:12, color:"#6B7280", marginLeft:"auto" }}>All other categories unlock with Pro.</span>
+        </div>
         <div className="sec-header">
           <div className="sec-title">Browse by Category</div>
           <button className="sec-action" onClick={() => go("listings")}>See all →</button>
@@ -1487,6 +1497,7 @@ function FAQ({ go }) {
     { q: "How often are listings updated?", a: "Our team reviews and updates listings every morning at 8 AM CT from 12+ sources. Expired listings are automatically removed so you only see what's currently accepting applicants." },
     { q: "What's the difference between Pro and Elite?", a: "Pro ($9/mo) gives you unlimited listings, all categories, daily email digests, and advanced filters. Elite ($19/mo) adds SMS alerts for $200+ opportunities, 6 AM early access (2 hours before everyone else), concierge profile matching, an earnings tracker dashboard, and a members-only Slack community." },
     { q: "Are these opportunities legit?", a: "Yes. We only list opportunities from established research companies like Respondent, User Interviews, L&E Research, Fieldwork, Curion, and similar reputable firms. We never list opportunities that ask you to pay money, buy products, or provide sensitive personal information upfront." },
+    { q: "🇺🇸 Is StudyCashBoard available outside the USA?", a: "StudyCashBoard is a USA-only platform. All listings are verified to be open to US residents. Some studies may require you to be in a specific state or city for in-person sessions, while remote studies are open to all US residents regardless of location. We do not currently list international opportunities." },
     { q: "Do I need experience to participate?", a: "No experience is needed for most listings — especially Quick Wins. For higher-paying studies ($100+), companies look for specific demographics or professional backgrounds, but no research experience is required." },
     { q: "Can I cancel my subscription anytime?", a: "Yes — cancel anytime with no penalty. You keep access until the end of your billing period. We also offer a 30-day money-back guarantee if you're not satisfied." },
     { q: "I have a question not listed here. How do I contact you?", a: "Reach us anytime at studycashboard@gmail.com. We typically respond within 24 hours." },

@@ -1170,10 +1170,11 @@ function Listings({ listings, loading, go, initCat, adminMode }) {
     return 0;
   });
 
-  // Separate Easy / Pro Quick Wins / Regular
+  // Separate free Quick Wins (≤$30) from everything else
+  // Pro Quick Wins ($30+) are merged into regular Pro listings — no confusing labeling
   const fEasy        = filtered.filter(l => isEasy(l) && !isProQuickWin(l));
-  const fProQW       = filtered.filter(l => isEasy(l) && isProQuickWin(l));
-  const fReg         = filtered.filter(l => !isEasy(l));
+  const fProQW       = [];  // unused — merged into fReg below
+  const fReg         = filtered.filter(l => !isEasy(l) || isProQuickWin(l));
 
   // Admin mode: unlock everything for testing
   // Visit ?admin=true to activate
@@ -1314,22 +1315,7 @@ function Listings({ listings, loading, go, initCat, adminMode }) {
               </>
             )}
 
-            {/* Pro Quick Wins — $30+ value, shown as locked */}
-            {fProQW.length > 0 && (
-              <>
-                <div style={{ display:"flex", alignItems:"center", gap:10, margin:"16px 0 12px", padding:"10px 16px", background:"#FFFBF0", border:"1px solid var(--gold-border)", borderRadius:6 }}>
-                  <span style={{ fontSize:13, color:"var(--gold)", fontWeight:700 }}>⚡ Premium Quick Wins — $30+ per study</span>
-                  <span style={{ fontSize:11, color:"var(--muted2)" }}>🔒 Pro members only</span>
-                </div>
-                {fProQW.map((l,i) => (
-                  adminMode
-                    ? <ListingCard key={l.id} listing={l} index={i} />
-                    : <ListingCard key={l.id} listing={l} index={i} isLocked onUpgrade={() => go("pricing")} />
-                ))}
-              </>
-            )}
-
-            {(fEasy.length > 0 || fProQW.length > 0) && fReg.length > 0 && (
+            {fEasy.length > 0 && fReg.length > 0 && (
               <div style={{ height:1, background:"var(--border)", margin:"24px 0" }} />
             )}
 
@@ -1735,7 +1721,11 @@ export default function App() {
   // Keep this URL secret — don't share with users
   const [adminMode] = useState(() => {
     try {
-      return new URLSearchParams(window.location.search).get("admin") === "true";
+      const params = new URLSearchParams(window.location.search);
+      const isAdmin = params.get("admin") === "true";
+      // Persist in sessionStorage so it survives page navigation
+      if (isAdmin) sessionStorage.setItem("scb_admin", "true");
+      return isAdmin || sessionStorage.getItem("scb_admin") === "true";
     } catch { return false; }
   });
 

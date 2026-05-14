@@ -560,24 +560,26 @@ const CSS = `
     width: 210px;
   }
   .social-cta-top {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 800;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #F0C040;
+    color: #7C3AED;
     text-align: center;
-    line-height: 1.4;
-    text-shadow: 0 0 12px rgba(240,192,64,0.5);
-    padding: 6px 10px;
-    background: rgba(240,192,64,0.08);
-    border: 1px solid rgba(240,192,64,0.25);
-    border-radius: 6px;
+    line-height: 1.5;
+    padding: 10px 12px;
+    background: #F5F0FF;
+    border: 2px solid #7C3AED;
+    border-radius: 8px;
     width: 100%;
+    box-shadow: 0 2px 8px rgba(124,58,237,0.2);
   }
   .social-cta-top span {
     display: block;
-    font-size: 13px;
-    margin-bottom: 2px;
+    font-size: 15px;
+    font-weight: 900;
+    margin-bottom: 3px;
+    color: #5B21B6;
   }
   .social-icons-grid {
     display: grid;
@@ -586,20 +588,25 @@ const CSS = `
     width: 100%;
   }
   .social-cta-bottom {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #4ADE80;
+    color: #059669;
     text-align: center;
-    text-shadow: 0 0 8px rgba(74,222,128,0.4);
+    padding: 8px 10px;
+    background: #ECFDF5;
+    border: 2px solid #059669;
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(5,150,105,0.2);
   }
   .social-link {
     display: flex; align-items: center; justify-content: center;
-    width: 62px; height: 62px; border-radius: 14px;
+    width: 64px; height: 64px; border-radius: 16px;
     border: none;
     cursor: pointer; transition: all 0.2s; text-decoration: none;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
   }
   .social-link:hover {
     transform: translateY(-4px);
@@ -607,9 +614,9 @@ const CSS = `
     opacity: 0.88;
   }
   .social-link-label {
-    font-size: 8px; letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--muted2); text-align: center; margin-top: 5px;
-    font-family: var(--fs); display: block; font-weight: 700;
+    font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--dark); text-align: center; margin-top: 5px;
+    font-family: var(--fs); display: block; font-weight: 800;
   }
   .social-item { display: flex; flex-direction: column; align-items: center; }
   /* Footer social (smaller, horizontal) */
@@ -962,49 +969,49 @@ function Home({ listings, loading, go, adminMode }) {
           {/* CTA above icons */}
           <div className="social-cta-top">
             <span>📢 Follow Us</span>
-            Daily study alerts<br/>& member wins
+            Paid study tips<br/>& opportunities
           </div>
           {/* Icons grid */}
           <div className="social-icons-grid">
           <div className="social-item">
             <a className="social-link" href="https://www.facebook.com/profile.php?id=61589355185446" target="_blank" rel="noreferrer" title="Facebook"
               style={{ background:"#1877F2" }}>
-              <img src="https://cdn.simpleicons.org/facebook/white" alt="Facebook" width="28" height="28" style={{display:"block"}} />
+              <img src="https://cdn.simpleicons.org/facebook/white" alt="Facebook" width="30" height="30" style={{display:"block"}} />
             </a>
             <span className="social-link-label">Facebook</span>
           </div>
           <div className="social-item">
             <a className="social-link" href="https://www.instagram.com/studycashboard/" target="_blank" rel="noreferrer" title="Instagram"
               style={{ background:"#E4405F" }}>
-              <img src="https://cdn.simpleicons.org/instagram/white" alt="Instagram" width="28" height="28" style={{display:"block"}} />
+              <img src="https://cdn.simpleicons.org/instagram/white" alt="Instagram" width="30" height="30" style={{display:"block"}} />
             </a>
             <span className="social-link-label">Instagram</span>
           </div>
           <div className="social-item">
             <a className="social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="X"
               style={{ background:"#000000" }}>
-              <img src="https://cdn.simpleicons.org/x/white" alt="X" width="28" height="28" style={{display:"block"}} />
+              <img src="https://cdn.simpleicons.org/x/white" alt="X" width="30" height="30" style={{display:"block"}} />
             </a>
             <span className="social-link-label">X</span>
           </div>
           <div className="social-item">
             <a className="social-link" href="https://www.tiktok.com/@studycashboard?lang=en" target="_blank" rel="noreferrer" title="TikTok"
               style={{ background:"#000000" }}>
-              <img src="https://cdn.simpleicons.org/tiktok/white" alt="TikTok" width="28" height="28" style={{display:"block"}} />
+              <img src="https://cdn.simpleicons.org/tiktok/white" alt="TikTok" width="30" height="30" style={{display:"block"}} />
             </a>
             <span className="social-link-label">TikTok</span>
           </div>
           <div className="social-item">
             <a className="social-link" href="https://www.youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="YouTube"
               style={{ background:"#FF0000" }}>
-              <img src="https://cdn.simpleicons.org/youtube/white" alt="YouTube" width="28" height="28" style={{display:"block"}} />
+              <img src="https://cdn.simpleicons.org/youtube/white" alt="YouTube" width="30" height="30" style={{display:"block"}} />
             </a>
             <span className="social-link-label">YouTube</span>
           </div>
           <div className="social-item">
             <a className="social-link" href="https://www.pinterest.com/studycashboard/?actingBusinessId=1097752615330468682" target="_blank" rel="noreferrer" title="Pinterest"
               style={{ background:"#E60023" }}>
-              <img src="https://cdn.simpleicons.org/pinterest/white" alt="Pinterest" width="28" height="28" style={{display:"block"}} />
+              <img src="https://cdn.simpleicons.org/pinterest/white" alt="Pinterest" width="30" height="30" style={{display:"block"}} />
             </a>
             <span className="social-link-label">Pinterest</span>
           </div>

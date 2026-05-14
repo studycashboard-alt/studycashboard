@@ -184,7 +184,7 @@ const CSS = `
   /* ── HERO ── */
   .hero {
     background: var(--cream);
-    padding: 36px 2rem 32px;
+    padding: 36px 2rem 32px 230px;
     text-align: center;
     border-bottom: 1px solid var(--border);
     position: relative;
@@ -543,39 +543,35 @@ const CSS = `
   /* Social sidebar on hero */
   .hero-social-bar {
     position: absolute;
-    left: 16px;
+    left: 12px;
     top: 50%;
     transform: translateY(-50%);
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     z-index: 10;
-    width: 140px;
-  }
-  .hero-social-bar .social-item:last-child {
-    grid-column: 1 / -1;
-    justify-self: center;
+    width: 210px;
   }
   .social-link {
     display: flex; align-items: center; justify-content: center;
-    width: 58px; height: 58px; border-radius: 12px;
+    width: 62px; height: 62px; border-radius: 14px;
     border: 2px solid var(--gold-border);
     color: var(--gold);
-    font-size: 26px;
+    font-size: 28px;
     cursor: pointer; transition: all 0.2s; text-decoration: none;
     background: var(--gold-pale);
     font-family: var(--fs);
-    box-shadow: 0 2px 10px rgba(184,134,11,0.12);
+    box-shadow: 0 3px 12px rgba(184,134,11,0.15);
   }
   .social-link:hover {
     border-color: var(--gold-bright);
     background: var(--gold-bright);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(184,134,11,0.35);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(184,134,11,0.4);
   }
   .social-link-label {
-    font-size: 8px; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--muted2); text-align: center; margin-top: 4px;
+    font-size: 8px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--muted2); text-align: center; margin-top: 5px;
     font-family: var(--fs); display: block; font-weight: 700;
   }
   .social-item { display: flex; flex-direction: column; align-items: center; }
@@ -928,9 +924,10 @@ function Home({ listings, loading, go, adminMode }) {
         <div className="hero-social-bar">
           <div className="social-item"><a className="social-link" href="https://www.facebook.com/profile.php?id=61589355185446" target="_blank" rel="noreferrer" title="Follow us on Facebook">📘</a><span className="social-link-label">Facebook</span></div>
           <div className="social-item"><a className="social-link" href="https://www.instagram.com/studycashboard/" target="_blank" rel="noreferrer" title="Follow us on Instagram">📷</a><span className="social-link-label">Instagram</span></div>
-          <div className="social-item"><a className="social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="Follow us on X">𝕏</a><span className="social-link-label">X / Twitter</span></div>
+          <div className="social-item"><a className="social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="Follow us on X">𝕏</a><span className="social-link-label">X</span></div>
           <div className="social-item"><a className="social-link" href="https://www.tiktok.com/@studycashboard?lang=en" target="_blank" rel="noreferrer" title="Follow us on TikTok">🎵</a><span className="social-link-label">TikTok</span></div>
           <div className="social-item"><a className="social-link" href="https://www.youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="Subscribe on YouTube">▶️</a><span className="social-link-label">YouTube</span></div>
+          <div className="social-item"><a className="social-link" href="https://www.pinterest.com/studycashboard/?actingBusinessId=1097752615330468682" target="_blank" rel="noreferrer" title="Follow us on Pinterest">📌</a><span className="social-link-label">Pinterest</span></div>
         </div>
         <div className="hero-eyebrow"><div className="hero-dot" /> Reviewed daily by our team</div>
         <h1>Get Paid to<br /><em>Share Your Opinion</em></h1>
@@ -1871,7 +1868,7 @@ export default function App() {
           <button className="footer-link" onClick={() => go("terms")}>Terms</button>
         </div>
         <div className="footer-social-links">
-          <a className="footer-social-link" href="https://www.facebook.com/profile.php?id=61589355185446" target="_blank" rel="noreferrer" title="Facebook">📘</a> <a className="footer-social-link" href="https://www.instagram.com/studycashboard/" target="_blank" rel="noreferrer" title="Instagram">📷</a> <a className="footer-social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="X">𝕏</a> <a className="footer-social-link" href="https://www.tiktok.com/@studycashboard?lang=en" target="_blank" rel="noreferrer" title="TikTok">🎵</a> <a className="footer-social-link" href="https://www.youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="YouTube">▶️</a>
+          <a className="footer-social-link" href="https://www.facebook.com/profile.php?id=61589355185446" target="_blank" rel="noreferrer" title="Facebook">📘</a> <a className="footer-social-link" href="https://www.instagram.com/studycashboard/" target="_blank" rel="noreferrer" title="Instagram">📷</a> <a className="footer-social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="X">𝕏</a> <a className="footer-social-link" href="https://www.tiktok.com/@studycashboard?lang=en" target="_blank" rel="noreferrer" title="TikTok">🎵</a> <a className="footer-social-link" href="https://www.youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="YouTube">▶️</a> <a className="footer-social-link" href="https://www.pinterest.com/studycashboard/?actingBusinessId=1097752615330468682" target="_blank" rel="noreferrer" title="Pinterest">📌</a>
         </div>
         <div className="footer-copy">© 2026 StudyCashBoard · All rights reserved</div>
       </footer>

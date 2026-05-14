@@ -2,13 +2,13 @@ name: StudyCashBoard Daily Scraper
 
 on:
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '0 13 * * *'   # 8:00 AM CT (13:00 UTC)
   workflow_dispatch:
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -17,11 +17,27 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install -r scraper/requirements.txt
+        run: pip install supabase anthropic requests beautifulsoup4 lxml
 
-      - name: Run scraper
+      - name: Run main scraper
         env:
           SUPABASE_URL:      ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY:      ${{ secrets.SUPABASE_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scraper/scraper.py
+
+      - name: Run Craigslist scraper
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: python scraper/craigslist_scraper.py
+        continue-on-error: true
+
+      - name: Run User Interviews scraper
+        if: ${{ secrets.UI_COOKIES != '' }}
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          UI_COOKIES:   ${{ secrets.UI_COOKIES }}
+        run: python scraper/userinterviews_scraper.py
+        continue-on-error: true

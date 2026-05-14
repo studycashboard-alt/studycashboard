@@ -20,6 +20,7 @@ const supabase = createClient(
 const FREE_LIMIT = 5;
 const EASY_CAT = "Easy Application";
 const EASY_LABEL = "Quick Wins";
+const QUICK_WINS_MAX_PAY = 30;  // Free tier cap — listings above this are Pro only
 
 const CATEGORIES = [
   { label: "All Listings",       icon: "✦",  value: "",                   color: "#B8860B" },
@@ -767,6 +768,14 @@ function isEasy(l) {
     (l.Category === "Online Survey" && (l.Pay || 0) >= 10 && (l.Pay || 0) <= 40);
 }
 
+// Quick Wins where pay_max > $30 are Pro-only — too valuable to give away free
+// Lightster ($60/hr), Mindswarms ($50), dscout ($200), Validately ($100) all move to Pro
+function isProQuickWin(l) {
+  if (!isEasy(l)) return false;
+  const payMax = l.Pay_Max || l.pay_max || l.Pay || l.pay || 0;
+  return payMax > QUICK_WINS_MAX_PAY;
+}
+
 // ── Components ────────────────────────────────────────────────────────────────
 function Spinner() {
   return (
@@ -853,10 +862,10 @@ function ListingCard({ listing, index, isLocked, onUpgrade }) {
 }
 
 // ── Pages ─────────────────────────────────────────────────────────────────────
-function Home({ listings, loading, go }) {
+function Home({ listings, loading, go, adminMode }) {
   const counts = {};
   listings.forEach(l => { const c = isEasy(l) ? EASY_CAT : l.Category; counts[c] = (counts[c] || 0) + 1; });
-  const easyList = listings.filter(isEasy).slice(0, 6);
+  const easyList = listings.filter(l => isEasy(l) && !isProQuickWin(l)).slice(0, 6);
   const topList  = listings.filter(l => !isEasy(l)).sort((a,b) => (b.Score||0)-(a.Score||0)).slice(0, 8);
   const withPay  = listings.filter(l => l.Pay);
   const avgPay   = withPay.length ? Math.round(withPay.reduce((s,l) => s+l.Pay,0)/withPay.length) : 127;
@@ -1128,7 +1137,7 @@ function Home({ listings, loading, go }) {
   );
 }
 
-function Listings({ listings, loading, go, initCat }) {
+function Listings({ listings, loading, go, initCat, adminMode }) {
   const [search, setSearch] = useState("");
   const [cat, setCat] = useState(initCat || "");
   const [loc, setLoc] = useState("");
@@ -1161,11 +1170,16 @@ function Listings({ listings, loading, go, initCat }) {
     return 0;
   });
 
-  const fEasy = filtered.filter(isEasy);
-  const fReg  = filtered.filter(l => !isEasy(l));
-  const vis   = fReg.slice(0, FREE_LIMIT);
-  const locked = fReg.slice(FREE_LIMIT, FREE_LIMIT+6);
-  const more  = Math.max(0, fReg.length - FREE_LIMIT);
+  // Separate Easy / Pro Quick Wins / Regular
+  const fEasy        = filtered.filter(l => isEasy(l) && !isProQuickWin(l));
+  const fProQW       = filtered.filter(l => isEasy(l) && isProQuickWin(l));
+  const fReg         = filtered.filter(l => !isEasy(l));
+
+  // Admin mode: unlock everything for testing
+  // Visit ?admin=true to activate
+  const vis    = adminMode ? fReg : fReg.slice(0, FREE_LIMIT);
+  const locked = adminMode ? [] : fReg.slice(FREE_LIMIT, FREE_LIMIT+6);
+  const more   = adminMode ? 0 : Math.max(0, fReg.length - FREE_LIMIT);
 
   return (
     <div style={{ maxWidth: 1140, margin: "0 auto", padding: "48px 2.5rem 72px" }}>
@@ -1280,16 +1294,45 @@ function Listings({ listings, loading, go, initCat }) {
         ? <div className="empty"><h3>No listings match your filters</h3><p>Try adjusting your search or clearing filters.</p></div>
         : (
           <>
+            {/* Admin mode banner */}
+            {adminMode && (
+              <div style={{ background:"#1A1A2E", border:"1px solid #F0C040", borderRadius:6, padding:"10px 16px", marginBottom:16, display:"flex", alignItems:"center", gap:10 }}>
+                <span style={{ fontSize:16 }}>🔓</span>
+                <span style={{ fontSize:13, color:"#F0C040", fontWeight:700 }}>ADMIN MODE — All listings unlocked for testing</span>
+                <span style={{ fontSize:11, color:"#888", marginLeft:"auto" }}>Remove ?admin=true from URL to test user view</span>
+              </div>
+            )}
+
+            {/* Free Quick Wins — always visible */}
             {fEasy.length > 0 && (
               <>
                 <div style={{ display:"flex", alignItems:"center", gap:10, margin:"0 0 12px", padding:"10px 16px", background:"#F0FDF4", border:"1px solid #BBF7D0", borderRadius:6 }}>
                   <span style={{ fontSize:13, color:"#065F46", fontWeight:600 }}>⚡ Quick Wins — Free to All Users</span>
-                  <span style={{ fontSize:11, color:"#16A34A" }}>No Pro membership needed</span>
+                  <span style={{ fontSize:11, color:"#16A34A" }}>No Pro membership needed · Max $30</span>
                 </div>
                 {fEasy.map((l,i) => <ListingCard key={l.id} listing={l} index={i} />)}
-                {fReg.length > 0 && <div style={{ height:1, background:"var(--border)", margin:"24px 0" }} />}
               </>
             )}
+
+            {/* Pro Quick Wins — $30+ value, shown as locked */}
+            {fProQW.length > 0 && (
+              <>
+                <div style={{ display:"flex", alignItems:"center", gap:10, margin:"16px 0 12px", padding:"10px 16px", background:"#FFFBF0", border:"1px solid var(--gold-border)", borderRadius:6 }}>
+                  <span style={{ fontSize:13, color:"var(--gold)", fontWeight:700 }}>⚡ Premium Quick Wins — $30+ per study</span>
+                  <span style={{ fontSize:11, color:"var(--muted2)" }}>🔒 Pro members only</span>
+                </div>
+                {fProQW.map((l,i) => (
+                  adminMode
+                    ? <ListingCard key={l.id} listing={l} index={i} />
+                    : <ListingCard key={l.id} listing={l} index={i} isLocked onUpgrade={() => go("pricing")} />
+                ))}
+              </>
+            )}
+
+            {(fEasy.length > 0 || fProQW.length > 0) && fReg.length > 0 && (
+              <div style={{ height:1, background:"var(--border)", margin:"24px 0" }} />
+            )}
+
             {vis.map((l,i) => <ListingCard key={l.id} listing={l} index={i} />)}
             {locked.map((l,i) => <ListingCard key={l.id} listing={l} index={FREE_LIMIT+i} isLocked onUpgrade={() => go("pricing")} />)}
             {more > 0 && (
@@ -1688,6 +1731,14 @@ export default function App() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Admin bypass — visit ?admin=true to unlock everything for testing
+  // Keep this URL secret — don't share with users
+  const [adminMode] = useState(() => {
+    try {
+      return new URLSearchParams(window.location.search).get("admin") === "true";
+    } catch { return false; }
+  });
+
   const fetchListings = useCallback(async () => {
     setLoading(true);
     try {
@@ -1740,8 +1791,8 @@ export default function App() {
         </div>
       </nav>
 
-      {page === "home"     && <Home     listings={listings} loading={loading} go={go} />}
-      {page === "listings" && <Listings listings={listings} loading={loading} go={go} initCat={initCat} />}
+      {page === "home"     && <Home     listings={listings} loading={loading} go={go} adminMode={adminMode} />}
+      {page === "listings" && <Listings listings={listings} loading={loading} go={go} initCat={initCat} adminMode={adminMode} />}
       {page === "pricing"  && <Pricing />}
       {page === "faq"      && <FAQ go={go} />}
       {page === "contact"  && <Contact />}

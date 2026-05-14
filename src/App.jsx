@@ -543,34 +543,36 @@ const CSS = `
   /* Social sidebar on hero */
   .hero-social-bar {
     position: absolute;
-    left: 16px;
+    left: 20px;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
     z-index: 10;
   }
   .social-link {
     display: flex; align-items: center; justify-content: center;
-    width: 34px; height: 34px; border-radius: 50%;
-    border: 1.5px solid var(--gold-border);
+    width: 48px; height: 48px; border-radius: 50%;
+    border: 2px solid var(--gold-border);
     color: var(--gold);
-    font-size: 13px; font-weight: 700;
+    font-size: 20px; font-weight: 700;
     cursor: pointer; transition: all 0.2s; text-decoration: none;
     background: var(--gold-pale);
     font-family: var(--fs);
+    box-shadow: 0 2px 8px rgba(184,134,11,0.15);
   }
   .social-link:hover {
     border-color: var(--gold-bright);
     color: var(--dark);
     background: var(--gold-bright);
-    transform: scale(1.12);
+    transform: scale(1.15);
+    box-shadow: 0 4px 16px rgba(184,134,11,0.3);
   }
   .social-link-label {
-    font-size: 7px; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--muted2); text-align: center; margin-top: 2px;
-    font-family: var(--fs); display: block;
+    font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted2); text-align: center; margin-top: 4px;
+    font-family: var(--fs); display: block; font-weight: 600;
   }
   .social-item { display: flex; flex-direction: column; align-items: center; }
   /* Footer social (smaller, horizontal) */
@@ -920,11 +922,11 @@ function Home({ listings, loading, go, adminMode }) {
       <div className="hero">
         {/* Social sidebar — left side of hero */}
         <div className="hero-social-bar">
-          <div className="social-item"><a className="social-link" href="https://facebook.com/StudyCashBoard" target="_blank" rel="noreferrer" title="Facebook">f</a><span className="social-link-label">FB</span></div>
-          <div className="social-item"><a className="social-link" href="https://instagram.com/StudyCashBoard" target="_blank" rel="noreferrer" title="Instagram">◉</a><span className="social-link-label">IG</span></div>
-          <div className="social-item"><a className="social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="X">𝕏</a><span className="social-link-label">X</span></div>
-          <div className="social-item"><a className="social-link" href="https://tiktok.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="TikTok">♪</a><span className="social-link-label">TT</span></div>
-          <div className="social-item"><a className="social-link" href="https://youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="YouTube">▶</a><span className="social-link-label">YT</span></div>
+          <div className="social-item"><a className="social-link" href="https://www.facebook.com/profile.php?id=61589355185446" target="_blank" rel="noreferrer" title="Follow us on Facebook">📘</a><span className="social-link-label">Facebook</span></div>
+          <div className="social-item"><a className="social-link" href="https://www.instagram.com/studycashboard/" target="_blank" rel="noreferrer" title="Follow us on Instagram">📷</a><span className="social-link-label">Instagram</span></div>
+          <div className="social-item"><a className="social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="Follow us on X">𝕏</a><span className="social-link-label">X / Twitter</span></div>
+          <div className="social-item"><a className="social-link" href="https://www.tiktok.com/@studycashboard?lang=en" target="_blank" rel="noreferrer" title="Follow us on TikTok">🎵</a><span className="social-link-label">TikTok</span></div>
+          <div className="social-item"><a className="social-link" href="https://www.youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="Subscribe on YouTube">▶️</a><span className="social-link-label">YouTube</span></div>
         </div>
         <div className="hero-eyebrow"><div className="hero-dot" /> Reviewed daily by our team</div>
         <h1>Get Paid to<br /><em>Share Your Opinion</em></h1>
@@ -1858,7 +1860,7 @@ export default function App() {
           <button className="footer-link" onClick={() => go("terms")}>Terms</button>
         </div>
         <div className="footer-social-links">
-          <a className="footer-social-link" href="https://facebook.com/StudyCashBoard" target="_blank" rel="noreferrer" title="Facebook">f</a> <a className="footer-social-link" href="https://instagram.com/StudyCashBoard" target="_blank" rel="noreferrer" title="Instagram">◉</a> <a className="footer-social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="X">𝕏</a> <a className="footer-social-link" href="https://tiktok.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="TikTok">♪</a> <a className="footer-social-link" href="https://youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="YouTube">▶</a>
+          <a className="footer-social-link" href="https://www.facebook.com/profile.php?id=61589355185446" target="_blank" rel="noreferrer" title="Facebook">📘</a> <a className="footer-social-link" href="https://www.instagram.com/studycashboard/" target="_blank" rel="noreferrer" title="Instagram">📷</a> <a className="footer-social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="X">𝕏</a> <a className="footer-social-link" href="https://www.tiktok.com/@studycashboard?lang=en" target="_blank" rel="noreferrer" title="TikTok">🎵</a> <a className="footer-social-link" href="https://www.youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="YouTube">▶️</a>
         </div>
         <div className="footer-copy">© 2026 StudyCashBoard · All rights reserved</div>
       </footer>

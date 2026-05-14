@@ -1170,16 +1170,16 @@ function Listings({ listings, loading, go, initCat, adminMode }) {
     return 0;
   });
 
-  // Separate free Quick Wins (≤$30) from everything else
-  // Pro Quick Wins ($30+) are merged into regular Pro listings — no confusing labeling
+  // Free Quick Wins (≤$30) — always fully visible, unlimited
+  // Pro Quick Wins ($30+) merged into fReg — they need Pro
   const fEasy        = filtered.filter(l => isEasy(l) && !isProQuickWin(l));
   const fProQW       = [];  // unused — merged into fReg below
   const fReg         = filtered.filter(l => !isEasy(l) || isProQuickWin(l));
 
-  // Admin mode: unlock everything for testing
-  // Visit ?admin=true to activate
+  // FREE_LIMIT only applies to non-Quick-Wins listings
+  // Quick Wins are ALWAYS fully shown — they're the free tier value prop
   const vis    = adminMode ? fReg : fReg.slice(0, FREE_LIMIT);
-  const locked = adminMode ? [] : fReg.slice(FREE_LIMIT, FREE_LIMIT+6);
+  const locked = adminMode ? [] : fReg.slice(FREE_LIMIT);  // show all locked, not just 6
   const more   = adminMode ? 0 : Math.max(0, fReg.length - FREE_LIMIT);
 
   return (
@@ -1323,9 +1323,9 @@ function Listings({ listings, loading, go, initCat, adminMode }) {
             {locked.map((l,i) => <ListingCard key={l.id} listing={l} index={FREE_LIMIT+i} isLocked onUpgrade={() => go("pricing")} />)}
             {more > 0 && (
               <div className="unlock-cta">
-                <h3>Unlock {more} More Listings</h3>
-                <p>Pro members get unlimited access, daily email digests, advanced filters, and early access every morning.</p>
-                <button className="btn-dark" style={{ marginTop:0 }} onClick={() => go("pricing")}>Start 7-Day Free Trial — $9/mo</button>
+                <h3>🔒 {more} More Listings Available</h3>
+                <p>You're seeing {FREE_LIMIT} of {fReg.length} premium listings. Pro members get unlimited access to all focus groups, taste tests, medical studies, user interviews, and more — plus daily email digests and early access every morning.</p>
+                <button className="btn-dark" style={{ marginTop:0 }} onClick={() => go("pricing")}>Unlock All {fReg.length} Listings — $9/mo</button>
               </div>
             )}
           </>

@@ -552,11 +552,47 @@ const CSS = `
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 10px;
     z-index: 10;
     width: 210px;
+  }
+  .social-cta-top {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #F0C040;
+    text-align: center;
+    line-height: 1.4;
+    text-shadow: 0 0 12px rgba(240,192,64,0.5);
+    padding: 6px 10px;
+    background: rgba(240,192,64,0.08);
+    border: 1px solid rgba(240,192,64,0.25);
+    border-radius: 6px;
+    width: 100%;
+  }
+  .social-cta-top span {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+  .social-icons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+  }
+  .social-cta-bottom {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #4ADE80;
+    text-align: center;
+    text-shadow: 0 0 8px rgba(74,222,128,0.4);
   }
   .social-link {
     display: flex; align-items: center; justify-content: center;
@@ -923,6 +959,13 @@ function Home({ listings, loading, go, adminMode }) {
       <div className="hero">
         {/* Social sidebar — left side of hero */}
         <div className="hero-social-bar">
+          {/* CTA above icons */}
+          <div className="social-cta-top">
+            <span>📢 Follow Us</span>
+            Daily study alerts<br/>& member wins
+          </div>
+          {/* Icons grid */}
+          <div className="social-icons-grid">
           <div className="social-item">
             <a className="social-link" href="https://www.facebook.com/profile.php?id=61589355185446" target="_blank" rel="noreferrer" title="Facebook"
               style={{ background:"#1877F2" }}>
@@ -964,6 +1007,11 @@ function Home({ listings, loading, go, adminMode }) {
               <img src="https://cdn.simpleicons.org/pinterest/white" alt="Pinterest" width="28" height="28" style={{display:"block"}} />
             </a>
             <span className="social-link-label">Pinterest</span>
+          </div>
+          </div>{/* end social-icons-grid */}
+          {/* CTA below icons */}
+          <div className="social-cta-bottom">
+            ⚡ New studies posted daily
           </div>
         </div>
         <div className="hero-content">

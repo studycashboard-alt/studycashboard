@@ -543,32 +543,33 @@ const CSS = `
   /* Social sidebar on hero */
   .hero-social-bar {
     position: absolute;
-    left: 20px;
+    left: 16px;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     z-index: 10;
   }
   .social-link {
     display: flex; align-items: center; justify-content: center;
-    width: 36px; height: 36px; border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.15);
-    color: rgba(255,255,255,0.45);
-    font-size: 14px; font-weight: 700;
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1.5px solid var(--gold-border);
+    color: var(--gold);
+    font-size: 13px; font-weight: 700;
     cursor: pointer; transition: all 0.2s; text-decoration: none;
-    background: rgba(255,255,255,0.04);
+    background: var(--gold-pale);
     font-family: var(--fs);
   }
   .social-link:hover {
-    border-color: #D4A017; color: #D4A017;
-    background: rgba(212,160,23,0.12);
+    border-color: var(--gold-bright);
+    color: var(--dark);
+    background: var(--gold-bright);
     transform: scale(1.12);
   }
   .social-link-label {
-    font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: rgba(255,255,255,0.25); text-align: center; margin-top: 2px;
+    font-size: 7px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted2); text-align: center; margin-top: 2px;
     font-family: var(--fs); display: block;
   }
   .social-item { display: flex; flex-direction: column; align-items: center; }

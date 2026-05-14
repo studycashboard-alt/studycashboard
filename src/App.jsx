@@ -563,13 +563,12 @@ const CSS = `
     width: 62px; height: 62px; border-radius: 14px;
     border: none;
     cursor: pointer; transition: all 0.2s; text-decoration: none;
-    background: #1877F2;
     box-shadow: 0 3px 12px rgba(0,0,0,0.2);
   }
   .social-link:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    opacity: 0.92;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    opacity: 0.88;
   }
   .social-link-label {
     font-size: 8px; letter-spacing: 0.06em; text-transform: uppercase;
@@ -582,12 +581,11 @@ const CSS = `
   .footer-social-link {
     display: flex; align-items: center; justify-content: center;
     width: 32px; height: 32px; border-radius: 8px;
-    border: 1px solid rgba(0,0,0,0.1);
+    border: none;
     cursor: pointer; transition: all 0.2s; text-decoration: none;
-    background: #ffffff;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
   }
-  .footer-social-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .footer-social-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
   .divider { height: 1px; background: var(--border); max-width: 1140px; margin: 0 auto; }
 
   /* ── TWO PANEL LAYOUT ── */
@@ -927,43 +925,43 @@ function Home({ listings, loading, go, adminMode }) {
         <div className="hero-social-bar">
           <div className="social-item">
             <a className="social-link" href="https://www.facebook.com/profile.php?id=61589355185446" target="_blank" rel="noreferrer" title="Facebook"
-              style={{ background: "#1877F2" }}>
-              <span style={{ color:"#fff", fontSize:22, fontWeight:900, fontFamily:"var(--fs)", lineHeight:1 }}>F</span>
+              style={{ background:"#1877F2" }}>
+              <img src="https://cdn.simpleicons.org/facebook/white" alt="Facebook" width="28" height="28" style={{display:"block"}} />
             </a>
             <span className="social-link-label">Facebook</span>
           </div>
           <div className="social-item">
             <a className="social-link" href="https://www.instagram.com/studycashboard/" target="_blank" rel="noreferrer" title="Instagram"
-              style={{ background: "linear-gradient(45deg,#F58529,#DD2A7B,#8134AF,#515BD4)" }}>
-              <span style={{ color:"#fff", fontSize:22, fontWeight:900, fontFamily:"var(--fs)", lineHeight:1 }}>◈</span>
+              style={{ background:"#E4405F" }}>
+              <img src="https://cdn.simpleicons.org/instagram/white" alt="Instagram" width="28" height="28" style={{display:"block"}} />
             </a>
             <span className="social-link-label">Instagram</span>
           </div>
           <div className="social-item">
             <a className="social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="X"
-              style={{ background: "#000000" }}>
-              <span style={{ color:"#fff", fontSize:22, fontWeight:900, fontFamily:"var(--fs)", lineHeight:1 }}>𝕏</span>
+              style={{ background:"#000000" }}>
+              <img src="https://cdn.simpleicons.org/x/white" alt="X" width="28" height="28" style={{display:"block"}} />
             </a>
             <span className="social-link-label">X</span>
           </div>
           <div className="social-item">
             <a className="social-link" href="https://www.tiktok.com/@studycashboard?lang=en" target="_blank" rel="noreferrer" title="TikTok"
-              style={{ background: "#000000" }}>
-              <span style={{ color:"#fff", fontSize:22, fontWeight:900, fontFamily:"var(--fs)", lineHeight:1 }}>♫</span>
+              style={{ background:"#000000" }}>
+              <img src="https://cdn.simpleicons.org/tiktok/white" alt="TikTok" width="28" height="28" style={{display:"block"}} />
             </a>
             <span className="social-link-label">TikTok</span>
           </div>
           <div className="social-item">
             <a className="social-link" href="https://www.youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="YouTube"
-              style={{ background: "#FF0000" }}>
-              <span style={{ color:"#fff", fontSize:22, fontWeight:900, fontFamily:"var(--fs)", lineHeight:1 }}>▶</span>
+              style={{ background:"#FF0000" }}>
+              <img src="https://cdn.simpleicons.org/youtube/white" alt="YouTube" width="28" height="28" style={{display:"block"}} />
             </a>
             <span className="social-link-label">YouTube</span>
           </div>
           <div className="social-item">
             <a className="social-link" href="https://www.pinterest.com/studycashboard/?actingBusinessId=1097752615330468682" target="_blank" rel="noreferrer" title="Pinterest"
-              style={{ background: "#E60023" }}>
-              <span style={{ color:"#fff", fontSize:22, fontWeight:900, fontFamily:"var(--fs)", lineHeight:1 }}>P</span>
+              style={{ background:"#E60023" }}>
+              <img src="https://cdn.simpleicons.org/pinterest/white" alt="Pinterest" width="28" height="28" style={{display:"block"}} />
             </a>
             <span className="social-link-label">Pinterest</span>
           </div>
@@ -1909,12 +1907,12 @@ export default function App() {
           <button className="footer-link" onClick={() => go("terms")}>Terms</button>
         </div>
         <div className="footer-social-links">
-          <a className="footer-social-link" href="https://www.facebook.com/profile.php?id=61589355185446" target="_blank" rel="noreferrer" title="Facebook" style={{ background:"#1877F2" }}><span style={{ color:"#fff", fontSize:13, fontWeight:900 }}>F</span></a>
-          <a className="footer-social-link" href="https://www.instagram.com/studycashboard/" target="_blank" rel="noreferrer" title="Instagram" style={{ background:"linear-gradient(45deg,#F58529,#DD2A7B,#8134AF,#515BD4)" }}><span style={{ color:"#fff", fontSize:13, fontWeight:900 }}>◈</span></a>
-          <a className="footer-social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="X" style={{ background:"#000000" }}><span style={{ color:"#fff", fontSize:13, fontWeight:900 }}>𝕏</span></a>
-          <a className="footer-social-link" href="https://www.tiktok.com/@studycashboard?lang=en" target="_blank" rel="noreferrer" title="TikTok" style={{ background:"#000000" }}><span style={{ color:"#fff", fontSize:13, fontWeight:900 }}>♫</span></a>
-          <a className="footer-social-link" href="https://www.youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="YouTube" style={{ background:"#FF0000" }}><span style={{ color:"#fff", fontSize:13, fontWeight:900 }}>▶</span></a>
-          <a className="footer-social-link" href="https://www.pinterest.com/studycashboard/?actingBusinessId=1097752615330468682" target="_blank" rel="noreferrer" title="Pinterest" style={{ background:"#E60023" }}><span style={{ color:"#fff", fontSize:13, fontWeight:900 }}>P</span></a>
+          <a className="footer-social-link" href="https://www.facebook.com/profile.php?id=61589355185446" target="_blank" rel="noreferrer" title="Facebook" style={{ background:"#1877F2" }}><img src="https://cdn.simpleicons.org/facebook/white" alt="Facebook" width="16" height="16" style={{display:"block"}} /></a>
+          <a className="footer-social-link" href="https://www.instagram.com/studycashboard/" target="_blank" rel="noreferrer" title="Instagram" style={{ background:"#E4405F" }}><img src="https://cdn.simpleicons.org/instagram/white" alt="Instagram" width="16" height="16" style={{display:"block"}} /></a>
+          <a className="footer-social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="X" style={{ background:"#000000" }}><img src="https://cdn.simpleicons.org/x/white" alt="X" width="16" height="16" style={{display:"block"}} /></a>
+          <a className="footer-social-link" href="https://www.tiktok.com/@studycashboard?lang=en" target="_blank" rel="noreferrer" title="TikTok" style={{ background:"#000000" }}><img src="https://cdn.simpleicons.org/tiktok/white" alt="TikTok" width="16" height="16" style={{display:"block"}} /></a>
+          <a className="footer-social-link" href="https://www.youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="YouTube" style={{ background:"#FF0000" }}><img src="https://cdn.simpleicons.org/youtube/white" alt="YouTube" width="16" height="16" style={{display:"block"}} /></a>
+          <a className="footer-social-link" href="https://www.pinterest.com/studycashboard/?actingBusinessId=1097752615330468682" target="_blank" rel="noreferrer" title="Pinterest" style={{ background:"#E60023" }}><img src="https://cdn.simpleicons.org/pinterest/white" alt="Pinterest" width="16" height="16" style={{display:"block"}} /></a>
         </div>
         <div className="footer-copy">© 2026 StudyCashBoard · All rights reserved</div>
       </footer>

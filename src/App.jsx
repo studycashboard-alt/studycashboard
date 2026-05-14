@@ -540,6 +540,48 @@ const CSS = `
   .footer-link { font-size: 11px; color: #555; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: color 0.2s; background: none; border: none; font-family: var(--fs); font-weight: 500; }
   .footer-link:hover { color: #D4A017; }
   .footer-copy { font-size: 11px; color: #444; letter-spacing: 0.06em; text-transform: uppercase; }
+  /* Social sidebar on hero */
+  .hero-social-bar {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+  }
+  .social-link {
+    display: flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.45);
+    font-size: 14px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s; text-decoration: none;
+    background: rgba(255,255,255,0.04);
+    font-family: var(--fs);
+  }
+  .social-link:hover {
+    border-color: #D4A017; color: #D4A017;
+    background: rgba(212,160,23,0.12);
+    transform: scale(1.12);
+  }
+  .social-link-label {
+    font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.25); text-align: center; margin-top: 2px;
+    font-family: var(--fs); display: block;
+  }
+  .social-item { display: flex; flex-direction: column; align-items: center; }
+  /* Footer social (smaller, horizontal) */
+  .footer-social-links { display: flex; gap: 10px; align-items: center; }
+  .footer-social-link {
+    display: flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 1px solid #333; color: #555; font-size: 12px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s; text-decoration: none;
+    background: none; font-family: var(--fs);
+  }
+  .footer-social-link:hover { border-color: #D4A017; color: #D4A017; }
   .divider { height: 1px; background: var(--border); max-width: 1140px; margin: 0 auto; }
 
   /* ── TWO PANEL LAYOUT ── */
@@ -748,6 +790,8 @@ const CSS = `
     /* Footer */
     .footer { flex-direction: column; text-align: center; padding: 24px 1.2rem; gap: 16px; }
     .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+    .hero-social-bar { display: none; }
+    .footer-social-links { justify-content: center; }
 
     /* FAQ */
     .faq-page { padding: 36px 1.2rem 60px; }
@@ -873,6 +917,14 @@ function Home({ listings, loading, go, adminMode }) {
   return (
     <>
       <div className="hero">
+        {/* Social sidebar — left side of hero */}
+        <div className="hero-social-bar">
+          <div className="social-item"><a className="social-link" href="https://facebook.com/StudyCashBoard" target="_blank" rel="noreferrer" title="Facebook">f</a><span className="social-link-label">FB</span></div>
+          <div className="social-item"><a className="social-link" href="https://instagram.com/StudyCashBoard" target="_blank" rel="noreferrer" title="Instagram">◉</a><span className="social-link-label">IG</span></div>
+          <div className="social-item"><a className="social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="X">𝕏</a><span className="social-link-label">X</span></div>
+          <div className="social-item"><a className="social-link" href="https://tiktok.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="TikTok">♪</a><span className="social-link-label">TT</span></div>
+          <div className="social-item"><a className="social-link" href="https://youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="YouTube">▶</a><span className="social-link-label">YT</span></div>
+        </div>
         <div className="hero-eyebrow"><div className="hero-dot" /> Reviewed daily by our team</div>
         <h1>Get Paid to<br /><em>Share Your Opinion</em></h1>
         <p className="hero-sub">The most comprehensive directory of paid research opportunities — user interviews, focus groups, taste tests, mock trials, medical studies, and more.</p>
@@ -884,9 +936,9 @@ function Home({ listings, loading, go, adminMode }) {
 
       <div className="stats-bar">
         <div className="stat"><span className="stat-num">{listings.length}+</span><span className="stat-label">Active Listings</span></div>
-        <div className="stat"><span className="stat-num">${avgPay}</span><span className="stat-label">Avg. Payout</span></div>
-        <div className="stat"><span className="stat-num">$500</span><span className="stat-label">Top Single Payout</span></div>
-        <div className="stat"><span className="stat-num">Free</span><span className="stat-label">To Browse</span></div>
+        <div className="stat"><span className="stat-num">$30</span><span className="stat-label">Quick Wins Max</span></div>
+        <div className="stat"><span className="stat-num">$500</span><span className="stat-label">Pro Top Payout</span></div>
+        <div className="stat"><span className="stat-num">🇺🇸</span><span className="stat-label">USA Only</span></div>
         <div className="stat"><span className="stat-num">8AM</span><span className="stat-label">Daily Refresh</span></div>
       </div>
 
@@ -1803,6 +1855,9 @@ export default function App() {
           <button className="footer-link" onClick={() => go("products")}>Free Resources</button>
           <button className="footer-link" onClick={() => go("privacy")}>Privacy</button>
           <button className="footer-link" onClick={() => go("terms")}>Terms</button>
+        </div>
+        <div className="footer-social-links">
+          <a className="footer-social-link" href="https://facebook.com/StudyCashBoard" target="_blank" rel="noreferrer" title="Facebook">f</a> <a className="footer-social-link" href="https://instagram.com/StudyCashBoard" target="_blank" rel="noreferrer" title="Instagram">◉</a> <a className="footer-social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="X">𝕏</a> <a className="footer-social-link" href="https://tiktok.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="TikTok">♪</a> <a className="footer-social-link" href="https://youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="YouTube">▶</a>
         </div>
         <div className="footer-copy">© 2026 StudyCashBoard · All rights reserved</div>
       </footer>

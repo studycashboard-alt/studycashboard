@@ -314,10 +314,10 @@ const CSS = `
   .cat-card:hover { border-color: var(--gold-border); background: var(--gold-pale); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(184,134,11,0.08); }
   .cat-card.easy-cat { border-color: #BBF7D0; background: #F0FDF4; }
   .cat-card.easy-cat:hover { border-color: var(--green); background: #DCFCE7; }
-  .cat-icon { font-size: 36px; margin-bottom: 12px; display: block; }
-  .cat-name { font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--dark); line-height: 1.4; }
-  .cat-count { font-size: 11px; color: var(--muted); margin-top: 5px; }
-  .cat-free { font-size: 9px; color: var(--green); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+  .cat-icon { font-size: 42px; margin-bottom: 14px; display: block; }
+  .cat-name { font-size: 13px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--dark); line-height: 1.4; }
+  .cat-count { font-size: 12px; color: var(--muted); margin-top: 6px; font-weight: 500; }
+  .cat-free { font-size: 10px; color: var(--green); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 5px; }
 
   /* ── CATEGORY PILLS ── */
   .pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.4rem; }
@@ -493,10 +493,10 @@ const CSS = `
   .dark-inner { max-width: 1140px; margin: 0 auto; }
   .dark-title { font-family: var(--ff); font-size: 1.9rem; font-weight: 600; color: #fff; margin-bottom: 2rem; }
   .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-  .how-card { background: #222; border: 1px solid #333; border-radius: 8px; padding: 28px 22px; }
-  .how-n { font-family: var(--ff); font-size: 2.8rem; color: #444; font-weight: 600; line-height: 1; margin-bottom: 12px; }
-  .how-t { font-weight: 600; font-size: 14px; margin-bottom: 8px; color: #fff; }
-  .how-d { font-size: 13px; color: #888; line-height: 1.65; font-weight: 300; }
+  .how-card { background: #1A1A1A; border: 1px solid #2A2A2A; border-radius: 10px; padding: 32px 24px; }
+  .how-n { font-family: var(--ff); font-size: 3rem; color: var(--gold); font-weight: 700; line-height: 1; margin-bottom: 14px; text-shadow: 0 0 20px rgba(240,192,64,0.3); }
+  .how-t { font-weight: 700; font-size: 16px; margin-bottom: 10px; color: #FFFFFF; letter-spacing: 0.01em; }
+  .how-d { font-size: 13.5px; color: #BBBBBB; line-height: 1.7; font-weight: 400; }
 
   /* ── TESTIMONIALS ── */
   .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
@@ -562,24 +562,24 @@ const CSS = `
   .social-cta-top {
     font-size: 11px;
     font-weight: 800;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #7C3AED;
+    color: var(--dark);
     text-align: center;
     line-height: 1.5;
     padding: 10px 12px;
-    background: #F5F0FF;
-    border: 2px solid #7C3AED;
+    background: var(--gold-pale);
+    border: 2px solid var(--gold-border);
     border-radius: 8px;
     width: 100%;
-    box-shadow: 0 2px 8px rgba(124,58,237,0.2);
+    box-shadow: 0 2px 8px rgba(184,134,11,0.15);
   }
   .social-cta-top span {
     display: block;
     font-size: 15px;
     font-weight: 900;
     margin-bottom: 3px;
-    color: #5B21B6;
+    color: var(--gold);
   }
   .social-icons-grid {
     display: grid;
@@ -592,14 +592,13 @@ const CSS = `
     font-weight: 900;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #059669;
+    color: var(--green);
     text-align: center;
     padding: 8px 10px;
-    background: #ECFDF5;
-    border: 2px solid #059669;
+    background: #F0FDF4;
+    border: 2px solid #BBF7D0;
     border-radius: 8px;
     width: 100%;
-    box-shadow: 0 2px 8px rgba(5,150,105,0.2);
   }
   .social-link {
     display: flex; align-items: center; justify-content: center;
@@ -673,8 +672,8 @@ const CSS = `
   .panel-title-wrap { display: flex; align-items: center; gap: 10px; }
   .panel-icon-qw { font-size: 24px; }
   .panel-icon-tp { font-size: 24px; }
-  .panel-title { font-family: var(--ff); font-size: 1.2rem; font-weight: 600; color: var(--dark); }
-  .panel-sub { font-size: 11px; color: var(--muted); font-weight: 400; margin-top: 2px; letter-spacing: 0.02em; }
+  .panel-title { font-family: var(--ff); font-size: 1.35rem; font-weight: 700; color: var(--dark); }
+  .panel-sub { font-size: 12px; color: var(--mid); font-weight: 500; margin-top: 3px; letter-spacing: 0.01em; }
 
   .panel-see-all {
     font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
@@ -718,24 +717,24 @@ const CSS = `
   }
   .panel-card-title {
     font-family: var(--ff);
-    font-size: 0.92rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 600;
     color: var(--dark);
-    line-height: 1.3;
+    line-height: 1.35;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 260px;
   }
-  .panel-card-company { font-size: 11px; color: var(--muted2); margin-top: 2px; font-weight: 500; }
+  .panel-card-company { font-size: 12px; color: var(--mid); margin-top: 3px; font-weight: 600; }
   .panel-card-meta { display: flex; gap: 10px; margin-top: 4px; }
   .panel-card-meta span { font-size: 10px; color: var(--muted2); }
 
   .panel-card-right { text-align: right; flex-shrink: 0; margin-left: 12px; }
   .panel-card-pay {
     font-family: var(--ff);
-    font-size: 1.05rem;
-    font-weight: 600;
+    font-size: 1.15rem;
+    font-weight: 700;
     color: var(--dark);
     line-height: 1;
   }
@@ -1042,11 +1041,11 @@ function Home({ listings, loading, go, adminMode }) {
 
       {/* ── BROWSE BY CATEGORY ── */}
       <div className="section">
-        <div style={{ background:"#F0FDF4", border:"1px solid #BBF7D0", borderRadius:6, padding:"10px 18px", marginBottom:16, display:"flex", alignItems:"center", gap:10, flexWrap:"wrap" }}>
-          <span style={{ fontSize:16 }}>⚡</span>
-          <span style={{ fontSize:13, color:"#065F46", fontWeight:600 }}>Quick Wins are always free</span>
-          <span style={{ fontSize:12, color:"#16A34A" }}>— browse and apply at no cost, no subscription needed.</span>
-          <span style={{ fontSize:12, color:"#6B7280", marginLeft:"auto" }}>All other categories unlock with Pro.</span>
+        <div style={{ background:"#F0FDF4", border:"1.5px solid #6EE7B7", borderRadius:8, padding:"14px 20px", marginBottom:20, display:"flex", alignItems:"center", gap:12, flexWrap:"wrap" }}>
+          <span style={{ fontSize:20 }}>⚡</span>
+          <span style={{ fontSize:15, color:"#065F46", fontWeight:800, letterSpacing:"0.01em" }}>Quick Wins are always free</span>
+          <span style={{ fontSize:14, color:"#059669", fontWeight:500 }}>— browse and apply with no subscription needed.</span>
+          <span style={{ fontSize:13, color:"#374151", fontWeight:600, marginLeft:"auto", background:"#D1FAE5", padding:"4px 12px", borderRadius:20 }}>All other categories → Pro</span>
         </div>
         <div className="sec-header">
           <div className="sec-title">Browse by Category</div>
@@ -1178,7 +1177,7 @@ function Home({ listings, loading, go, adminMode }) {
       </div>
 
       {/* ══ FRONT & CENTER: START EARNING NOW — REFERRAL PLATFORMS ══ */}
-      <div style={{ background: "#0A1A0A", borderBottom: "1px solid #1A3A1A", padding: "52px 1.5rem" }}>
+      <div style={{ background: "#0F2417", borderBottom: "1px solid #1E4D2B", padding: "52px 1.5rem" }}>
         <div style={{ maxWidth: 1140, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 32 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(22,163,74,0.15)", border: "1px solid rgba(22,163,74,0.3)", borderRadius: 100, padding: "6px 16px", marginBottom: 14 }}>

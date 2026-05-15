@@ -1262,6 +1262,8 @@ function Home({ listings, loading, go, adminMode }) {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 12 }}>
             {[
               { name: "Survey Junkie", pay: "Up to $40/survey", badge: "🔥 Most Popular", badgeColor: "#EF4444", url: "https://www.surveyjunkie.com/register", desc: "Share opinions, cash via PayPal" },
+              { name: "Respondent", pay: "$75–$750/hr", badge: "💎 Highest Paying", badgeColor: "#7C3AED", url: "https://app.respondent.io/r/studycashboard-80a2d867343f", desc: "Avg $140/study, pros & consumers" },
+              { name: "User Interviews", pay: "$50–$300/study", badge: "⭐ Top Rated", badgeColor: "#0EA5E9", url: "https://www.userinterviews.com/r/llwtkppob", desc: "Hundreds of remote studies daily" },
               { name: "Swagbucks", pay: "$10 Signup Bonus", badge: "💰 Free Bonus", badgeColor: "#F59E0B", url: "https://www.swagbucks.com/p/register", desc: "Surveys, videos & shopping rewards" },
               { name: "InboxDollars", pay: "$5 Signup Bonus", badge: "💵 Free $5", badgeColor: "#16A34A", url: "https://www.inboxdollars.com/register", desc: "Get paid for surveys & emails" },
               { name: "Prolific", pay: "$6–$35/study", badge: "🎓 Academic Studies", badgeColor: "#6B3FA0", url: "https://app.prolific.com/register/participant", desc: "Short studies, avg $8–$12/hr" },
@@ -1838,6 +1840,8 @@ function Products({ go }) {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 12 }}>
           {[
             { name: "Survey Junkie", pay: "$3–$40/survey", url: "https://www.surveyjunkie.com/register", color: "#1A56C4" },
+            { name: "Respondent", pay: "$75–$750/hr", url: "https://app.respondent.io/r/studycashboard-80a2d867343f", color: "#7C3AED" },
+            { name: "User Interviews", pay: "$50–$300/study", url: "https://www.userinterviews.com/r/llwtkppob", color: "#0EA5E9" },
             { name: "Swagbucks", pay: "$10 signup bonus", url: "https://www.swagbucks.com/p/register", color: "#F59E0B" },
             { name: "InboxDollars", pay: "$5 signup bonus", url: "https://www.inboxdollars.com/register", color: "#16A34A" },
             { name: "Prolific", pay: "$6–$35/study", url: "https://app.prolific.com/register/participant", color: "#6B3FA0" },

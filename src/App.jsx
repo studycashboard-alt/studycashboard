@@ -1939,6 +1939,191 @@ function TermsPage() {
   );
 }
 
+
+// ── Post a Study Page ─────────────────────────────────────────────────────────
+function PostStudy() {
+  const [sent, setSent] = useState(false);
+  const [form, setForm] = useState({
+    company: "", contact: "", email: "", website: "",
+    title: "", category: "Focus Group", format: "Virtual Interview",
+    pay: "", duration: "", location: "Nationwide", studyDate: "",
+    ageMin: "18", ageMax: "", gender: "All", description: "", applyUrl: ""
+  });
+
+  function handleSubmit() {
+    if (!form.company || !form.email || !form.title || !form.pay || !form.applyUrl) {
+      alert("Please fill in all required fields (marked with *).");
+      return;
+    }
+    const subject = encodeURIComponent(`[Study Submission] ${form.title} — ${form.company}`);
+    const body = encodeURIComponent(
+      `STUDY SUBMISSION FROM STUDYCASHBOARD.COM\n` +
+      `${"=".repeat(50)}\n\n` +
+      `COMPANY DETAILS\n` +
+      `Company: ${form.company}\n` +
+      `Contact: ${form.contact}\n` +
+      `Email: ${form.email}\n` +
+      `Website: ${form.website}\n\n` +
+      `STUDY DETAILS\n` +
+      `Title: ${form.title}\n` +
+      `Category: ${form.category}\n` +
+      `Format: ${form.format}\n` +
+      `Pay: $${form.pay}\n` +
+      `Duration: ${form.duration}\n` +
+      `Location: ${form.location}\n` +
+      `Study Date: ${form.studyDate}\n` +
+      `Age Range: ${form.ageMin}${form.ageMax ? "–" + form.ageMax : "+"}\n` +
+      `Gender: ${form.gender}\n\n` +
+      `DESCRIPTION\n${form.description}\n\n` +
+      `APPLY URL: ${form.applyUrl}`
+    );
+    window.open(`mailto:studycashboard@gmail.com?subject=${subject}&body=${body}`, "_blank");
+    setSent(true);
+  }
+
+  const inp = {
+    width:"100%", padding:"10px 14px", border:"1px solid var(--border)",
+    borderRadius:4, fontFamily:"var(--fs)", fontSize:13, color:"var(--dark)",
+    outline:"none", background:"#fff"
+  };
+  const lbl = {
+    display:"block", fontSize:11, fontWeight:700, letterSpacing:"0.08em",
+    textTransform:"uppercase", color:"var(--mid)", marginBottom:6
+  };
+  const row = { marginBottom:18 };
+
+  return (
+    <div style={{ maxWidth:760, margin:"0 auto", padding:"56px 2rem 80px" }}>
+      <div style={{ textAlign:"center", marginBottom:40 }}>
+        <div style={{ display:"inline-flex", alignItems:"center", gap:8, background:"var(--gold-pale)", border:"1px solid var(--gold-border)", borderRadius:100, padding:"6px 16px", marginBottom:14 }}>
+          <span style={{ fontSize:10, fontWeight:700, letterSpacing:"0.18em", textTransform:"uppercase", color:"var(--gold)" }}>Free Listing · Takes 2 Minutes</span>
+        </div>
+        <div style={{ fontFamily:"var(--ff)", fontSize:"2.2rem", fontWeight:600, color:"var(--dark)", marginBottom:10 }}>Post a Paid Study</div>
+        <p style={{ fontSize:14, color:"var(--mid)", lineHeight:1.7, maxWidth:520, margin:"0 auto" }}>
+          List your paid research study on StudyCashBoard and reach thousands of motivated US participants. Completely free to post.
+        </p>
+      </div>
+
+      {/* Benefits bar */}
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:12, marginBottom:36 }}>
+        {[
+          { icon:"🎯", title:"Targeted Audience", desc:"US adults actively looking for paid research opportunities" },
+          { icon:"⚡", title:"Goes Live Same Day", desc:"We review and post approved studies within 24 hours" },
+          { icon:"💰", title:"100% Free", desc:"No cost to post. We earn through our membership program" },
+        ].map((b,i) => (
+          <div key={i} style={{ background:"var(--gold-pale)", border:"1px solid var(--gold-border)", borderRadius:8, padding:"16px 14px", textAlign:"center" }}>
+            <div style={{ fontSize:"1.5rem", marginBottom:6 }}>{b.icon}</div>
+            <div style={{ fontWeight:700, fontSize:12, color:"var(--dark)", marginBottom:4 }}>{b.title}</div>
+            <div style={{ fontSize:11, color:"var(--mid)", lineHeight:1.5 }}>{b.desc}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ background:"#fff", border:"1px solid var(--border)", borderRadius:12, padding:"36px 32px" }}>
+        {sent ? (
+          <div style={{ textAlign:"center", padding:"40px 0" }}>
+            <div style={{ fontSize:"3rem", marginBottom:16 }}>🎉</div>
+            <div style={{ fontFamily:"var(--ff)", fontSize:"1.6rem", fontWeight:600, marginBottom:8 }}>Study Submitted!</div>
+            <p style={{ fontSize:13, color:"var(--mid)", lineHeight:1.7 }}>
+              Thank you! We'll review your submission and add it to StudyCashBoard within 24 hours.<br/>
+              We'll email you at <strong>{form.email}</strong> once it's live.
+            </p>
+          </div>
+        ) : (
+          <>
+            <div style={{ fontFamily:"var(--ff)", fontSize:"1.2rem", fontWeight:600, marginBottom:20, paddingBottom:12, borderBottom:"1px solid var(--border)" }}>Company Information</div>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:16, marginBottom:4 }}>
+              <div style={row}>
+                <label style={lbl}>Company Name *</label>
+                <input value={form.company} onChange={e => setForm({...form, company:e.target.value})} style={inp} placeholder="L&E Research" />
+              </div>
+              <div style={row}>
+                <label style={lbl}>Contact Name</label>
+                <input value={form.contact} onChange={e => setForm({...form, contact:e.target.value})} style={inp} placeholder="Jane Smith" />
+              </div>
+              <div style={row}>
+                <label style={lbl}>Email Address *</label>
+                <input type="email" value={form.email} onChange={e => setForm({...form, email:e.target.value})} style={inp} placeholder="recruiting@company.com" />
+              </div>
+              <div style={row}>
+                <label style={lbl}>Company Website</label>
+                <input value={form.website} onChange={e => setForm({...form, website:e.target.value})} style={inp} placeholder="https://yourcompany.com" />
+              </div>
+            </div>
+
+            <div style={{ fontFamily:"var(--ff)", fontSize:"1.2rem", fontWeight:600, marginBottom:20, paddingBottom:12, borderBottom:"1px solid var(--border)", marginTop:8 }}>Study Details</div>
+            <div style={row}>
+              <label style={lbl}>Study Title *</label>
+              <input value={form.title} onChange={e => setForm({...form, title:e.target.value})} style={inp} placeholder="e.g. Snacking Habits Focus Group — $150" />
+            </div>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:16 }}>
+              <div style={row}>
+                <label style={lbl}>Category</label>
+                <select value={form.category} onChange={e => setForm({...form, category:e.target.value})} style={inp}>
+                  {["Focus Group","User Interview","Taste Test","Medical & Health","Mock Jury","Product Testing","App & UX Testing","AI & Tech","Gaming","Travel","Automotive","Finance","Retail & Lifestyle","Home & Living","Easy Application"].map(c => <option key={c}>{c}</option>)}
+                </select>
+              </div>
+              <div style={row}>
+                <label style={lbl}>Format</label>
+                <select value={form.format} onChange={e => setForm({...form, format:e.target.value})} style={inp}>
+                  {["Virtual Interview","In Person","Unmoderated Task","Discussion Board","Over the Phone","In Home","Product Test","Multiple"].map(f => <option key={f}>{f}</option>)}
+                </select>
+              </div>
+              <div style={row}>
+                <label style={lbl}>Pay Amount (USD) *</label>
+                <input value={form.pay} onChange={e => setForm({...form, pay:e.target.value})} style={inp} placeholder="150" type="number" min="1" />
+              </div>
+              <div style={row}>
+                <label style={lbl}>Duration</label>
+                <input value={form.duration} onChange={e => setForm({...form, duration:e.target.value})} style={inp} placeholder="e.g. 60 minutes, 2 hours" />
+              </div>
+              <div style={row}>
+                <label style={lbl}>Location</label>
+                <input value={form.location} onChange={e => setForm({...form, location:e.target.value})} style={inp} placeholder="Nationwide, New York NY, Remote" />
+              </div>
+              <div style={row}>
+                <label style={lbl}>Study Date(s)</label>
+                <input value={form.studyDate} onChange={e => setForm({...form, studyDate:e.target.value})} style={inp} placeholder="e.g. June 14, 2026 or ongoing" />
+              </div>
+              <div style={row}>
+                <label style={lbl}>Age Range</label>
+                <div style={{ display:"flex", gap:8, alignItems:"center" }}>
+                  <input value={form.ageMin} onChange={e => setForm({...form, ageMin:e.target.value})} style={{...inp, width:80}} placeholder="18" type="number" />
+                  <span style={{ color:"var(--mid)" }}>to</span>
+                  <input value={form.ageMax} onChange={e => setForm({...form, ageMax:e.target.value})} style={{...inp, width:80}} placeholder="Any" type="number" />
+                </div>
+              </div>
+              <div style={row}>
+                <label style={lbl}>Gender</label>
+                <select value={form.gender} onChange={e => setForm({...form, gender:e.target.value})} style={inp}>
+                  {["All","Female","Male"].map(g => <option key={g}>{g}</option>)}
+                </select>
+              </div>
+            </div>
+            <div style={row}>
+              <label style={lbl}>Study Description</label>
+              <textarea value={form.description} onChange={e => setForm({...form, description:e.target.value})} rows={4} style={{...inp, resize:"vertical"}} placeholder="Describe the study, what participants will do, and any specific requirements..." />
+            </div>
+            <div style={row}>
+              <label style={lbl}>Apply / Screener URL *</label>
+              <input value={form.applyUrl} onChange={e => setForm({...form, applyUrl:e.target.value})} style={inp} placeholder="https://surveymonkey.com/r/..." />
+              <div style={{ fontSize:11, color:"var(--muted2)", marginTop:6 }}>Direct link where participants can apply or complete a screener</div>
+            </div>
+            <button onClick={handleSubmit}
+              style={{ background:"var(--dark)", color:"#fff", border:"none", padding:"14px", borderRadius:4, fontFamily:"var(--fs)", fontSize:13, fontWeight:700, letterSpacing:"0.06em", textTransform:"uppercase", cursor:"pointer", width:"100%", marginTop:8, transition:"background 0.2s" }}
+              onMouseOver={e => e.currentTarget.style.background = "var(--gold)"}
+              onMouseOut={e => e.currentTarget.style.background = "var(--dark)"}
+            >Submit Study for Review →</button>
+            <p style={{ textAlign:"center", fontSize:11, color:"var(--muted2)", marginTop:14 }}>
+              We review all submissions within 24 hours. Studies must be legitimate paid research opportunities open to US residents. Questions? Email <a href="mailto:studycashboard@gmail.com" style={{ color:"var(--gold)" }}>studycashboard@gmail.com</a>
+            </p>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const [page, setPage] = useState("home");
   const [initCat, setInitCat] = useState("");
@@ -2002,6 +2187,7 @@ export default function App() {
           <button className={`nav-link ${page==="products"?"active":""}`} onClick={() => go("products")}>Free Resources</button>
           <button className={`nav-link ${page==="faq"?"active":""}`} onClick={() => go("faq")}>FAQ</button>
           <button className={`nav-link ${page==="contact"?"active":""}`} onClick={() => go("contact")}>Contact</button>
+          <button className={`nav-link ${page==="post-study"?"active":""}`} onClick={() => go("post-study")} style={{color:"#F0C040", fontWeight:900}}>Post a Study ✦</button>
         </div>
         <div className="nav-right">
           <button className="nav-signin" onClick={() => alert("Auth coming soon!")}>Sign In</button>
@@ -2012,11 +2198,12 @@ export default function App() {
       {page === "home"     && <Home     listings={listings} loading={loading} go={go} adminMode={adminMode} />}
       {page === "listings" && <Listings listings={listings} loading={loading} go={go} initCat={initCat} adminMode={adminMode} />}
       {page === "pricing"  && <Pricing />}
-      {page === "faq"      && <FAQ go={go} />}
-      {page === "contact"  && <Contact />}
-      {page === "products" && <Products go={go} />}
-      {page === "privacy"  && <PrivacyPage />}
-      {page === "terms"    && <TermsPage />}
+      {page === "faq"        && <FAQ go={go} />}
+      {page === "contact"    && <Contact />}
+      {page === "products"   && <Products go={go} />}
+      {page === "privacy"    && <PrivacyPage />}
+      {page === "terms"      && <TermsPage />}
+      {page === "post-study" && <PostStudy />}
 
       <footer className="footer">
         <div className="footer-logo">
@@ -2028,6 +2215,7 @@ export default function App() {
           <button className="footer-link" onClick={() => go("pricing")}>Pricing</button>
           <button className="footer-link" onClick={() => go("faq")}>FAQ</button>
           <button className="footer-link" onClick={() => go("contact")}>Contact</button>
+          <button className="footer-link" onClick={() => go("post-study")}>Post a Study</button>
           <button className="footer-link" onClick={() => go("products")}>Free Resources</button>
           <button className="footer-link" onClick={() => go("privacy")}>Privacy</button>
           <button className="footer-link" onClick={() => go("terms")}>Terms</button>

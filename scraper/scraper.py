@@ -204,31 +204,88 @@ def fetch(url):
 
 # ── SCRAPER 1: FindPaidFocusGroup ─────────────────────────────────────────────
 def parse_fpfg_html(html, source_url):
-    """Parse FindPaidFocusGroup page using text-based extraction."""
+    """
+    Parse FindPaidFocusGroup using confirmed site format:
+    - Title in h2/h3 tags
+    - "Payout : $-125" format in text
+    - "Facility : Company Name" in text
+    - "Posted: April 24, 2026" in text
+    Dual method: HTML article tags first, then raw text fallback.
+    """
     listings = []
     if not html: return listings
 
     soup = BeautifulSoup(html, "lxml")
+    full_page_text = soup.get_text(" ", strip=True)
 
-    for article in soup.select("article, .post, div[class*='post'], div[id^='post-']"):
-        # Title
+    # Method 1: Try article/post HTML selectors
+    articles = soup.select("article, .post, div[class*='post'], div[id^='post-'], .entry, [class*='listing']")
+
+    # Method 2: If no articles found, split by "Posted:" markers
+    if not articles:
+        log.debug(f"    No article tags — using text parsing on {source_url[-40:]}")
+        chunks = re.split(r'Posted\s*:', full_page_text)
+        for chunk in chunks[1:]:
+            date_m = re.match(r'\s*(\w+)\s+(\d{1,2}),?\s*(\d{4})', chunk)
+            if not date_m: continue
+            pay_m = re.search(r'[Pp]ayout\s*:?\s*\$?-?\s*(\d[\d,]*)', chunk)
+            if not pay_m: continue
+            pmin = int(pay_m.group(1).replace(",",""))
+            if pmin < 50: continue  # skip low pay
+
+            company = "FindPaidFocusGroup"
+            fac_m = re.search(r'[Ff]acility\s*:?\s*([A-Z][^\n·]{3,50}?)(?:\s*·|\s*A leading)', chunk)
+            if fac_m:
+                raw = re.sub(r'\s+(Inc\.?|LLC\.?|Corp\.?|Research Inc|Group Inc|Inc|LLC)$', '', fac_m.group(1).strip()).strip()
+                if 2 < len(raw) < 60: company = raw
+
+            try:
+                month_num = MONTHS.get(date_m.group(1).lower(), 0)
+                if not month_num: continue
+                posted_dt = datetime(int(date_m.group(3)), month_num, int(date_m.group(2)), tzinfo=timezone.utc)
+                if (datetime.now(timezone.utc) - posted_dt).days > 60: continue
+                expiry = (posted_dt + timedelta(days=21)).isoformat()
+            except:
+                expiry = estimate_expiry("Focus Group")
+
+            # Find nearest title before this chunk
+            title = f"Paid Research Study — ${pmin}"
+            all_titles = [h.get_text(strip=True) for h in soup.select("h2,h3") if len(h.get_text(strip=True)) > 10]
+            chunk_pos = full_page_text.find(chunk[:30])
+            for t in all_titles:
+                if full_page_text.find(t) < chunk_pos:
+                    title = re.sub(r'\s*[-–]\s*\$[\d,]+\s*$', '', t).strip()
+
+            apply_url = get_apply_url(company) or source_url
+            cat = cat_from_text(title, pmin)
+            tags = ["login-required" if company.lower() in LOGIN_REQUIRED else "direct-apply", "remote"]
+            listings.append(Listing(
+                title=title, company=company, pay=pmin,
+                location="Nationwide USA", state="Nationwide", is_remote=True,
+                category=cat, source_url=source_url, apply_url=apply_url,
+                tags=tags, expires_at=expiry,
+            ))
+        return listings
+
+    # Method 1: Parse article tags
+    for article in articles:
         title_el = article.select_one("h2, h3, h1, .entry-title")
         if not title_el: continue
         title = re.sub(r'\s*[-–]\s*\$[\d,]+\s*$', '', title_el.get_text(strip=True)).strip()
         if not title or len(title) < 8: continue
-        if title.lower() in ["home","about","contact","focus groups","surveys"]: continue
+        if title.lower() in ["home","about","contact","focus groups","surveys","read more"]: continue
 
         full_text = article.get_text(" ", strip=True)
 
-        # Pay — handle "Payout : $-125" format
+        # Pay
         payout_m = re.search(r'[Pp]ayout\s*:?\s*\$?-?\s*(\d[\d,]*)', full_text)
         dollar_m  = re.search(r'\$\s*(\d[\d,]+)', title)
         pmin = None
         if payout_m:   pmin = int(payout_m.group(1).replace(",",""))
         elif dollar_m: pmin = int(dollar_m.group(1).replace(",",""))
-        pmin, pmax = parse_pay(f"${pmin}" if pmin else full_text)
+        if pmin and pmin < 50: continue
 
-        # Check if posting is too old (skip if > 45 days)
+        # Age check
         posted_m = re.search(r'[Pp]osted\s*:?\s*(\w+)\s+(\d{1,2}),?\s*(\d{4})', full_text)
         expiry = estimate_expiry("Focus Group")
         if posted_m:
@@ -236,8 +293,7 @@ def parse_fpfg_html(html, source_url):
                 month_num = MONTHS.get(posted_m.group(1).lower(), 0)
                 if month_num:
                     posted_dt = datetime(int(posted_m.group(3)), month_num, int(posted_m.group(2)), tzinfo=timezone.utc)
-                    age_days = (datetime.now(timezone.utc) - posted_dt).days
-                    if age_days > 45: continue  # skip old listings
+                    if (datetime.now(timezone.utc) - posted_dt).days > 60: continue
                     expiry = (posted_dt + timedelta(days=21)).isoformat()
             except: pass
 
@@ -245,11 +301,11 @@ def parse_fpfg_html(html, source_url):
         company = "FindPaidFocusGroup"
         fac_m = re.search(r'[Ff]acility\s*:?\s*([A-Z][^\n\r·]{2,60}?)(?:\s*·|\s*A leading|\n|\r)', full_text)
         if fac_m:
-            raw = re.sub(r'\s+(Inc\.?|LLC\.?|Corp\.?|Research Inc|Group Inc)$', '', fac_m.group(1).strip()).strip()
+            raw = re.sub(r'\s+(Inc\.?|LLC\.?|Corp\.?|Research Inc|Group Inc|Inc|LLC)$', '', fac_m.group(1).strip()).strip()
             if 2 < len(raw) < 60: company = raw
 
         # Apply URL
-        title_link = title_el.find("a") or article.select_one("a.more-link, a[rel='bookmark']")
+        title_link = title_el.find("a") or article.select_one("a.more-link, a[rel='bookmark'], h2 a, h3 a")
         detail_url = ""
         if title_link and title_link.get("href"):
             href = title_link["href"]
@@ -258,36 +314,20 @@ def parse_fpfg_html(html, source_url):
             detail_url = href
 
         apply_url = get_apply_url(company) or detail_url or source_url
-
-        # Location
-        is_rem = True
-        location = "Nationwide USA"
-        loc_m = re.search(r'[Ss]tate\s*:?\s*([^\n\r·,]{3,40})', full_text)
-        city_m = re.search(r'[Cc]ity\s*:?\s*([^\n\r·,]{3,40})', full_text)
-        if loc_m and "nationwide" not in loc_m.group(1).lower():
-            location = loc_m.group(1).strip()
-            is_rem = "remote" in location.lower()
-        elif "in-person" in full_text.lower():
-            is_rem = False
-
         cat = cat_from_text(title + " " + full_text[:200], pmin)
-
+        is_rem = "in-person" not in full_text.lower()
         tags = ["login-required" if company.lower() in LOGIN_REQUIRED else "direct-apply",
                 "remote" if is_rem else "in-person"]
 
         listings.append(Listing(
-            title=title, company=company,
-            pay=pmin, pay_max=pmax,
-            location=location, state=detect_state(location),
-            is_remote=is_rem, category=cat,
-            source_url=detail_url or source_url,
-            apply_url=apply_url,
-            tags=tags,
-            hourly_rate=int(pmin/60*60) if pmin else None,
-            expires_at=expiry,
+            title=title, company=company, pay=pmin,
+            location="Nationwide USA", state="Nationwide", is_remote=is_rem,
+            category=cat, source_url=detail_url or source_url, apply_url=apply_url,
+            tags=tags, expires_at=expiry,
         ))
 
     return listings
+
 
 def scrape_findpaidfocusgroup():
     all_listings, seen = [], set()
@@ -722,6 +762,128 @@ def curate(listings):
             log.debug(f"  SKIP [{l.score}] {l.title[:50]}")
     return curated
 
+def daily_cleanup(sb):
+    """
+    Automated daily cleanup — runs after scraping.
+    Replaces the need to manually run SQL queries every day.
+    """
+    log.info("\n🧹 DAILY CLEANUP...")
+    total_fixed = 0
+
+    # 1. Strip $0CityName suffixes from titles
+    try:
+        res = sb.table("Listings").select("id,Title").eq("Status","active").like("Title","%$0%").execute()
+        for row in (res.data or []):
+            clean = row["Title"].split("$0")[0].strip()
+            if clean and len(clean) > 5:
+                sb.table("Listings").update({"Title": clean}).eq("id", row["id"]).execute()
+                total_fixed += 1
+        log.info(f"  Cleaned {total_fixed} titles with $0CityName suffix")
+    except Exception as e:
+        log.error(f"  Title cleanup error: {e}")
+
+    # 2. Fix categories — move misclassified listings
+    category_fixes = [
+        # Medical conditions shouldn't be in App & UX
+        {"filter": {"Category": "App & UX Testing"}, "keywords": ["dental","clinical","patient","medical","health","drug","trial","disease","disorder","cancer","diabetes","migraine"], "new_cat": "Medical & Health"},
+        # Focus groups shouldn't be in App & UX
+        {"filter": {"Category": "App & UX Testing"}, "keywords": ["focus group","market research","give your opinion","share your opinion","paid session","paid interview","online diary","online community"], "new_cat": "Focus Group"},
+        # Gaming shouldn't be in App & UX
+        {"filter": {"Category": "App & UX Testing"}, "keywords": ["gamer","gaming","video game","hoops","basketball","esport"], "new_cat": "Gaming"},
+        # Tech studies in App & UX should be AI & Tech
+        {"filter": {"Category": "App & UX Testing"}, "keywords": ["voice assistant","tech wearable","digital ads","wearable tech","smart device"], "new_cat": "AI & Tech"},
+        # Skincare in App & UX should be Retail & Lifestyle
+        {"filter": {"Category": "App & UX Testing"}, "keywords": ["skincare","beauty","cosmetic","makeup","haircare","fashion"], "new_cat": "Retail & Lifestyle"},
+        # Finance spam cleanup
+        {"filter": {"Category": "Finance"}, "keywords": ["crypto","bitcoin","forex","investment opportunity","passive income"], "new_cat": None},  # None = delete
+    ]
+
+    for fix in category_fixes:
+        try:
+            query = sb.table("Listings").select("id,Title").eq("Status","active").eq("Category", fix["filter"]["Category"])
+            res = query.execute()
+            for row in (res.data or []):
+                title_lower = row["Title"].lower()
+                if any(kw in title_lower for kw in fix["keywords"]):
+                    if fix["new_cat"]:
+                        sb.table("Listings").update({"Category": fix["new_cat"]}).eq("id", row["id"]).execute()
+                    else:
+                        sb.table("Listings").update({"Status": "expired"}).eq("id", row["id"]).execute()
+                    total_fixed += 1
+        except Exception as e:
+            log.error(f"  Category fix error: {e}")
+
+    # 3. Remove duplicate Craigslist listings (same study posted across cities)
+    try:
+        res = sb.table("Listings").select("id,Title,Apply_URL").eq("Status","active").eq("Company","Craigslist Research").execute()
+        seen_urls = {}
+        seen_titles = {}
+        to_delete = []
+
+        for row in (res.data or []):
+            # Dedup by Apply_URL
+            url = row.get("Apply_URL","")
+            if url and url not in ("","None"):
+                if url in seen_urls:
+                    to_delete.append(row["id"])
+                    continue
+                seen_urls[url] = row["id"]
+
+            # Dedup by clean title (strip city/price suffixes)
+            import re
+            clean = re.sub(r'\s*[-–|]\s*\$[\d,]+.*$', '', row["Title"]).strip().lower()[:50]
+            clean = re.sub(r'\$\d+.*$', '', clean).strip()
+            if len(clean) > 10:
+                if clean in seen_titles:
+                    to_delete.append(row["id"])
+                    continue
+                seen_titles[clean] = row["id"]
+
+        for id_ in to_delete:
+            sb.table("Listings").update({"Status":"expired"}).eq("id", id_).execute()
+
+        log.info(f"  Removed {len(to_delete)} duplicate Craigslist listings")
+        total_fixed += len(to_delete)
+    except Exception as e:
+        log.error(f"  Dedup error: {e}")
+
+    # 4. Remove spam by title keywords
+    spam_titles = [
+        "vocalist","cover band","musician wanted","side hustle - high paying",
+        "fast cash opportunity","quick cash gig","make money fast",
+        "get rich","financial freedom","passive income","sugar daddy",
+        "telus digital","qr code link to this post"
+    ]
+    try:
+        res = sb.table("Listings").select("id,Title,Company").eq("Status","active").execute()
+        spam_count = 0
+        for row in (res.data or []):
+            combined = (row["Title"] + " " + (row["Company"] or "")).lower()
+            if any(s in combined for s in spam_titles):
+                sb.table("Listings").update({"Status":"expired"}).eq("id", row["id"]).execute()
+                spam_count += 1
+        log.info(f"  Removed {spam_count} spam listings")
+        total_fixed += spam_count
+    except Exception as e:
+        log.error(f"  Spam removal error: {e}")
+
+    # 5. Fix pay anomalies — Craigslist listings with pay > 3000 or pay < 30
+    try:
+        res = sb.table("Listings").select("id,Title,Pay").eq("Status","active").eq("Company","Craigslist Research").execute()
+        pay_fixed = 0
+        for row in (res.data or []):
+            pay = row.get("Pay") or 0
+            if pay > 3000 or (pay > 0 and pay < 30):
+                sb.table("Listings").update({"Status":"expired"}).eq("id", row["id"]).execute()
+                pay_fixed += 1
+        log.info(f"  Expired {pay_fixed} Craigslist listings with bad pay")
+        total_fixed += pay_fixed
+    except Exception as e:
+        log.error(f"  Pay fix error: {e}")
+
+    log.info(f"  ✅ Daily cleanup complete — {total_fixed} total fixes")
+    return total_fixed
+
 def run():
     log.info("="*60)
     log.info("StudyCashBoard Scraper v8")
@@ -779,6 +941,9 @@ def run():
     log.info("\n🗑  EXPIRING...")
     e1 = expire_by_date(sb)
     e2 = expire_stale(sb, days=30)
+
+    log.info("\n🧹 CLEANING UP...")
+    daily_cleanup(sb)
 
     log.info("\n"+"="*60)
     log.info(f"✅ DONE — inserted={ins} updated={upd} skipped={skp} expired={e1+e2}")

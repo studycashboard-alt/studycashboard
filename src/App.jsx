@@ -194,6 +194,9 @@ const CSS = `
     margin: 0 auto;
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .hero::before {
     content: '';
@@ -645,8 +648,34 @@ const CSS = `
     gap: 24px;
   }
   @media (max-width: 1024px) {
-    .hero-social-bar { display: none; }
-    .hero { padding: 36px 2rem 32px; }
+    /* On tablet/mobile: social bar becomes compact horizontal strip below hero text */
+    .hero-social-bar {
+      position: static;
+      transform: none;
+      width: 100%;
+      display: flex !important;
+      flex-direction: row;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .social-cta-top { display: none; }
+    .social-cta-bottom { display: none; }
+    .social-icons-grid {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+    }
+    .social-link {
+      width: 40px !important;
+      height: 40px !important;
+      border-radius: 10px !important;
+    }
+    .social-link img { width: 20px !important; height: 20px !important; }
+    .social-link-label { display: none; }
+    .social-item { flex-direction: row; }
+    .hero { padding: 36px 2rem 24px; }
   }
   @media (max-width: 860px) {
     .two-panel-inner { grid-template-columns: 1fr; }
@@ -779,8 +808,34 @@ const CSS = `
 
   /* ── MOBILE ── */
   @media (max-width: 1024px) {
-    .hero-social-bar { display: none; }
-    .hero { padding: 36px 2rem 32px; }
+    /* On tablet/mobile: social bar becomes compact horizontal strip below hero text */
+    .hero-social-bar {
+      position: static;
+      transform: none;
+      width: 100%;
+      display: flex !important;
+      flex-direction: row;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .social-cta-top { display: none; }
+    .social-cta-bottom { display: none; }
+    .social-icons-grid {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+    }
+    .social-link {
+      width: 40px !important;
+      height: 40px !important;
+      border-radius: 10px !important;
+    }
+    .social-link img { width: 20px !important; height: 20px !important; }
+    .social-link-label { display: none; }
+    .social-item { flex-direction: row; }
+    .hero { padding: 36px 2rem 24px; }
   }
   @media (max-width: 860px) {
     .two-panel-inner { grid-template-columns: 1fr; }

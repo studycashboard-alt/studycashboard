@@ -422,7 +422,7 @@ const CSS = `
 
   .pay-col { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
   .pay-amt { font-family: var(--ff); font-size: 1.7rem; color: var(--dark); line-height: 1; font-weight: 600; }
-  .pay-max { font-size: 1rem; color: var(--muted2); }
+  .pay-max { font-size: 1.4rem; color: var(--dark); font-weight: 600; font-family: var(--ff); }
   .pay-lbl { font-size: 10px; color: var(--muted2); letter-spacing: 0.05em; text-transform: uppercase; }
   .pay-rate { font-size: 10px; color: var(--gold); font-weight: 600; }
   .pay-rate-g { font-size: 10px; color: var(--green); font-weight: 600; }
@@ -489,7 +489,7 @@ const CSS = `
   .unlock-cta p { font-size: 13px; color: #888; margin-bottom: 28px; line-height: 1.7; max-width: 400px; margin-left: auto; margin-right: auto; }
 
   /* ── HOW IT WORKS ── */
-  .dark-section { background: var(--dark); padding: 64px 2.5rem; border-top: 1px solid #222; border-bottom: 1px solid #222; }
+  .dark-section { background: #1C1C1C; padding: 64px 2.5rem; border-top: 1px solid #2A2A2A; border-bottom: 1px solid #2A2A2A; }
   .dark-inner { max-width: 1140px; margin: 0 auto; }
   .dark-title { font-family: var(--ff); font-size: 1.9rem; font-weight: 600; color: #fff; margin-bottom: 2rem; }
   .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
@@ -957,8 +957,10 @@ function Home({ listings, loading, go, adminMode }) {
   listings.forEach(l => { const c = isEasy(l) ? EASY_CAT : l.Category; counts[c] = (counts[c] || 0) + 1; });
   const easyList = listings.filter(l => isEasy(l) && !isProQuickWin(l)).slice(0, 6);
   const topList  = listings.filter(l => !isEasy(l)).sort((a,b) => (b.Score||0)-(a.Score||0)).slice(0, 8);
-  const withPay  = listings.filter(l => l.Pay);
-  const avgPay   = withPay.length ? Math.round(withPay.reduce((s,l) => s+l.Pay,0)/withPay.length) : 127;
+  const topPay = listings.length > 0
+    ? Math.max(...listings.filter(l => l.Pay).map(l => l.Pay))
+    : 3500;
+  const topPayLabel = topPay >= 1000 ? `$${(topPay/1000).toFixed(1)}K` : `$${topPay}`;
 
   return (
     <>
@@ -1034,7 +1036,7 @@ function Home({ listings, loading, go, adminMode }) {
       <div className="stats-bar">
         <div className="stat"><span className="stat-num">{listings.length}+</span><span className="stat-label">Active Listings</span></div>
         <div className="stat"><span className="stat-num">$30</span><span className="stat-label">Quick Wins</span></div>
-        <div className="stat"><span className="stat-num">$3.5K</span><span className="stat-label">Top Pro Payout</span></div>
+        <div className="stat"><span className="stat-num">{topPayLabel}</span><span className="stat-label">Top Pro Payout</span></div>
         <div className="stat"><span className="stat-num">Free</span><span className="stat-label">To Join</span></div>
         <div className="stat"><span className="stat-num">8AM</span><span className="stat-label">Daily Refresh</span></div>
       </div>
@@ -1177,17 +1179,17 @@ function Home({ listings, loading, go, adminMode }) {
       </div>
 
       {/* ══ FRONT & CENTER: START EARNING NOW — REFERRAL PLATFORMS ══ */}
-      <div style={{ background: "#0F2417", borderBottom: "1px solid #1E4D2B", padding: "52px 1.5rem" }}>
+      <div style={{ background: "var(--cream2)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", padding: "52px 1.5rem" }}>
         <div style={{ maxWidth: 1140, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 32 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(22,163,74,0.15)", border: "1px solid rgba(22,163,74,0.3)", borderRadius: 100, padding: "6px 16px", marginBottom: 14 }}>
-              <span style={{ width: 6, height: 6, background: "#4ADE80", borderRadius: "50%", display: "inline-block", animation: "blink 2s infinite" }} />
-              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#4ADE80" }}>No Subscription Needed — Start Today</span>
+              <span style={{ width: 6, height: 6, background: "var(--green)", borderRadius: "50%", display: "inline-block", animation: "blink 2s infinite" }} />
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--green)" }}>No Subscription Needed — Start Today</span>
             </div>
-            <div style={{ fontFamily: "var(--ff)", fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 600, color: "#FFFFFF", marginBottom: 8 }}>
+            <div style={{ fontFamily: "var(--ff)", fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 600, color: "var(--dark)", marginBottom: 8 }}>
               ⚡ Join These Platforms & Start Getting Paid Now
             </div>
-            <p style={{ fontSize: 13, color: "#999", lineHeight: 1.7, maxWidth: 500, margin: "0 auto" }}>
+            <p style={{ fontSize: 13, color: "var(--mid)", lineHeight: 1.7, maxWidth: 500, margin: "0 auto" }}>
               The fastest ways to earn — free to join, no experience needed. We've verified every single one.
             </p>
           </div>
@@ -1201,19 +1203,19 @@ function Home({ listings, loading, go, adminMode }) {
               { name: "Pinecone Research", pay: "Flat $3–$5 each", badge: "🔒 Limited Spots", badgeColor: "#0F6E8E", url: "https://www.pineconeresearch.com/register", desc: "Highly rated, apply while open" },
             ].map((p, i) => (
               <a key={i} href={p.url} target="_blank" rel="noreferrer"
-                style={{ display: "block", background: "#111", border: "1px solid #1F3A1F", borderRadius: 10, padding: "18px 16px", textDecoration: "none", transition: "all 0.2s" }}
-                onMouseOver={e => { e.currentTarget.style.borderColor="#4ADE80"; e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.background="#0D2A0D"; }}
-                onMouseOut={e => { e.currentTarget.style.borderColor="#1F3A1F"; e.currentTarget.style.transform="none"; e.currentTarget.style.background="#111"; }}
+                style={{ display: "block", background: "#fff", border: "1px solid var(--border)", borderRadius: 10, padding: "18px 16px", textDecoration: "none", transition: "all 0.2s", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}
+                onMouseOver={e => { e.currentTarget.style.borderColor="var(--gold-bright)"; e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.boxShadow="0 6px 20px rgba(184,134,11,0.15)"; }}
+                onMouseOut={e => { e.currentTarget.style.borderColor="var(--border)"; e.currentTarget.style.transform="none"; e.currentTarget.style.boxShadow="0 2px 8px rgba(0,0,0,0.06)"; }}
               >
                 <div style={{ display:"inline-block", fontSize:9, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", padding:"3px 7px", borderRadius:3, background:p.badgeColor+"22", color:p.badgeColor, border:`1px solid ${p.badgeColor}44`, marginBottom:8 }}>{p.badge}</div>
-                <div style={{ fontFamily:"var(--ff)", fontSize:"1rem", fontWeight:600, color:"#FFF", marginBottom:3 }}>{p.name}</div>
-                <div style={{ fontSize:11, color:"#4ADE80", fontWeight:700, marginBottom:5 }}>{p.pay}</div>
-                <div style={{ fontSize:11, color:"#777", lineHeight:1.5 }}>{p.desc}</div>
-                <div style={{ marginTop:12, fontSize:10, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", color:"#4ADE80" }}>Join Free →</div>
+                <div style={{ fontFamily:"var(--ff)", fontSize:"1rem", fontWeight:600, color:"var(--dark)", marginBottom:3 }}>{p.name}</div>
+                <div style={{ fontSize:11, color:"var(--green)", fontWeight:700, marginBottom:5 }}>{p.pay}</div>
+                <div style={{ fontSize:11, color:"var(--mid)", lineHeight:1.5 }}>{p.desc}</div>
+                <div style={{ marginTop:12, fontSize:10, fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", color:"var(--gold)" }}>Join Free →</div>
               </a>
             ))}
           </div>
-          <p style={{ textAlign:"center", fontSize:11, color:"#444", marginTop:16 }}>
+          <p style={{ textAlign:"center", fontSize:11, color:"var(--muted2)", marginTop:16 }}>
             * Some links are referral links — costs you nothing extra and helps keep StudyCashBoard free 💚
           </p>
         </div>

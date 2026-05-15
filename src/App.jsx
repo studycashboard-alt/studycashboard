@@ -1034,7 +1034,7 @@ function Home({ listings, loading, go, adminMode }) {
       <div className="stats-bar">
         <div className="stat"><span className="stat-num">{listings.length}+</span><span className="stat-label">Active Listings</span></div>
         <div className="stat"><span className="stat-num">$30</span><span className="stat-label">Quick Wins</span></div>
-        <div className="stat"><span className="stat-num">$500</span><span className="stat-label">Top Pro Payout</span></div>
+        <div className="stat"><span className="stat-num">$3.5K</span><span className="stat-label">Top Pro Payout</span></div>
         <div className="stat"><span className="stat-num">Free</span><span className="stat-label">To Join</span></div>
         <div className="stat"><span className="stat-num">8AM</span><span className="stat-label">Daily Refresh</span></div>
       </div>

@@ -284,49 +284,30 @@ def scrape_craigslist_city(subdomain: str, state: str, city_name: str) -> List[L
             if post_url and not post_url.startswith("http"):
                 post_url = f"https://{subdomain}.craigslist.org{post_url}"
 
-            # Quick spam check on title before fetching detail page
+            # Spam check on title only — no detail page fetch (avoids 403)
             if any(kw in title.lower() for kw in SPAM_KEYWORDS):
                 continue
 
-            # Pay from listing preview
+            # Pay from search result listing
             price_el = post.select_one(".result-price, .price, [class*='price']")
             price_text = price_el.get_text(strip=True) if price_el else ""
-            pmin_preview, _ = parse_pay(price_text + " " + title)
+            pmin, pmax = parse_pay(price_text + " " + title)
 
-            # Skip obviously low-value
-            if pmin_preview is not None and pmin_preview < 10:
+            # Skip low-value or zero-pay listings
+            if pmin is not None and pmin < 25:
                 continue
 
-            # Fetch detail page for full content + apply link
-            if not post_url:
-                continue
-
-            detail_html = fetch(post_url)
-            if not detail_html:
-                time.sleep(0.3)
-                continue
-
-            detail_soup = BeautifulSoup(detail_html, "lxml")
-            body_el = (detail_soup.select_one("#postingbody") or
-                      detail_soup.select_one(".body") or
-                      detail_soup.select_one("[id*='posting']"))
-            body_text = body_el.get_text(" ", strip=True) if body_el else ""
-            full_text = title + " " + body_text
-
-            # Full spam/validity check
-            if not is_valid_listing(title, body_text):
+            # Validity check on title alone
+            if not is_valid_listing(title, ""):
                 continue
 
             seen_titles.add(title.lower())
 
-            # Extract pay from full text
-            pmin, pmax = parse_pay(full_text)
-            if not pmin: pmin, pmax = parse_pay(title)
+            # Use title as full_text — no detail page needed
+            full_text = title
 
-            # Duration
-            dur_text = parse_duration(full_text)
-
-            # Duration in minutes for category detection
+            # Duration from title
+            dur_text = parse_duration(title)
             dur_mins = None
             if dur_text:
                 m = re.search(r'(\d+)', dur_text)
@@ -334,49 +315,25 @@ def scrape_craigslist_city(subdomain: str, state: str, city_name: str) -> List[L
                     val = int(m.group(1))
                     dur_mins = val * 60 if "hour" in dur_text.lower() else val
 
-            # Location — check if remote
-            is_remote = any(w in full_text.lower() for w in
-                          ["online", "remote", "zoom", "virtual", "from home",
-                           "work from home", "nationwide", "anywhere"])
+            # Location — check title for remote keywords
+            is_remote = any(w in title.lower() for w in
+                          ["online", "remote", "zoom", "virtual", "from home", "nationwide"])
             location = "Remote / USA" if is_remote else f"In-Person / {city_name}"
 
-            # Category
-            category_name = cat_from_text(full_text, pmin, dur_mins)
+            # Category from title
+            category_name = cat_from_text(title, pmin, dur_mins)
 
-            # Extract direct apply URL
-            apply_url = extract_apply_url(detail_soup, full_text)
+            # Apply URL — use post URL directly (better than nothing, avoids 403)
+            apply_url = post_url
 
-            # Build description from body (first 300 chars, cleaned up)
-            desc_raw = re.sub(r'\s+', ' ', body_text[:400]).strip()
-            description = desc_raw[:280] + "..." if len(desc_raw) > 280 else desc_raw
+            # Description from title
+            description = f"Paid research opportunity in {city_name}. {title}. Apply via the Craigslist listing for full details and screener link."
 
-            # Posted date for expiry (Craigslist posts expire after 30 days)
-            date_el = detail_soup.select_one("time[datetime]")
-            if date_el:
-                try:
-                    posted_dt = datetime.fromisoformat(date_el["datetime"].replace("Z", "+00:00"))
-                    expiry = (posted_dt + timedelta(days=30)).isoformat()
-                    # Skip if already expired
-                    if datetime.fromisoformat(expiry) < datetime.now(timezone.utc):
-                        continue
-                except:
-                    expiry = expires_iso(14)
-            else:
-                expiry = expires_iso(14)
+            # Expiry — 14 days for Craigslist posts
+            expiry = expires_iso(14)
 
-            # Company name — try to extract from text
-            company = "Craigslist Research"
-            company_patterns = [
-                r'(?:posted by|from|by|company|firm|organization)[:\s]+([A-Z][A-Za-z\s&]{3,40}?)(?:\.|,|\n)',
-                r'([A-Z][A-Za-z\s]{3,30}(?:Research|Studies|Clinical|Group|Institute|Center|Inc|LLC))',
-            ]
-            for pattern in company_patterns:
-                m = re.search(pattern, body_text)
-                if m:
-                    raw = m.group(1).strip()
-                    if 3 < len(raw) < 50 and not any(kw in raw.lower() for kw in SPAM_KEYWORDS):
-                        company = raw
-                        break
+            # Company always Craigslist Research for search-only scraping
+            company = "Craigslist Research" 
 
             listing = Listing(
                 title=title,

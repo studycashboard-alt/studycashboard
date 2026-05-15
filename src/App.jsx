@@ -194,9 +194,6 @@ const CSS = `
     margin: 0 auto;
     position: relative;
     z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
   .hero::before {
     content: '';
@@ -648,34 +645,37 @@ const CSS = `
     gap: 24px;
   }
   @media (max-width: 1024px) {
-    /* On tablet/mobile: social bar becomes compact horizontal strip below hero text */
+    /* Keep exact same layout but smaller on mobile */
     .hero-social-bar {
-      position: static;
-      transform: none;
-      width: 100%;
-      display: flex !important;
-      flex-direction: row;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 16px;
-      flex-wrap: wrap;
+      left: 6px;
+      width: 120px;
     }
-    .social-cta-top { display: none; }
-    .social-cta-bottom { display: none; }
     .social-icons-grid {
-      display: flex;
-      flex-direction: row;
-      gap: 8px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
     }
     .social-link {
-      width: 40px !important;
-      height: 40px !important;
-      border-radius: 10px !important;
+      width: 34px !important;
+      height: 34px !important;
+      border-radius: 8px !important;
     }
-    .social-link img { width: 20px !important; height: 20px !important; }
-    .social-link-label { display: none; }
-    .social-item { flex-direction: row; }
-    .hero { padding: 36px 2rem 24px; }
+    .social-link img { width: 16px !important; height: 16px !important; }
+    .social-link-label {
+      font-size: 6px !important;
+      margin-top: 2px;
+    }
+    .social-cta-top {
+      font-size: 8px !important;
+      padding: 5px 6px !important;
+    }
+    .social-cta-top span {
+      font-size: 10px !important;
+      margin-bottom: 1px !important;
+    }
+    .social-cta-bottom {
+      font-size: 8px !important;
+      padding: 4px 6px !important;
+    }
   }
   @media (max-width: 860px) {
     .two-panel-inner { grid-template-columns: 1fr; }
@@ -808,34 +808,37 @@ const CSS = `
 
   /* ── MOBILE ── */
   @media (max-width: 1024px) {
-    /* On tablet/mobile: social bar becomes compact horizontal strip below hero text */
+    /* Keep exact same layout but smaller on mobile */
     .hero-social-bar {
-      position: static;
-      transform: none;
-      width: 100%;
-      display: flex !important;
-      flex-direction: row;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 16px;
-      flex-wrap: wrap;
+      left: 6px;
+      width: 120px;
     }
-    .social-cta-top { display: none; }
-    .social-cta-bottom { display: none; }
     .social-icons-grid {
-      display: flex;
-      flex-direction: row;
-      gap: 8px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
     }
     .social-link {
-      width: 40px !important;
-      height: 40px !important;
-      border-radius: 10px !important;
+      width: 34px !important;
+      height: 34px !important;
+      border-radius: 8px !important;
     }
-    .social-link img { width: 20px !important; height: 20px !important; }
-    .social-link-label { display: none; }
-    .social-item { flex-direction: row; }
-    .hero { padding: 36px 2rem 24px; }
+    .social-link img { width: 16px !important; height: 16px !important; }
+    .social-link-label {
+      font-size: 6px !important;
+      margin-top: 2px;
+    }
+    .social-cta-top {
+      font-size: 8px !important;
+      padding: 5px 6px !important;
+    }
+    .social-cta-top span {
+      font-size: 10px !important;
+      margin-bottom: 1px !important;
+    }
+    .social-cta-bottom {
+      font-size: 8px !important;
+      padding: 4px 6px !important;
+    }
   }
   @media (max-width: 860px) {
     .two-panel-inner { grid-template-columns: 1fr; }

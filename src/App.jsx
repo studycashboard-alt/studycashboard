@@ -644,6 +644,10 @@ const CSS = `
     grid-template-columns: 1fr 1fr;
     gap: 24px;
   }
+  @media (max-width: 1024px) {
+    .hero-social-bar { display: none; }
+    .hero { padding: 36px 2rem 32px; }
+  }
   @media (max-width: 860px) {
     .two-panel-inner { grid-template-columns: 1fr; }
   }
@@ -774,6 +778,10 @@ const CSS = `
   .tp-view-all:hover { background: var(--gold); color: var(--dark); }
 
   /* ── MOBILE ── */
+  @media (max-width: 1024px) {
+    .hero-social-bar { display: none; }
+    .hero { padding: 36px 2rem 32px; }
+  }
   @media (max-width: 860px) {
     .two-panel-inner { grid-template-columns: 1fr; }
   }

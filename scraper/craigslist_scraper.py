@@ -41,49 +41,55 @@ HEADERS = {
 }
 
 # ── 20 Major US Cities + their Craigslist subdomain and state ─────────────────
+# Top 8 research markets — highest concentration of legit studies
 CITIES = [
     ("newyork",      "NY", "New York, NY"),
     ("losangeles",   "CA", "Los Angeles, CA"),
     ("chicago",      "IL", "Chicago, IL"),
-    ("houston",      "TX", "Houston, TX"),
-    ("dallas",       "TX", "Dallas, TX"),
     ("sfbay",        "CA", "San Francisco, CA"),
-    ("atlanta",      "GA", "Atlanta, GA"),
-    ("miami",        "FL", "Miami, FL"),
-    ("seattle",      "WA", "Seattle, WA"),
     ("boston",       "MA", "Boston, MA"),
-    ("denver",       "CO", "Denver, CO"),
-    ("phoenix",      "AZ", "Phoenix, AZ"),
-    ("philadelphia", "PA", "Philadelphia, PA"),
-    ("sandiego",     "CA", "San Diego, CA"),
-    ("minneapolis",  "MN", "Minneapolis, MN"),
-    ("portland",     "OR", "Portland, OR"),
-    ("nashville",    "TN", "Nashville, TN"),
-    ("charlotte",    "NC", "Charlotte, NC"),
-    ("austin",       "TX", "Austin, TX"),
+    ("dallas",       "TX", "Dallas, TX"),
+    ("atlanta",      "GA", "Atlanta, GA"),
     ("washington",   "DC", "Washington, DC"),
 ]
 
 # Search terms across different Craigslist categories
+# Only most specific queries — reduces noise significantly
 SEARCH_QUERIES = [
-    ("ggg", "focus group"),        # gigs
-    ("ggg", "paid study"),         # gigs
-    ("ggg", "research study"),     # gigs
-    ("ggg", "paid research"),      # gigs
-    ("etc", "focus group"),        # et cetera
-    ("etc", "paid study"),         # et cetera
-    ("tlg", "focus group"),        # talent gigs
-    ("tlg", "research participants"), # talent gigs
+    ("ggg", "paid focus group"),
+    ("ggg", "paid research study"),
+    ("etc", "paid study participants"),
+    ("tlg", "paid research"),
 ]
 
 # ── Spam / irrelevant post filters ────────────────────────────────────────────
 SPAM_KEYWORDS = [
+    # MLM / scam
     "mlm", "pyramid", "network marketing", "amway", "herbalife",
     "work from home job", "hiring now", "join our team",
     "real estate agent", "insurance agent", "sales position",
     "make money online course", "crypto", "forex",
-    "adult", "webcam", "modeling agency",
+    "investment opportunity", "business opportunity",
+    "earn from home", "passive income", "dropshipping",
+    "affiliate marketing", "get rich", "financial freedom",
+    # Adult / inappropriate
+    "adult", "webcam", "modeling agency", "sugar daddy", "sugar baby",
+    "dating", "boyfriend", "girlfriend", "relationship",
+    # Medical procedures (not studies)
+    "dental implant", "hair transplant", "weight loss surgery",
+    "plastic surgery", "cosmetic surgery", "liposuction",
+    # Non-research gigs
+    "vocalist", "cover band", "musician wanted", "band member",
     "immigration", "paralegal", "attorney needed",
+    # Spam patterns
+    "side hustle - high paying", "fast cash opportunity",
+    "quick cash gig", "urgent:", "start today - earn",
+    "no skills needed", "no experience needed - earn",
+]
+
+# Companies known for spam posting
+SPAM_COMPANIES = [
+    "telus digital", "this post telus",
 ]
 
 VALID_KEYWORDS = [
@@ -151,7 +157,7 @@ def cat_from_text(text: str, pay=None, duration_mins=None) -> str:
     if any(w in t for w in ["mock jury","mock trial","jury","litigation","legal case","attorney","lawsuit","court","verdict"]): return "Mock Jury"
     if any(w in t for w in ["medical","health","clinical","patient","pharma","drug","wellness","therapy","condition","symptom","treatment","vaccine","chronic","mental health","eczema","depression","bipolar","cancer","diabetes","migraine","arthritis","disease","disorder","trial","chronic pain","caregiver"]): return "Medical & Health"
     if any(w in t for w in ["finance","bank","invest","credit","insurance","fintech","money","loan","mortgage","financial","overdraft","tax","budget","savings","payment"]): return "Finance"
-    if any(w in t for w in ["ai","artificial intelligence","machine learning","chatbot","technology","tech","automation","smart home","iot","wearable","smart watch","software","app","website","ux","ui","usability","digital","computer","mobile"]): return "App & UX Testing"
+    if any(w in t for w in ["usability test","ux research","ui test","website test","user experience test","prototype test","app feedback","website feedback","beta test app","test our app","test our website"]): return "App & UX Testing"
     if any(w in t for w in ["travel","hotel","airline","booking","vacation","trip","flight","cruise","tourism","destination"]): return "Travel"
     if any(w in t for w in ["automotive","car","vehicle","ev","electric vehicle","driving","suv","truck","motor","hybrid","dealership"]): return "Automotive"
     if any(w in t for w in ["education","learning","student","tutor","school","course","teacher","university","college","edtech","children","kids","parents","parenting"]): return "Education"
@@ -161,43 +167,55 @@ def cat_from_text(text: str, pay=None, duration_mins=None) -> str:
     if any(w in t for w in ["product test","product review","consumer test","new product","prototype","sample","pet","cat","dog","pet care","pet food"]): return "Product Testing"
     return "Focus Group"
 
+# Screener platforms we trust — if apply URL contains these, listing is legitimate
+TRUSTED_SCREENER_URLS = [
+    "surveymonkey.com", "qualtrics.com", "typeform.com",
+    "userintervie.ws", "userinterviews.com", "respondent.io",
+    "google.com/forms", "forms.gle", "research.net",
+    "alchemer.com", "questionpro.com", "utdallas.edu",
+    "forms.office.com", "zoom.us/meeting", "calendly.com",
+]
+
+def has_trusted_screener(apply_url: str) -> bool:
+    """Check if apply URL is from a trusted research platform."""
+    if not apply_url: return False
+    return any(s in apply_url.lower() for s in TRUSTED_SCREENER_URLS)
+
 def score_listing(listing: Listing) -> int:
     """
     Score Craigslist listings.
-    Higher pay + shorter duration + direct apply link = higher score.
-    Medical/clinical studies score higher due to compensation.
+    REQUIRES trusted screener URL — Craigslist-only links score too low to pass.
     """
-    score = 30  # base score for being on Craigslist
+    # Must have a trusted screener URL to be worth showing
+    # Craigslist posts without screeners are low quality
+    has_screener = has_trusted_screener(listing.apply_url)
+
+    score = 35 if has_screener else 15  # big penalty for no screener
 
     # Pay scoring
     pay = listing.pay or 0
-    if pay >= 500:   score += 35
-    elif pay >= 300: score += 28
-    elif pay >= 200: score += 22
-    elif pay >= 150: score += 18
-    elif pay >= 100: score += 14
-    elif pay >= 75:  score += 10
-    elif pay >= 50:  score += 6
-    elif pay >= 25:  score += 3
-
-    # Has direct apply link (not just a Craigslist page)
-    if listing.apply_url and "craigslist" not in listing.apply_url:
-        score += 12  # direct screener link is very valuable
+    if pay >= 500:   score += 30
+    elif pay >= 300: score += 24
+    elif pay >= 200: score += 18
+    elif pay >= 150: score += 14
+    elif pay >= 100: score += 10
+    elif pay >= 75:  score += 6
+    elif pay >= 50:  score += 3
 
     # Remote bonus
-    if listing.is_remote:
-        score += 8
+    if listing.is_remote: score += 5
 
     # Category bonuses
-    if listing.category == "Medical & Health": score += 5  # clinical trials pay well
+    if listing.category == "Medical & Health": score += 5
     if listing.category == "Mock Jury": score += 3
 
-    # Cap at 92 — Craigslist listings are less verified than curated sources
-    return min(92, score)
+    # Cap at 88
+    return min(88, score)
 
-def is_valid_listing(title: str, body: str) -> bool:
+def is_valid_listing(title: str, body: str, company: str = "") -> bool:
     """Filter out spam and irrelevant posts."""
     combined = (title + " " + body).lower()
+    company_lower = company.lower()
 
     # Must contain at least one valid keyword
     if not any(kw in combined for kw in VALID_KEYWORDS):
@@ -207,8 +225,18 @@ def is_valid_listing(title: str, body: str) -> bool:
     if any(kw in combined for kw in SPAM_KEYWORDS):
         return False
 
+    # Block known spam companies
+    if any(sc in company_lower for sc in SPAM_COMPANIES):
+        return False
+
     # Title must be reasonable length
     if len(title) < 10 or len(title) > 200:
+        return False
+
+    # Skip titles that are clearly not research studies
+    non_research = ["wanted", "wtd", "seeking band", "musician", "vocalist",
+                    "cover band", "for sale", "for rent", "job posting"]
+    if any(nr in title.lower() for nr in non_research):
         return False
 
     return True
@@ -293,8 +321,11 @@ def scrape_craigslist_city(subdomain: str, state: str, city_name: str) -> List[L
             price_text = price_el.get_text(strip=True) if price_el else ""
             pmin, pmax = parse_pay(price_text + " " + title)
 
-            # Skip low-value or zero-pay listings
-            if pmin is not None and pmin < 25:
+            # Craigslist minimum $75 — below this is usually not worth showing
+            if pmin is not None and pmin < 75:
+                continue
+            # Skip impossibly high pay — likely spam
+            if pmin is not None and pmin > 2000:
                 continue
 
             # Validity check on title alone
@@ -364,7 +395,9 @@ def scrape_craigslist_city(subdomain: str, state: str, city_name: str) -> List[L
                 listing.hourly_rate = int((pmin / dur_mins) * 60)
 
             # Only include if score is good enough
-            if listing.score >= 45:
+            # With screener requirement: no screener = score ~15-25 = fails
+            # With screener + $75+ pay = score 50+ = passes
+            if listing.score >= 50:
                 listings.append(listing)
                 log.info(f"  [{listing.score}] {listing.state} — {title[:50]} — ${pmin or '?'}")
 
@@ -427,11 +460,13 @@ def run():
         log.info(f"\n📍 Scraping {city_name}...")
         try:
             city_listings = scrape_craigslist_city(subdomain, state, city_name)
-            # Global dedup by title
+            # Global dedup — strip city name and price suffix before comparing
             for l in city_listings:
-                key = l.title.lower().strip()[:70]
-                if key not in seen_globally:
-                    seen_globally.add(key)
+                # Remove "$0CityName" and price suffixes from title for dedup
+                clean_title = re.sub(r'\$\d+.*$', '', l.title).strip().lower()[:60]
+                clean_title = re.sub(r'\s*[-|]\s*\$[\d,]+.*$', '', clean_title).strip()
+                if clean_title not in seen_globally and len(clean_title) > 10:
+                    seen_globally.add(clean_title)
                     all_listings.append(l)
         except Exception as e:
             log.error(f"  {city_name} failed: {e}")

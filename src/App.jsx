@@ -1731,8 +1731,9 @@ function Contact() {
       }
     } catch(e) {
       // Fallback to mailto
-      const mailto = \`mailto:studycashboard@gmail.com?subject=\${encodeURIComponent("[StudyCashBoard] " + form.subject + " — from " + form.name)}&body=\${encodeURIComponent("Name: " + form.name + "\nEmail: " + form.email + "\n\n" + form.message)}\`;
-      window.open(mailto, "_blank");
+      const subject = encodeURIComponent("[StudyCashBoard] " + form.subject + " — from " + form.name);
+      const body = encodeURIComponent("Name: " + form.name + "\nEmail: " + form.email + "\n\n" + form.message);
+      window.open("mailto:studycashboard@gmail.com?subject=" + subject + "&body=" + body, "_blank");
       setSent(true);
     }
     setSubmitting(false);

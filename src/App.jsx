@@ -539,13 +539,13 @@ const CSS = `
   .guarantee p { font-size: 13px; color: #666; font-weight: 300; line-height: 1.7; max-width: 480px; margin: 0 auto; }
 
   /* ── FOOTER ── */
-  .footer { background: #111; padding: 28px 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; border-top: 1px solid #1a1a1a; }
+  .footer { background: #111; padding: 28px 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; border-top: 1px solid #2a2a2a; }
   .footer-logo { font-family: var(--ff); font-size: 1.1rem; }
-  .fl-s { color: #fff; } .fl-c { color: #D4A017; } .fl-b { color: #555; }
-  .footer-links { display: flex; gap: 2rem; }
-  .footer-link { font-size: 11px; color: #555; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: color 0.2s; background: none; border: none; font-family: var(--fs); font-weight: 500; }
-  .footer-link:hover { color: #D4A017; }
-  .footer-copy { font-size: 11px; color: #444; letter-spacing: 0.06em; text-transform: uppercase; }
+  .fl-s { color: #fff; } .fl-c { color: #F0C040; } .fl-b { color: #888; }
+  .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .footer-link { font-size: 12px; color: #BBBBBB; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: color 0.2s; background: none; border: none; font-family: var(--fs); font-weight: 600; }
+  .footer-link:hover { color: #F0C040; }
+  .footer-copy { font-size: 11px; color: #666; letter-spacing: 0.06em; text-transform: uppercase; }
   /* Social sidebar on hero */
   .hero-social-bar {
     position: absolute;

@@ -1699,16 +1699,43 @@ function FAQ({ go }) {
 // ── Contact Page ──────────────────────────────────────────────────────────────
 function Contact() {
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", subject: "General Question", message: "" });
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (!form.name || !form.email || !form.message) {
       alert("Please fill in all fields.");
       return;
     }
-    const mailto = `mailto:studycashboard@gmail.com?subject=${encodeURIComponent("[StudyCashBoard] " + form.subject + " — from " + form.name)}&body=${encodeURIComponent("Name: " + form.name + "\nEmail: " + form.email + "\n\n" + form.message)}`;
-    window.open(mailto, "_blank");
-    setSent(true);
+    setSubmitting(true);
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "410c71a9-d628-40d0-9376-9b222f2eefa0",
+          subject: `[StudyCashBoard] ${form.subject} — from ${form.name}`,
+          from_name: form.name,
+          replyto: form.email,
+          "Name": form.name,
+          "Email": form.email,
+          "Subject": form.subject,
+          "Message": form.message,
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSent(true);
+      } else {
+        throw new Error("Failed");
+      }
+    } catch(e) {
+      // Fallback to mailto
+      const mailto = \`mailto:studycashboard@gmail.com?subject=\${encodeURIComponent("[StudyCashBoard] " + form.subject + " — from " + form.name)}&body=\${encodeURIComponent("Name: " + form.name + "\nEmail: " + form.email + "\n\n" + form.message)}\`;
+      window.open(mailto, "_blank");
+      setSent(true);
+    }
+    setSubmitting(false);
   }
 
   return (
@@ -1950,35 +1977,66 @@ function PostStudy() {
     ageMin: "18", ageMax: "", gender: "All", description: "", applyUrl: ""
   });
 
-  function handleSubmit() {
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit() {
     if (!form.company || !form.email || !form.title || !form.pay || !form.applyUrl) {
       alert("Please fill in all required fields (marked with *).");
       return;
     }
-    const subject = encodeURIComponent(`[Study Submission] ${form.title} — ${form.company}`);
-    const body = encodeURIComponent(
-      `STUDY SUBMISSION FROM STUDYCASHBOARD.COM\n` +
-      `${"=".repeat(50)}\n\n` +
-      `COMPANY DETAILS\n` +
-      `Company: ${form.company}\n` +
-      `Contact: ${form.contact}\n` +
-      `Email: ${form.email}\n` +
-      `Website: ${form.website}\n\n` +
-      `STUDY DETAILS\n` +
-      `Title: ${form.title}\n` +
-      `Category: ${form.category}\n` +
-      `Format: ${form.format}\n` +
-      `Pay: $${form.pay}\n` +
-      `Duration: ${form.duration}\n` +
-      `Location: ${form.location}\n` +
-      `Study Date: ${form.studyDate}\n` +
-      `Age Range: ${form.ageMin}${form.ageMax ? "–" + form.ageMax : "+"}\n` +
-      `Gender: ${form.gender}\n\n` +
-      `DESCRIPTION\n${form.description}\n\n` +
-      `APPLY URL: ${form.applyUrl}`
-    );
-    window.open(`mailto:studycashboard@gmail.com?subject=${subject}&body=${body}`, "_blank");
-    setSent(true);
+    setSubmitting(true);
+    setError("");
+    try {
+      // Use Web3Forms — free, no backend needed, sends directly to your email
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "410c71a9-d628-40d0-9376-9b222f2eefa0", // Replace with your key from web3forms.com
+          subject: `[Study Submission] ${form.title} — ${form.company}`,
+          from_name: form.company,
+          replyto: form.email,
+          to: "studycashboard@gmail.com",
+          // Study details
+          "Company Name": form.company,
+          "Contact Name": form.contact,
+          "Company Email": form.email,
+          "Company Website": form.website,
+          "Study Title": form.title,
+          "Category": form.category,
+          "Format": form.format,
+          "Pay": `$${form.pay}`,
+          "Duration": form.duration,
+          "Location": form.location,
+          "Study Date": form.studyDate,
+          "Age Range": `${form.ageMin}${form.ageMax ? "–" + form.ageMax : "+"}`,
+          "Gender": form.gender,
+          "Description": form.description,
+          "Apply URL": form.applyUrl,
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSent(true);
+      } else {
+        throw new Error("Submission failed");
+      }
+    } catch(e) {
+      // Fallback to mailto if web3forms fails
+      const subject = encodeURIComponent(`[Study Submission] ${form.title} — ${form.company}`);
+      const body = encodeURIComponent(
+        `STUDY SUBMISSION\n\n` +
+        `Company: ${form.company}\nContact: ${form.contact}\nEmail: ${form.email}\nWebsite: ${form.website}\n\n` +
+        `Title: ${form.title}\nCategory: ${form.category}\nFormat: ${form.format}\n` +
+        `Pay: $${form.pay}\nDuration: ${form.duration}\nLocation: ${form.location}\n` +
+        `Study Date: ${form.studyDate}\nAge: ${form.ageMin}–${form.ageMax}\nGender: ${form.gender}\n\n` +
+        `Description: ${form.description}\n\nApply URL: ${form.applyUrl}`
+      );
+      window.open(`mailto:studycashboard@gmail.com?subject=${subject}&body=${body}`, "_blank");
+      setSent(true);
+    }
+    setSubmitting(false);
   }
 
   const inp = {
@@ -2109,11 +2167,12 @@ function PostStudy() {
               <input value={form.applyUrl} onChange={e => setForm({...form, applyUrl:e.target.value})} style={inp} placeholder="https://surveymonkey.com/r/..." />
               <div style={{ fontSize:11, color:"var(--muted2)", marginTop:6 }}>Direct link where participants can apply or complete a screener</div>
             </div>
-            <button onClick={handleSubmit}
-              style={{ background:"var(--dark)", color:"#fff", border:"none", padding:"14px", borderRadius:4, fontFamily:"var(--fs)", fontSize:13, fontWeight:700, letterSpacing:"0.06em", textTransform:"uppercase", cursor:"pointer", width:"100%", marginTop:8, transition:"background 0.2s" }}
-              onMouseOver={e => e.currentTarget.style.background = "var(--gold)"}
-              onMouseOut={e => e.currentTarget.style.background = "var(--dark)"}
-            >Submit Study for Review →</button>
+            <button onClick={handleSubmit} disabled={submitting}
+              style={{ background: submitting ? "#888" : "var(--dark)", color:"#fff", border:"none", padding:"14px", borderRadius:4, fontFamily:"var(--fs)", fontSize:13, fontWeight:700, letterSpacing:"0.06em", textTransform:"uppercase", cursor: submitting ? "wait" : "pointer", width:"100%", marginTop:8, transition:"background 0.2s" }}
+              onMouseOver={e => { if(!submitting) e.currentTarget.style.background = "var(--gold)"; }}
+              onMouseOut={e => { if(!submitting) e.currentTarget.style.background = "var(--dark)"; }}
+            >{submitting ? "Sending..." : "Submit Study for Review →"}</button>
+            {error && <p style={{ color:"red", textAlign:"center", marginTop:8, fontSize:12 }}>{error}</p>}
             <p style={{ textAlign:"center", fontSize:11, color:"var(--muted2)", marginTop:14 }}>
               We review all submissions within 24 hours. Studies must be legitimate paid research opportunities open to US residents. Questions? Email <a href="mailto:studycashboard@gmail.com" style={{ color:"var(--gold)" }}>studycashboard@gmail.com</a>
             </p>

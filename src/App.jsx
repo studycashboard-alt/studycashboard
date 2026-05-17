@@ -105,15 +105,24 @@ const CSS = `
   /* ── NAV ── */
   .nav {
     background: var(--dark);
-    padding: 0 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 62px;
     position: sticky;
     top: 0;
     z-index: 200;
     width: 100%;
+  }
+  .nav-row1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 52px;
+  }
+  .nav-row2 {
+    display: flex;
+    align-items: center;
+    padding: 0 2.5rem;
+    border-top: 1px solid #2A2A2A;
+    height: 38px;
   }
   .logo {
     display: flex;
@@ -123,12 +132,15 @@ const CSS = `
     background: none;
     border: none;
     padding: 0;
+    flex-shrink: 0;
   }
-  .logo-s { font-family: var(--ff); font-size: 1.7rem; font-weight: 600; color: #FFFFFF; letter-spacing: -0.01em; text-shadow: 0 0 24px rgba(255,255,255,0.2); }
-  .logo-c { font-family: var(--ff); font-size: 1.7rem; font-weight: 600; color: #F0C040; letter-spacing: -0.01em; text-shadow: 0 0 24px rgba(240,192,64,0.5); }
+  .logo-s { font-family: var(--ff); font-size: 1.7rem; font-weight: 600; color: #FFFFFF; letter-spacing: -0.01em; }
+  .logo-c { font-family: var(--ff); font-size: 1.7rem; font-weight: 600; color: #F0C040; letter-spacing: -0.01em; }
   .logo-b { font-family: var(--ff); font-size: 1.7rem; font-weight: 400; color: #BBBBBB; letter-spacing: -0.01em; }
   .logo-sep { width: 1px; height: 20px; background: #444; margin: 0 14px; align-self: center; }
   .logo-tag { font-size: 10px; color: #D4A017; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
+
+  /* Desktop nav links */
   .nav-links { display: flex; gap: 2rem; align-items: center; }
   .nav-link {
     color: #EEEEEE;
@@ -142,6 +154,7 @@ const CSS = `
     font-family: var(--fs);
     font-weight: 700;
     padding: 0;
+    white-space: nowrap;
   }
   .nav-link:hover, .nav-link.active { color: #F0C040; }
   .nav-right { display: flex; gap: 10px; align-items: center; }
@@ -156,6 +169,7 @@ const CSS = `
     cursor: pointer;
     letter-spacing: 0.06em;
     transition: all 0.2s;
+    white-space: nowrap;
   }
   .nav-signin:hover { color: #fff; border-color: #F0C040; background: rgba(240,192,64,0.12); }
   .nav-cta {
@@ -171,8 +185,103 @@ const CSS = `
     letter-spacing: 0.08em;
     text-transform: uppercase;
     transition: all 0.2s;
+    white-space: nowrap;
   }
   .nav-cta:hover { background: #E8B820; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 300;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #EEEEEE;
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile drawer */
+  .nav-drawer {
+    display: none;
+    position: fixed;
+    top: 62px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--dark);
+    z-index: 199;
+    flex-direction: column;
+    padding: 24px 2rem;
+    gap: 4px;
+    overflow-y: auto;
+  }
+  .nav-drawer.open { display: flex; }
+  .nav-drawer-link {
+    color: #EEEEEE;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #2A2A2A;
+    padding: 16px 0;
+    cursor: pointer;
+    font-family: var(--fs);
+    text-align: left;
+    transition: color 0.2s;
+    width: 100%;
+  }
+  .nav-drawer-link:hover, .nav-drawer-link.active { color: #F0C040; }
+  .nav-drawer-link.gold { color: #F0C040; }
+  .nav-drawer-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .nav-drawer-cta {
+    background: #D4A017;
+    color: #1A1A1A;
+    border: none;
+    padding: 14px;
+    font-family: var(--fs);
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 3px;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+  }
+  .nav-drawer-signin {
+    background: transparent;
+    color: #EEEEEE;
+    border: 1.5px solid #666;
+    padding: 13px;
+    font-family: var(--fs);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    text-align: center;
+    width: 100%;
+  }
 
   /* ── HERO ── */
   .hero {
@@ -665,14 +774,66 @@ const CSS = `
   @media (max-width: 860px) {
     .two-panel-inner { grid-template-columns: 1fr; }
   }
-  @media (max-width: 700px) {
-    .nav { padding: 0 1rem; height: 56px; }
-    .nav-links { gap: 0.8rem; }
-    .nav-link { font-size: 10px; letter-spacing: 0.04em; }
-    .nav-signin { display: none; }
+  @media (max-width: 900px) {
+    .nav-hamburger { display: none; }
     .logo-sep, .logo-tag { display: none; }
     .logo-s, .logo-c, .logo-b { font-size: 1.3rem; }
-    .nav-cta { padding: 7px 14px; font-size: 10px; }
+    .nav-links { gap: 1rem; }
+    .nav-link { font-size: 10px; letter-spacing: 0.04em; }
+    .nav-signin { display: none; }
+    .nav-cta { padding: 7px 12px; font-size: 10px; white-space: nowrap; flex-shrink: 0; }
+  }
+  /* Two-row nav for mobile — logo+CTA on top, links scrollable below */
+  @media (max-width: 700px) {
+    .nav {
+      height: auto;
+      flex-wrap: wrap;
+      padding: 0;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .nav-row1 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      height: 52px;
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .nav-row2 {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      width: 100%;
+      border-top: 1px solid #2A2A2A;
+      padding: 0 1rem;
+    }
+    .nav-row2::-webkit-scrollbar { display: none; }
+    .nav-links {
+      display: flex;
+      gap: 0;
+      flex-wrap: nowrap;
+      align-items: center;
+      width: 100%;
+    }
+    .nav-link {
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      padding: 10px 10px;
+      white-space: nowrap;
+      border-right: 1px solid #2A2A2A;
+      height: 38px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-right { display: none; }
+    .logo-sep, .logo-tag { display: none; }
+    .logo-s, .logo-c, .logo-b { font-size: 1.3rem; }
+  }
     .hero { padding: 28px 1.2rem 24px; }
     .hero h1 { font-size: 1.8rem; margin-bottom: 0.6rem; }
     .hero-sub { font-size: 0.85rem; margin-bottom: 1.2rem; }
@@ -789,11 +950,6 @@ function ListingCard({ listing, index, isLocked, onUpgrade }) {
         </div>
         <div className="card-title">{listing.Title}</div>
         {listing.Description && <div className="card-desc">{listing.Description}</div>}
-        <div className="card-meta">
-          {listing.Company  && <span className="meta-item">🏢 {listing.Company}</span>}
-          {listing.Duration && <span className="meta-item">⏱ {listing.Duration}</span>}
-          {locLabel         && <span className="meta-item">📍 {locLabel}</span>}
-        </div>
 
         {/* ── Footer row 1: company · duration · location · study date ── */}
         <div className="card-footer">
@@ -837,7 +993,7 @@ function ListingCard({ listing, index, isLocked, onUpgrade }) {
 // ── Home Page ─────────────────────────────────────────────────────────────────
 function Home({ listings, loading, go, adminMode }) {
   const counts = {};
-  listings.forEach(l => { const c = isEasy(l) ? EASY_CAT : l.Category; counts[c] = (counts[c] || 0) + 1; });
+  listings.forEach(l => { const c = l.Category || ""; counts[c] = (counts[c] || 0) + 1; });
   const easyList = listings.filter(l => isEasy(l) && !isProQuickWin(l)).slice(0, 6);
   const topList  = listings.filter(l => !isEasy(l)).sort((a,b) => (b.Score||0)-(a.Score||0)).slice(0, 8);
   const topPay = listings.length > 0 ? Math.max(...listings.filter(l => l.Pay).map(l => l.Pay)) : 3500;
@@ -1153,14 +1309,13 @@ function Listings({ listings, loading, go, initCat, adminMode }) {
   useEffect(() => { setCat(initCat || ""); }, [initCat]);
 
   const counts = {};
-  listings.forEach(l => { const c = isEasy(l) ? EASY_CAT : l.Category; counts[c] = (counts[c]||0)+1; });
+  listings.forEach(l => { const c = l.Category || ""; counts[c] = (counts[c]||0)+1; });
   counts[""] = listings.length;
 
   const filtered = listings.filter(l => {
     const q = search.toLowerCase();
-    const ec = isEasy(l) ? EASY_CAT : l.Category;
     if (q && !l.Title?.toLowerCase().includes(q) && !l.Company?.toLowerCase().includes(q) && !l.Description?.toLowerCase().includes(q)) return false;
-    if (cat && ec !== cat) return false;
+    if (cat && l.Category !== cat) return false;
     if (loc === "Remote" && !l.Is_Remote && l.Location?.toLowerCase() !== "nationwide") return false;
     if (loc === "In-Person" && (l.Is_Remote || l.Location?.toLowerCase() === "nationwide")) return false;
     if (state && state !== "" && l.State !== state && l.State !== "Nationwide") return false;
@@ -1590,28 +1745,69 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const navLinks = [
+    { id:"home",       label:"Home" },
+    { id:"listings",   label:"Browse Gigs" },
+    { id:"pricing",    label:"Pricing" },
+    { id:"products",   label:"Free Resources" },
+    { id:"faq",        label:"FAQ" },
+    { id:"contact",    label:"Contact" },
+    { id:"post-study", label:"Post a Study ✦", gold: true },
+  ];
+
+  function navGo(dest) {
+    go(dest);
+    setMenuOpen(false);
+  }
+
   return (
     <>
       <style>{CSS}</style>
+
+      {/* ── NAV ── */}
       <nav className="nav">
-        <button className="logo" onClick={() => go("home")}>
-          <span className="logo-s">Study</span><span className="logo-c">Cash</span><span className="logo-b">Board</span>
-          <span className="logo-sep" /><span className="logo-tag">Paid Research Directory</span>
-        </button>
-        <div className="nav-links">
-          <button className={`nav-link ${page==="home"?"active":""}`} onClick={() => go("home")}>Home</button>
-          <button className={`nav-link ${page==="listings"?"active":""}`} onClick={() => go("listings")}>Browse Gigs</button>
-          <button className={`nav-link ${page==="pricing"?"active":""}`} onClick={() => go("pricing")}>Pricing</button>
-          <button className={`nav-link ${page==="products"?"active":""}`} onClick={() => go("products")}>Free Resources</button>
-          <button className={`nav-link ${page==="faq"?"active":""}`} onClick={() => go("faq")}>FAQ</button>
-          <button className={`nav-link ${page==="contact"?"active":""}`} onClick={() => go("contact")}>Contact</button>
-          <button className={`nav-link ${page==="post-study"?"active":""}`} onClick={() => go("post-study")} style={{color:"#F0C040",fontWeight:900}}>Post a Study ✦</button>
+        {/* Row 1: logo + Sign In + Get Pro Access (always visible) */}
+        <div className="nav-row1">
+          <button className="logo" onClick={() => navGo("home")}>
+            <span className="logo-s">Study</span><span className="logo-c">Cash</span><span className="logo-b">Board</span>
+            <span className="logo-sep" /><span className="logo-tag">Paid Research Directory</span>
+          </button>
+          <div className="nav-right">
+            <button className="nav-signin" onClick={() => alert("Auth coming soon!")}>Sign In</button>
+            <button className="nav-cta" onClick={() => navGo("pricing")}>Get Pro Access</button>
+          </div>
         </div>
-        <div className="nav-right">
-          <button className="nav-signin" onClick={() => alert("Auth coming soon!")}>Sign In</button>
-          <button className="nav-cta" onClick={() => go("pricing")}>Get Pro Access</button>
+
+        {/* Row 2: all nav links — scrollable on mobile */}
+        <div className="nav-row2">
+          <div className="nav-links">
+            {navLinks.map(l => (
+              <button key={l.id} className={`nav-link ${page===l.id?"active":""}`}
+                onClick={() => navGo(l.id)}
+                style={l.gold ? {color:"#F0C040",fontWeight:900} : {}}>
+                {l.label}
+              </button>
+            ))}
+          </div>
         </div>
       </nav>
+
+      {/* Mobile drawer */}
+      <div className={`nav-drawer ${menuOpen?"open":""}`}>
+        {navLinks.map(l => (
+          <button key={l.id}
+            className={`nav-drawer-link ${page===l.id?"active":""} ${l.gold?"gold":""}`}
+            onClick={() => navGo(l.id)}>
+            {l.label}
+          </button>
+        ))}
+        <div className="nav-drawer-btns">
+          <button className="nav-drawer-cta" onClick={() => navGo("pricing")}>Get Pro Access</button>
+          <button className="nav-drawer-signin" onClick={() => { alert("Auth coming soon!"); setMenuOpen(false); }}>Sign In</button>
+        </div>
+      </div>
 
       {page === "home"       && <Home      listings={listings} loading={loading} go={go} adminMode={adminMode} />}
       {page === "listings"   && <Listings  listings={listings} loading={loading} go={go} initCat={initCat} adminMode={adminMode} />}

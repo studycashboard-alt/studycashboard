@@ -110,9 +110,9 @@ const CSS = `
     width: 100%;
   }
   .logo { display: flex; align-items: baseline; gap: 0; cursor: pointer; background: none; border: none; padding: 0; }
-  .logo-s { font-family: var(--ff); font-size: 1.7rem; font-weight: 600; color: #FFFFFF; letter-spacing: -0.01em; text-shadow: 0 0 24px rgba(255,255,255,0.2); }
-  .logo-c { font-family: var(--ff); font-size: 1.7rem; font-weight: 600; color: #F0C040; letter-spacing: -0.01em; text-shadow: 0 0 24px rgba(240,192,64,0.5); }
-  .logo-b { font-family: var(--ff); font-size: 1.7rem; font-weight: 400; color: #BBBBBB; letter-spacing: -0.01em; }
+  .logo-s { font-family: var(--ff); font-size: 1.7rem; font-weight: 600; color: #FFFFFF; letter-spacing: -0.01em; text-shadow: 0 0 24px rgba(255,255,255,0.2); } /* Flex */
+  .logo-c { font-family: var(--ff); font-size: 1.7rem; font-weight: 600; color: #F0C040; letter-spacing: -0.01em; text-shadow: 0 0 24px rgba(240,192,64,0.5); } /* Hustle */
+  .logo-b { font-family: var(--ff); font-size: 1.7rem; font-weight: 400; color: #BBBBBB; letter-spacing: -0.01em; } /* Media */
   .logo-sep { width: 1px; height: 20px; background: #444; margin: 0 14px; align-self: center; }
   .logo-tag { font-size: 10px; color: #D4A017; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
   .nav-links { display: flex; gap: 2rem; align-items: center; }
@@ -562,31 +562,31 @@ function Home({ listings, loading, go, adminMode }) {
               <span className="social-link-label">Facebook</span>
             </div>
             <div className="social-item">
-              <a className="social-link" href="https://www.instagram.com/studycashboard/" target="_blank" rel="noreferrer" title="Instagram" style={{ background:"#E4405F" }}>
+              <a className="social-link" href="https://www.instagram.com/flexhustlemedia/" target="_blank" rel="noreferrer" title="Instagram" style={{ background:"#E4405F" }}>
                 <img src="https://cdn.simpleicons.org/instagram/white" alt="Instagram" width="30" height="30" style={{display:"block"}} />
               </a>
               <span className="social-link-label">Instagram</span>
             </div>
             <div className="social-item">
-              <a className="social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="X" style={{ background:"#000000" }}>
+              <a className="social-link" href="https://x.com/FlexhustleMedia" target="_blank" rel="noreferrer" title="X" style={{ background:"#000000" }}>
                 <img src="https://cdn.simpleicons.org/x/white" alt="X" width="30" height="30" style={{display:"block"}} />
               </a>
               <span className="social-link-label">X</span>
             </div>
             <div className="social-item">
-              <a className="social-link" href="https://www.tiktok.com/@studycashboard?lang=en" target="_blank" rel="noreferrer" title="TikTok" style={{ background:"#000000" }}>
+              <a className="social-link" href="https://www.tiktok.com/@flexhustlemedia" target="_blank" rel="noreferrer" title="TikTok" style={{ background:"#000000" }}>
                 <img src="https://cdn.simpleicons.org/tiktok/white" alt="TikTok" width="30" height="30" style={{display:"block"}} />
               </a>
               <span className="social-link-label">TikTok</span>
             </div>
             <div className="social-item">
-              <a className="social-link" href="https://www.youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="YouTube" style={{ background:"#FF0000" }}>
+              <a className="social-link" href="https://www.youtube.com/@FlexHustleMedia" target="_blank" rel="noreferrer" title="YouTube" style={{ background:"#FF0000" }}>
                 <img src="https://cdn.simpleicons.org/youtube/white" alt="YouTube" width="30" height="30" style={{display:"block"}} />
               </a>
               <span className="social-link-label">YouTube</span>
             </div>
             <div className="social-item">
-              <a className="social-link" href="https://www.pinterest.com/studycashboard/?actingBusinessId=1097752615330468682" target="_blank" rel="noreferrer" title="Pinterest" style={{ background:"#E60023" }}>
+              <a className="social-link" href="https://www.pinterest.com/flexhustlemedia/" target="_blank" rel="noreferrer" title="Pinterest" style={{ background:"#E60023" }}>
                 <img src="https://cdn.simpleicons.org/pinterest/white" alt="Pinterest" width="30" height="30" style={{display:"block"}} />
               </a>
               <span className="social-link-label">Pinterest</span>
@@ -785,7 +785,7 @@ function Home({ listings, loading, go, adminMode }) {
             ))}
           </div>
           <p style={{ textAlign:"center", fontSize:11, color:"var(--muted2)", marginTop:16 }}>
-            * Some links are referral links — costs you nothing extra and helps keep StudyCashBoard free 💚
+            * Some links are referral links — costs you nothing extra and helps keep FlexHustleMedia free 💚
           </p>
         </div>
       </div>
@@ -806,9 +806,9 @@ function Home({ listings, loading, go, adminMode }) {
           </div>
           <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(240px, 1fr))", gap:16 }}>
             {[
-              { icon:"📋", title:"Top 50 Paid Research Platforms", sub:"Free PDF Download", desc:"Every verified platform with direct links, average pay rates, and pro tips. Updated monthly.", tag:"Coming Soon", action:() => window.open("mailto:studycashboard@gmail.com?subject=Free PDF Waitlist","_blank") },
-              { icon:"⚡", title:"Quick Wins Starter Guide", sub:"Free 5-Day Email Course", desc:"Earn your first $100 from paid research in 5 days. Exact platforms and screener tips included.", tag:"Coming Soon", action:() => window.open("mailto:studycashboard@gmail.com?subject=Quick Wins Course Waitlist","_blank") },
-              { icon:"🎯", title:"High-Value Study Checklist", sub:"Free Printable", desc:"Know a good study when you see one. Pay-per-hour math, red flags, and how to get invited back.", tag:"Coming Soon", action:() => window.open("mailto:studycashboard@gmail.com?subject=Checklist Waitlist","_blank") },
+              { icon:"📋", title:"Top 50 Paid Research Platforms", sub:"Free PDF Download", desc:"Every verified platform with direct links, average pay rates, and pro tips. Updated monthly.", tag:"Coming Soon", action:() => window.open("mailto:flexhustlemedia@gmail.com?subject=Free PDF Waitlist","_blank") },
+              { icon:"⚡", title:"Quick Wins Starter Guide", sub:"Free 5-Day Email Course", desc:"Earn your first $100 from paid research in 5 days. Exact platforms and screener tips included.", tag:"Coming Soon", action:() => window.open("mailto:flexhustlemedia@gmail.com?subject=Quick Wins Course Waitlist","_blank") },
+              { icon:"🎯", title:"High-Value Study Checklist", sub:"Free Printable", desc:"Know a good study when you see one. Pay-per-hour math, red flags, and how to get invited back.", tag:"Coming Soon", action:() => window.open("mailto:flexhustlemedia@gmail.com?subject=Checklist Waitlist","_blank") },
               { icon:"🚀", title:"Your Product Here", sub:"Placeholder", desc:"Add your own digital product, course, or service. This card is yours to customize.", tag:"Add Yours", action:() => {} },
             ].map((p, i) => (
               <div key={i} style={{ background:"#fff", border:"1px solid var(--gold-border)", borderRadius:12, padding:"24px 20px", display:"flex", flexDirection:"column", boxShadow:"0 4px 16px rgba(184,134,11,0.06)" }}>
@@ -1096,24 +1096,24 @@ function Pricing() {
 function FAQ({ go }) {
   const [open, setOpen] = useState(null);
   const faqs = [
-    { q: "What is StudyCashBoard?", a: "StudyCashBoard is the most comprehensive directory of paid research opportunities in the USA. We scrape 12+ sources daily and curate the best user interviews, focus groups, taste tests, mock jury studies, medical research, and more — all in one place." },
+    { q: "What is FlexHustleMedia?", a: "FlexHustleMedia is the most comprehensive directory of paid research opportunities in the USA. We scrape 12+ sources daily and curate the best user interviews, focus groups, taste tests, mock jury studies, medical research, and more — all in one place." },
     { q: "Is it really free to browse?", a: "Yes! Browsing is always free. Free members can see 5 standard listings per day plus all Quick Wins listings. Upgrade to Pro ($9/mo) to unlock everything including unlimited listings, daily email digests, and advanced filters." },
     { q: "What are Quick Wins?", a: "Quick Wins are short, beginner-friendly paid studies paying $1–$50 that require no experience. Think survey platforms like Survey Junkie, app testing with UserTesting, or mock jury panels like eJury. These are always free for all users — no Pro membership required." },
-    { q: "How do I get paid?", a: "Payment is handled directly by the research company — not by StudyCashBoard. We connect you with the opportunity. Each listing shows how and when you get paid (PayPal, gift cards, bank transfer, etc.)." },
+    { q: "How do I get paid?", a: "Payment is handled directly by the research company — not by FlexHustleMedia. We connect you with the opportunity. Each listing shows how and when you get paid (PayPal, gift cards, bank transfer, etc.)." },
     { q: "How often are listings updated?", a: "Our team reviews and updates listings every morning at 8 AM CT from 12+ sources. Expired listings are automatically removed so you only see what's currently accepting applicants." },
     { q: "What's the difference between Pro and Elite?", a: "Pro ($9/mo) gives you unlimited listings, all categories, daily email digests, and advanced filters. Elite ($19/mo) adds SMS alerts for $200+ opportunities, 6 AM early access (2 hours before everyone else), concierge profile matching, an earnings tracker dashboard, and a members-only Slack community." },
     { q: "Are these opportunities legit?", a: "Yes. We only list opportunities from established research companies like Respondent, User Interviews, L&E Research, Fieldwork, Curion, and similar reputable firms. We never list opportunities that ask you to pay money, buy products, or provide sensitive personal information upfront." },
-    { q: "🇺🇸 Is StudyCashBoard available outside the USA?", a: "StudyCashBoard is a USA-only platform. All listings are verified to be open to US residents." },
+    { q: "🇺🇸 Is FlexHustleMedia available outside the USA?", a: "FlexHustleMedia is a USA-only platform. All listings are verified to be open to US residents." },
     { q: "Do I need experience to participate?", a: "No experience is needed for most listings — especially Quick Wins. For higher-paying studies ($100+), companies look for specific demographics or professional backgrounds, but no research experience is required." },
     { q: "Can I cancel my subscription anytime?", a: "Yes — cancel anytime with no penalty. You keep access until the end of your billing period. We also offer a 30-day money-back guarantee if you're not satisfied." },
-    { q: "I have a question not listed here. How do I contact you?", a: "Reach us anytime at studycashboard@gmail.com. We typically respond within 24 hours." },
+    { q: "I have a question not listed here. How do I contact you?", a: "Reach us anytime at flexhustlemedia@gmail.com. We typically respond within 24 hours." },
   ];
 
   return (
     <div style={{ maxWidth: 760, margin: "0 auto", padding: "56px 2rem 80px" }}>
       <div style={{ textAlign: "center", marginBottom: 48 }}>
         <div style={{ fontFamily: "var(--ff)", fontSize: "2.4rem", fontWeight: 600, color: "var(--dark)", marginBottom: 12 }}>Frequently Asked Questions</div>
-        <p style={{ color: "var(--mid)", fontSize: "1rem", lineHeight: 1.7 }}>Everything you need to know about StudyCashBoard.</p>
+        <p style={{ color: "var(--mid)", fontSize: "1rem", lineHeight: 1.7 }}>Everything you need to know about FlexHustleMedia.</p>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {faqs.map((f, i) => (
@@ -1160,7 +1160,7 @@ function Contact() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           access_key: "410c71a9-d628-40d0-9376-9b222f2eefa0",
-          subject: `[StudyCashBoard] ${form.subject} — from ${form.name}`,
+          subject: `[FlexHustleMedia] ${form.subject} — from ${form.name}`,
           from_name: form.name,
           replyto: form.email,
           "Name": form.name,
@@ -1176,9 +1176,9 @@ function Contact() {
         throw new Error("Failed");
       }
     } catch(e) {
-      const subject = encodeURIComponent("[StudyCashBoard] " + form.subject + " — from " + form.name);
+      const subject = encodeURIComponent("[FlexHustleMedia] " + form.subject + " — from " + form.name);
       const body = encodeURIComponent("Name: " + form.name + "\nEmail: " + form.email + "\n\n" + form.message);
-      window.open("mailto:studycashboard@gmail.com?subject=" + subject + "&body=" + body, "_blank");
+      window.open("mailto:flexhustlemedia@gmail.com?subject=" + subject + "&body=" + body, "_blank");
       setSent(true);
     }
     setSubmitting(false);
@@ -1196,7 +1196,7 @@ function Contact() {
           <div style={{ textAlign: "center", padding: "32px 0" }}>
             <div style={{ fontSize: "3rem", marginBottom: 16 }}>✅</div>
             <div style={{ fontFamily: "var(--ff)", fontSize: "1.5rem", fontWeight: 600, marginBottom: 8 }}>Message Ready to Send!</div>
-            <p style={{ fontSize: 13, color: "var(--mid)", lineHeight: 1.7 }}>Your email client should have opened. If not, email us directly at <strong>studycashboard@gmail.com</strong></p>
+            <p style={{ fontSize: 13, color: "var(--mid)", lineHeight: 1.7 }}>Your email client should have opened. If not, email us directly at <strong>flexhustlemedia@gmail.com</strong></p>
           </div>
         ) : (
           <>
@@ -1239,7 +1239,7 @@ function Contact() {
               {submitting ? "Sending..." : "Send Message →"}
             </button>
             <p style={{ textAlign: "center", fontSize: 12, color: "var(--muted2)", marginTop: 14 }}>
-              Or email us directly: <a href="mailto:studycashboard@gmail.com" style={{ color: "var(--gold)", textDecoration: "none", fontWeight: 600 }}>studycashboard@gmail.com</a>
+              Or email us directly: <a href="mailto:flexhustlemedia@gmail.com" style={{ color: "var(--gold)", textDecoration: "none", fontWeight: 600 }}>flexhustlemedia@gmail.com</a>
             </p>
           </>
         )}
@@ -1251,9 +1251,9 @@ function Contact() {
 // ── Products Page ─────────────────────────────────────────────────────────────
 function Products({ go }) {
   const products = [
-    { icon:"📋", title:"The Ultimate Paid Research Platform List", subtitle:"Free PDF Download", description:"A curated list of 50+ verified platforms where you can earn money sharing your opinions. Includes direct signup links, average pay rates, and tips for getting accepted.", tag:"Coming Soon", tagColor:"#B8860B", cta:"Join Waitlist", action:() => window.open("mailto:studycashboard@gmail.com?subject=Free Resource Waitlist", "_blank") },
-    { icon:"⚡", title:"Quick Wins Starter Guide", subtitle:"Free Email Course", description:"A 5-day email course showing you exactly how to earn your first $100 from paid research. Covers the fastest-paying platforms, how to write great screener answers, and how to qualify for more studies.", tag:"Coming Soon", tagColor:"#16A34A", cta:"Join Waitlist", action:() => window.open("mailto:studycashboard@gmail.com?subject=Quick Wins Course Waitlist", "_blank") },
-    { icon:"🎯", title:"High-Value Study Checklist", subtitle:"Free Printable", description:"Know exactly what to look for in a paid study before you apply. Covers pay-per-hour calculation, red flags to avoid, screener tips, and how to get invited back for more.", tag:"Coming Soon", tagColor:"#4338CA", cta:"Join Waitlist", action:() => window.open("mailto:studycashboard@gmail.com?subject=Checklist Waitlist", "_blank") },
+    { icon:"📋", title:"The Ultimate Paid Research Platform List", subtitle:"Free PDF Download", description:"A curated list of 50+ verified platforms where you can earn money sharing your opinions. Includes direct signup links, average pay rates, and tips for getting accepted.", tag:"Coming Soon", tagColor:"#B8860B", cta:"Join Waitlist", action:() => window.open("mailto:flexhustlemedia@gmail.com?subject=Free Resource Waitlist", "_blank") },
+    { icon:"⚡", title:"Quick Wins Starter Guide", subtitle:"Free Email Course", description:"A 5-day email course showing you exactly how to earn your first $100 from paid research. Covers the fastest-paying platforms, how to write great screener answers, and how to qualify for more studies.", tag:"Coming Soon", tagColor:"#16A34A", cta:"Join Waitlist", action:() => window.open("mailto:flexhustlemedia@gmail.com?subject=Quick Wins Course Waitlist", "_blank") },
+    { icon:"🎯", title:"High-Value Study Checklist", subtitle:"Free Printable", description:"Know exactly what to look for in a paid study before you apply. Covers pay-per-hour calculation, red flags to avoid, screener tips, and how to get invited back for more.", tag:"Coming Soon", tagColor:"#4338CA", cta:"Join Waitlist", action:() => window.open("mailto:flexhustlemedia@gmail.com?subject=Checklist Waitlist", "_blank") },
     { icon:"🚀", title:"[Your Digital Product Here]", subtitle:"Placeholder — Add Your Own", description:"This is a placeholder for your digital product — an ebook, course, template, or service. Update this card with your own offering and link.", tag:"Add Yours", tagColor:"#888", cta:"Learn More", action:() => {} },
   ];
 
@@ -1270,7 +1270,7 @@ function Products({ go }) {
           ⚡ Start Earning Today — Join These Platforms Free
         </div>
         <p style={{ fontSize: 13, color: "var(--mid)", lineHeight: 1.7, marginBottom: 24 }}>
-          These are the fastest ways to start earning. Sign up through our links below — it costs you nothing extra and helps support StudyCashBoard.
+          These are the fastest ways to start earning. Sign up through our links below — it costs you nothing extra and helps support FlexHustleMedia.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 12 }}>
           {[
@@ -1295,7 +1295,7 @@ function Products({ go }) {
           ))}
         </div>
         <p style={{ fontSize: 11, color: "var(--muted2)", marginTop: 16, textAlign: "center" }}>
-          * Some links may be referral links. This helps keep StudyCashBoard free to browse.
+          * Some links may be referral links. This helps keep FlexHustleMedia free to browse.
         </p>
       </div>
       <div style={{ fontFamily: "var(--ff)", fontSize: "1.5rem", fontWeight: 600, color: "var(--dark)", marginBottom: 20 }}>
@@ -1331,12 +1331,12 @@ function PrivacyPage() {
       <p style={{ fontSize: 12, color: "var(--muted2)", marginBottom: 32 }}>Last updated: May 2026</p>
       {[
         { h: "Information We Collect", b: "We collect information you provide when you sign up or contact us, including your name and email address. We also collect anonymous usage data (page views, clicks) through Vercel Analytics to improve our service." },
-        { h: "How We Use Your Information", b: "We use your information to provide and improve StudyCashBoard, send you email digests (if subscribed), respond to your inquiries, and process subscription payments. We never sell your personal information to third parties." },
-        { h: "Third-Party Links", b: "StudyCashBoard links to third-party research platforms. We are not responsible for the privacy practices of these external sites. We recommend reviewing their privacy policies before registering." },
-        { h: "Referral Links", b: "Some links on StudyCashBoard may be affiliate or referral links. Clicking these links and signing up may earn StudyCashBoard a commission at no extra cost to you." },
+        { h: "How We Use Your Information", b: "We use your information to provide and improve FlexHustleMedia, send you email digests (if subscribed), respond to your inquiries, and process subscription payments. We never sell your personal information to third parties." },
+        { h: "Third-Party Links", b: "FlexHustleMedia links to third-party research platforms. We are not responsible for the privacy practices of these external sites. We recommend reviewing their privacy policies before registering." },
+        { h: "Referral Links", b: "Some links on FlexHustleMedia may be affiliate or referral links. Clicking these links and signing up may earn FlexHustleMedia a commission at no extra cost to you." },
         { h: "Cookies", b: "We use minimal cookies necessary for site functionality. We do not use advertising cookies or tracking pixels." },
         { h: "Data Security", b: "We use industry-standard security measures to protect your information. Your data is stored securely via Supabase." },
-        { h: "Contact", b: "For privacy questions, email us at studycashboard@gmail.com." },
+        { h: "Contact", b: "For privacy questions, email us at flexhustlemedia@gmail.com." },
       ].map((s, i) => (
         <div key={i} style={{ marginBottom: 28 }}>
           <div style={{ fontWeight: 700, fontSize: 15, color: "var(--dark)", marginBottom: 8 }}>{s.h}</div>
@@ -1354,14 +1354,14 @@ function TermsPage() {
       <div style={{ fontFamily: "var(--ff)", fontSize: "2.2rem", fontWeight: 600, color: "var(--dark)", marginBottom: 8 }}>Terms of Service</div>
       <p style={{ fontSize: 12, color: "var(--muted2)", marginBottom: 32 }}>Last updated: May 2026</p>
       {[
-        { h: "Acceptance of Terms", b: "By using StudyCashBoard, you agree to these terms. If you do not agree, please do not use our service." },
-        { h: "What We Provide", b: "StudyCashBoard is a directory of paid research opportunities. We curate and display listings from third-party research companies. We do not guarantee the availability, accuracy, or legitimacy of individual listings." },
-        { h: "Not a Research Company", b: "StudyCashBoard is not a market research company. We do not pay participants directly. Payment is handled by the individual research companies listed on our platform." },
+        { h: "Acceptance of Terms", b: "By using FlexHustleMedia, you agree to these terms. If you do not agree, please do not use our service." },
+        { h: "What We Provide", b: "FlexHustleMedia is a directory of paid research opportunities. We curate and display listings from third-party research companies. We do not guarantee the availability, accuracy, or legitimacy of individual listings." },
+        { h: "Not a Research Company", b: "FlexHustleMedia is not a market research company. We do not pay participants directly. Payment is handled by the individual research companies listed on our platform." },
         { h: "Subscriptions", b: "Pro and Elite subscriptions are billed monthly. You may cancel at any time. We offer a 30-day money-back guarantee for first-time subscribers. Cancellations take effect at the end of the current billing period." },
-        { h: "Referral Links", b: "Some links on StudyCashBoard are affiliate or referral links. By clicking these links, you acknowledge that StudyCashBoard may earn a commission. This does not affect the price you pay." },
-        { h: "Prohibited Use", b: "You may not use StudyCashBoard to scrape listings, resell our content, or misrepresent your identity when applying to research studies." },
-        { h: "Limitation of Liability", b: "StudyCashBoard is provided 'as is'. We are not liable for any earnings (or lack thereof) resulting from applying to listings on our platform." },
-        { h: "Contact", b: "For questions about these terms, email studycashboard@gmail.com." },
+        { h: "Referral Links", b: "Some links on FlexHustleMedia are affiliate or referral links. By clicking these links, you acknowledge that FlexHustleMedia may earn a commission. This does not affect the price you pay." },
+        { h: "Prohibited Use", b: "You may not use FlexHustleMedia to scrape listings, resell our content, or misrepresent your identity when applying to research studies." },
+        { h: "Limitation of Liability", b: "FlexHustleMedia is provided 'as is'. We are not liable for any earnings (or lack thereof) resulting from applying to listings on our platform." },
+        { h: "Contact", b: "For questions about these terms, email flexhustlemedia@gmail.com." },
       ].map((s, i) => (
         <div key={i} style={{ marginBottom: 28 }}>
           <div style={{ fontWeight: 700, fontSize: 15, color: "var(--dark)", marginBottom: 8 }}>{s.h}</div>
@@ -1430,7 +1430,7 @@ function PostStudy() {
         `Study Date: ${form.studyDate}\nAge: ${form.ageMin}–${form.ageMax}\nGender: ${form.gender}\n\n` +
         `Description: ${form.description}\n\nApply URL: ${form.applyUrl}`
       );
-      window.open(`mailto:studycashboard@gmail.com?subject=${subject}&body=${body}`, "_blank");
+      window.open(`mailto:flexhustlemedia@gmail.com?subject=${subject}&body=${body}`, "_blank");
       setSent(true);
     }
     setSubmitting(false);
@@ -1447,7 +1447,7 @@ function PostStudy() {
           <span style={{ fontSize:10, fontWeight:700, letterSpacing:"0.18em", textTransform:"uppercase", color:"var(--gold)" }}>Free Listing · Takes 2 Minutes</span>
         </div>
         <div style={{ fontFamily:"var(--ff)", fontSize:"2.2rem", fontWeight:600, color:"var(--dark)", marginBottom:10 }}>Post a Paid Study</div>
-        <p style={{ fontSize:14, color:"var(--mid)", lineHeight:1.7, maxWidth:520, margin:"0 auto" }}>List your paid research study on StudyCashBoard and reach thousands of motivated US participants. Completely free to post.</p>
+        <p style={{ fontSize:14, color:"var(--mid)", lineHeight:1.7, maxWidth:520, margin:"0 auto" }}>List your paid research study on FlexHustleMedia and reach thousands of motivated US participants. Completely free to post.</p>
       </div>
       <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:12, marginBottom:36 }}>
         {[
@@ -1468,7 +1468,7 @@ function PostStudy() {
             <div style={{ fontSize:"3rem", marginBottom:16 }}>🎉</div>
             <div style={{ fontFamily:"var(--ff)", fontSize:"1.6rem", fontWeight:600, marginBottom:8 }}>Study Submitted!</div>
             <p style={{ fontSize:13, color:"var(--mid)", lineHeight:1.7 }}>
-              Thank you! We'll review your submission and add it to StudyCashBoard within 24 hours.<br/>
+              Thank you! We'll review your submission and add it to FlexHustleMedia within 24 hours.<br/>
               We'll email you at <strong>{form.email}</strong> once it's live.
             </p>
           </div>
@@ -1502,7 +1502,7 @@ function PostStudy() {
               {submitting ? "Sending..." : "Submit Study for Review →"}
             </button>
             <p style={{ textAlign:"center", fontSize:11, color:"var(--muted2)", marginTop:14 }}>
-              We review all submissions within 24 hours. Studies must be legitimate paid research opportunities open to US residents. Questions? Email <a href="mailto:studycashboard@gmail.com" style={{ color:"var(--gold)" }}>studycashboard@gmail.com</a>
+              We review all submissions within 24 hours. Studies must be legitimate paid research opportunities open to US residents. Questions? Email <a href="mailto:flexhustlemedia@gmail.com" style={{ color:"var(--gold)" }}>flexhustlemedia@gmail.com</a>
             </p>
           </>
         )}
@@ -1559,9 +1559,9 @@ export default function App() {
 
       <nav className="nav">
         <button className="logo" onClick={() => go("home")}>
-          <span className="logo-s">Study</span>
-          <span className="logo-c">Cash</span>
-          <span className="logo-b">Board</span>
+          <span className="logo-s">Flex</span>
+          <span className="logo-c">Hustle</span>
+          <span className="logo-b">Media</span>
           <span className="logo-sep" />
           <span className="logo-tag">Paid Research Directory</span>
         </button>
@@ -1592,7 +1592,7 @@ export default function App() {
 
       <footer className="footer">
         <div className="footer-logo">
-          <span className="fl-s">Study</span><span className="fl-c">Cash</span><span className="fl-b">Board</span>
+          <span className="fl-s">Flex</span><span className="fl-c">Hustle</span><span className="fl-b">Media</span>
         </div>
         <div className="footer-links">
           <button className="footer-link" onClick={() => go("home")}>Home</button>
@@ -1607,13 +1607,13 @@ export default function App() {
         </div>
         <div className="footer-social-links">
           <a className="footer-social-link" href="https://www.facebook.com/profile.php?id=61589355185446" target="_blank" rel="noreferrer" title="Facebook" style={{ background:"#1877F2" }}><img src="https://cdn.simpleicons.org/facebook/white" alt="Facebook" width="16" height="16" style={{display:"block"}} /></a>
-          <a className="footer-social-link" href="https://www.instagram.com/studycashboard/" target="_blank" rel="noreferrer" title="Instagram" style={{ background:"#E4405F" }}><img src="https://cdn.simpleicons.org/instagram/white" alt="Instagram" width="16" height="16" style={{display:"block"}} /></a>
-          <a className="footer-social-link" href="https://x.com/StudyCashBoard" target="_blank" rel="noreferrer" title="X" style={{ background:"#000000" }}><img src="https://cdn.simpleicons.org/x/white" alt="X" width="16" height="16" style={{display:"block"}} /></a>
-          <a className="footer-social-link" href="https://www.tiktok.com/@studycashboard?lang=en" target="_blank" rel="noreferrer" title="TikTok" style={{ background:"#000000" }}><img src="https://cdn.simpleicons.org/tiktok/white" alt="TikTok" width="16" height="16" style={{display:"block"}} /></a>
-          <a className="footer-social-link" href="https://www.youtube.com/@StudyCashBoard" target="_blank" rel="noreferrer" title="YouTube" style={{ background:"#FF0000" }}><img src="https://cdn.simpleicons.org/youtube/white" alt="YouTube" width="16" height="16" style={{display:"block"}} /></a>
-          <a className="footer-social-link" href="https://www.pinterest.com/studycashboard/?actingBusinessId=1097752615330468682" target="_blank" rel="noreferrer" title="Pinterest" style={{ background:"#E60023" }}><img src="https://cdn.simpleicons.org/pinterest/white" alt="Pinterest" width="16" height="16" style={{display:"block"}} /></a>
+          <a className="footer-social-link" href="https://www.instagram.com/flexhustlemedia/" target="_blank" rel="noreferrer" title="Instagram" style={{ background:"#E4405F" }}><img src="https://cdn.simpleicons.org/instagram/white" alt="Instagram" width="16" height="16" style={{display:"block"}} /></a>
+          <a className="footer-social-link" href="https://x.com/FlexhustleMedia" target="_blank" rel="noreferrer" title="X" style={{ background:"#000000" }}><img src="https://cdn.simpleicons.org/x/white" alt="X" width="16" height="16" style={{display:"block"}} /></a>
+          <a className="footer-social-link" href="https://www.tiktok.com/@flexhustlemedia" target="_blank" rel="noreferrer" title="TikTok" style={{ background:"#000000" }}><img src="https://cdn.simpleicons.org/tiktok/white" alt="TikTok" width="16" height="16" style={{display:"block"}} /></a>
+          <a className="footer-social-link" href="https://www.youtube.com/@FlexHustleMedia" target="_blank" rel="noreferrer" title="YouTube" style={{ background:"#FF0000" }}><img src="https://cdn.simpleicons.org/youtube/white" alt="YouTube" width="16" height="16" style={{display:"block"}} /></a>
+          <a className="footer-social-link" href="https://www.pinterest.com/flexhustlemedia/" target="_blank" rel="noreferrer" title="Pinterest" style={{ background:"#E60023" }}><img src="https://cdn.simpleicons.org/pinterest/white" alt="Pinterest" width="16" height="16" style={{display:"block"}} /></a>
         </div>
-        <div className="footer-copy">© 2026 StudyCashBoard · All rights reserved</div>
+        <div className="footer-copy">© 2026 FlexHustleMedia · All rights reserved</div>
       </footer>
 
       {Analytics && <Analytics />}

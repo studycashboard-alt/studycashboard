@@ -31,7 +31,6 @@ const CATEGORIES = [
   { label: "AI & Tech",          icon: "🤖", value: "AI & Tech",          color: "#4338CA" },
   { label: "Finance",            icon: "💳", value: "Finance",            color: "#166534" },
   { label: "Product Testing",    icon: "📦", value: "Product Testing",    color: "#854F0B" },
-  { label: "Online Survey",      icon: "📝", value: "Online Survey",      color: "#B86B00" },
   { label: "Automotive",         icon: "🚗", value: "Automotive",         color: "#374151" },
   { label: "Gaming",             icon: "🎮", value: "Gaming",             color: "#5B21B6" },
   { label: "Education",          icon: "📚", value: "Education",          color: "#065F46" },

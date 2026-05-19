@@ -207,12 +207,12 @@ const CSS = `
   .card-title { font-family: var(--ff); font-size: 1.1rem; color: var(--dark); margin-bottom: 6px; font-weight: 600; line-height: 1.3; }
   .card-desc { font-size: 12.5px; color: var(--mid); line-height: 1.65; margin-bottom: 11px; max-width: 580px; font-weight: 300; }
 
-  /* ── FIX 2: Card footer — 2 rows, no duplicate card-meta ── */
+  /* ── Card footer — 2 rows ── */
   .card-footer { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
-  .card-footer-row1 { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; font-size: 11px; color: var(--muted); }
-  .card-footer-row2 { font-size: 10.5px; color: var(--muted2); margin-top: 4px; }
+  .card-footer-row1 { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--mid); font-weight: 500; }
+  .card-footer-row2 { font-size: 11px; color: var(--muted); margin-top: 5px; font-weight: 500; }
   .footer-sep { color: var(--border2); }
-  .footer-study-date { color: #1D4ED8; font-weight: 600; }
+  .footer-study-date { color: #1A56C4; font-weight: 700; }
 
   .pay-col { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
   .pay-amt { font-family: var(--ff); font-size: 1.7rem; color: var(--dark); line-height: 1; font-weight: 600; }
@@ -498,17 +498,16 @@ function ListingCard({ listing, index, isLocked, onUpgrade }) {
         <div className="card-title">{listing.Title}</div>
         {listing.Description && <div className="card-desc">{listing.Description}</div>}
 
-        {/* ── FIX 2: Single footer, 2 rows — no duplicate card-meta ── */}
+        {/* ── Footer row 1: company · duration · location · study date ── */}
         <div className="card-footer">
           <div className="card-footer-row1">
             {listing.Company  && <span>🏢 {listing.Company}</span>}
             {listing.Duration && <><span className="footer-sep">·</span><span>⏱ {listing.Duration}</span></>}
             {locLabel         && <><span className="footer-sep">·</span><span>📍 {locLabel}</span></>}
-            {studyDate        && <><span className="footer-sep">·</span><span className="footer-study-date">📅 Study: {studyDate}</span></>}
+            <><span className="footer-sep">·</span><span className="footer-study-date">📅 {studyDate ? `Study: ${studyDate}` : "Study Date: TBD"}</span></>
           </div>
-          {uploadedDate && (
-            <div className="card-footer-row2">🗓 Date Uploaded: {uploadedDate}</div>
-          )}
+          {/* ── Footer row 2: upload date ── */}
+          <div className="card-footer-row2">🗓 Upload Date: {uploadedDate || "—"}</div>
         </div>
       </div>
 
